@@ -35,8 +35,8 @@ if(isset($_GET['symbol'])) {
                     xValueType: "dateTime",
                     dataPoints: <?php echo json_encode($dataPoints, JSON_NUMERIC_CHECK); ?>
                 }]
-            });
-            chart.render();
+            }).render();
+            //chart.render();
 
         }
     </script>
