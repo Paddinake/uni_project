@@ -18,6 +18,8 @@
             <li><a href="index.php?content=forum">Forum</a></li>
             <li><a href="index.php?content=register">Registrieren</a></li>
             <li><a href="index.php?content=settings">Einstellungen</a></li>
+            <li><a href="index.php?content=test">test</a></li>
+
         </ul>
     </div>
     <div class="content">
@@ -38,6 +40,9 @@
                 break;
             case "settings":
                 include 'content/settings/settings.php';
+                break;
+            case "test":
+                include 'content/login/test.php';
                 break;
             Default:
                 include 'content/home/home.php';

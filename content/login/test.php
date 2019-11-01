@@ -1,5 +1,5 @@
 <?php
 
-header("location:content/index.php");
+header("location:index.php?content=settings");
 
 ?>
