@@ -1,5 +1,6 @@
 <?php
-echo"login.php";?>
+echo"login.php";
+?>
 
 
 <html>
