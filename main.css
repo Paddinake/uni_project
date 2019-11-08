@@ -30,4 +30,5 @@
 .content{
     background-color: lightgray;
     min-height: 100px;
+    overflow:hidden;
 }
