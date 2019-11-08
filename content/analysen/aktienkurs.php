@@ -1,6 +1,6 @@
 <?php
 include "json_requests.php";
-include "searchbar.php";
+
 
 if(isset($_GET['symbol'])) {
     $result = JSONRequest($_GET['symbol']);
