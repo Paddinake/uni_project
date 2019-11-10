@@ -1,16 +1,8 @@
 <?php
 
 function mainCurl($service_url){
-    $curl = curl_init();
-    curl_setopt_array($curl, array(
-        CURLOPT_RETURNTRANSFER => 1,
-        CURLOPT_URL => $service_url
-    ));
-
-    $result = curl_exec($curl); //Response von Server als JSON
-
-    curl_close($curl);
-    return ($result);
+    $response = file_get_contents($service_url);
+    return ($response);
 
 }
 
