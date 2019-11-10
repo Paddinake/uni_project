@@ -22,7 +22,7 @@
     <?php
 
 
-    if (isset($_GET["subanalyse"])){
+    if (isset($_GET["subanalyse"])&&($_GET["symbol"]!="")){
         $subanalyse = $_GET["subanalyse"];
         if ($subanalyse == "aktienkurs"){
             include "aktienkurs.php";
