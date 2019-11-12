@@ -1,7 +1,6 @@
 <?php
 //create_cat.php
-include '../../db.php';
-include 'forum.php';
+include 'db.php';
 if (!$con) {
     die("Connection failed: " . mysqli_connect_error());
 	}
@@ -35,7 +34,7 @@ else
 		}
 		else
 		{
-			header("Location: topics.php?id=".$_GET['id'] );
+			header("Location: index.php?content=forum&subnav=topics&id=".$_GET['id'] );
 		}
 	}
 

@@ -1,7 +1,6 @@
 <?php
 //category.php
-include '../../db.php';
-include 'forum.php';
+include 'db.php';
 if (!$con) {
     die("Connection failed: " . mysqli_connect_error());
 	}
@@ -62,7 +61,7 @@ else
 				{				
 					echo '<tr>';
 						echo '<td class="leftpart">';
-							echo '<h3><a href="topics.php?id=' . $row['t_id'] . '">' . $row['t_subject'] . '</a><br /><h3>';
+							echo '<h3><a href="index.php?content=forum&subnav=topics&id=' . $row['t_id'] . '">' . $row['t_subject'] . '</a><br /><h3>';
 						echo '</td>';
 						echo '<td class="rightpart">';
 							echo date('d-m-Y', strtotime($row['t_date']));

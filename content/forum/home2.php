@@ -1,7 +1,8 @@
 <?php
 //create_cat.php
-include '../../db.php';
-include 'forum.php';
+include 'db.php';
+
+
 
 $sql = "SELECT
 			bereich.b_id,
@@ -42,7 +43,7 @@ else
 		{				
 			echo '<tr>';
 				echo '<td class="leftpart">';
-					echo '<h3><a href="category.php?id=' . $row['b_id'] . '">' . $row['b_name'] . '</a></h3>' . $row['b_inhalt'];
+					echo '<h3><a href="index.php?content=forum&subnav=category&id=' . $row['b_id'] . '">' . $row['b_name'] . '</a></h3>' . $row['b_inhalt'];
 				echo '</td>';
 				echo '<td class="rightpart">';
 				
@@ -77,7 +78,7 @@ else
 						else
 						{
 							while($topicrow = mysqli_fetch_assoc($topicsresult))
-							echo '<a href="topics.php?id=' . $topicrow['t_id'] . '">' . $topicrow['t_subject'] . '</a> at ' . date('d-m-Y', strtotime($topicrow['t_date']));
+							echo '<a href="index.php?content=forum&subnav=topics&id=' . $topicrow['t_id'] . '">' . $topicrow['t_subject'] . '</a> at ' . date('d-m-Y', strtotime($topicrow['t_date']));
 						}
 					}
 				echo '</td>';

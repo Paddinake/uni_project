@@ -1,7 +1,7 @@
 <?php
 //create_cat.php
-include '../../db.php';
-include 'forum.php';
+include 'db.php';
+
 
 $sql = "SELECT * FROM thema WHERE thema.t_id = " . mysqli_real_escape_string($con, $_GET['id']);
 
@@ -71,7 +71,7 @@ else
 			#{
 				//show reply box
 				echo '<tr><td colspan="2"><h2>Reply:</h2><br />
-					<form method="post" action="reply.php?id=' . $row['t_id'] . '">
+					<form method="post" action="index.php?content=forum&subnav=reply&id=' . $row['t_id'] . '">
 						<textarea name="reply-content"></textarea><br /><br />
 						<input type="submit" value="Submit reply" />
 					</form></td></tr>';

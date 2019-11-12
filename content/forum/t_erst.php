@@ -1,7 +1,7 @@
 <?php
 //create_topic.php
-include '../../db.php';
-include 'forum.php';
+include 'db.php';
+
 if (!$con) {
     die("Connection failed: " . mysqli_connect_error());
 	}
