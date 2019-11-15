@@ -13,13 +13,13 @@ suche doch direkt hier nach einer Aktie:<form autocomplete='off' action='index.p
         <input id='myInput' type='text' name='symbol' placeholder='Name der Aktie'>
     </div>
     <input style='float:right;' type='submit'>
-</form>", "searchStock");
+</form><script>autocomplete(document.getElementById('myInput'));</script>", "searchStock");
     }
     if (preg_match('(Name ändern | Account löschen | Account)',strtolower($input))===1) {
         return array("Alle Einstellungen zu deinem Account kannst du unter <a href='index.php?content=settings'> Einstellungen </a>");
     }
     else{
-        return array("ich hab dich nicht verstanden",null);
+        return array("ich hab dich nicht verstanden","null");
     }
 
 }
