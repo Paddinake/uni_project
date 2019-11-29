@@ -1,13 +1,13 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<p>Start typing:</p>
 
 <!--Make sure the form has the autocomplete function switched off:-->
 <form autocomplete="off" action="index.php" method="get">
-    <input type="hidden" name ="content" value="overview">
-    <div class="autocomplete" style="width:300px;">
+    <input type="hidden" name ="content" value="analysen">
+    <input type="hidden" name="subanalyse" value="<?php echo $_GET["subanalyse"];?>">
+    <div class="autocomplete" style="width:300px; float:right;">
         <input id="myInput" type="text" name="symbol" placeholder="Name der Aktie">
     </div>
-    <input type="submit">
+    <input style="float:right;" type="submit">
 </form>
 <script>
 
@@ -20,7 +20,7 @@
         inp.addEventListener("input", function(e) {
             jQuery.ajax({
                 type: "POST",
-                url: 'content/overview/ajaxHandler.php',
+                url: 'content/analysen/ajaxHandler.php',
                 dataType: 'json',
                 data: {functionname: 'JSONRequestSearch', arguments: ["SYMBOL_SEARCH", inp.value]},
 
