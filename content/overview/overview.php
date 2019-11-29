@@ -36,7 +36,6 @@ if(isset($_GET['symbol'])) {
                     dataPoints: <?php echo json_encode($dataPoints, JSON_NUMERIC_CHECK); ?>
                 }]
             }).render();
-            //chart.render();
 
         }
     </script>
