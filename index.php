@@ -41,7 +41,7 @@
                 include 'content/settings/settings.php';
                 break;
             case "test":
-                include 'example_scraping_imdb.php';
+                include 'scraping.php';
                 break;
             Default:
                 include 'content/home/home.php';
