@@ -4,6 +4,7 @@ include('simple_html_dom.php');
 
 function scraping_IMDB($url) {
     // create HTML DOM
+    echo "Test";
     $html = file_get_html($url);
     // get title
     $ret['Title'] = $html->find('title', 0)->innertext;
