@@ -1,6 +1,9 @@
 <?php
 include_once('simple_html_dom.php');
 
+$period1 = 0;
+$period2 = 1;
+
 function getCSV()
 {
     $ch = curl_init();
