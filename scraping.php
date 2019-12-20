@@ -1,14 +1,9 @@
-<?php
+v<?php
 include_once('simple_html_dom.php');
 
-$open = array();
-$high = array();
-$low = array();
-$close = array();
-$closeA = array();
-
 $period1 = 0;
-$period2 = microtime();
+$period2 = microtime(); //per default immer die aktuelle Uhrzeit
+
 
 function getPOSIX(){
     echo microtime();
@@ -62,19 +57,23 @@ function scrape_yahoo($url){
 
     $rowData=array();
 
-
     $table = $html->find('table',0);
 
     foreach($table->find('tr') as $row){
         $exdiv = array();
         foreach($row->find('td') as $cell){
             $exdiv[] = $cell->plaintext;
+            echo $exdiv[0]."\n";
         }
+        echo count($exdiv);
         $rowData[] = $exdiv;
 
     }
 
-    echo '<table>';
+
+}
+
+    /*echo '<table>';
     foreach ($rowData as $row => $tr) {
         echo '<tr>';
         foreach ($tr as $td)
@@ -82,8 +81,7 @@ function scrape_yahoo($url){
         echo '</tr>';
     }
     echo '</table>';
-}
-
+}*/
 
 // -----------------------------------------------------------------------------
 // test it!
@@ -93,7 +91,10 @@ foreach($ret as $k=>$v)
     echo '<strong>'.$k.' </strong>'.$v.'<br>';*/
 
 //$ret = scrape_yahoo('https://finance.yahoo.com/quote/SKT/history?period1=738540000&period2=1576018800&interval=div%7Csplit&filter=div&frequency=1mo')
-$ret = scrape_yahoo("https://finance.yahoo.com/quote/SKT/history?period1=738540000&period2=1576018800&interval=1mo&filter=history&frequency=1mo");
+//$ret = scrape_yahoo("https://finance.yahoo.com/quote/SKT/history?period1=738540000&period2=1576018800&interval=1mo&filter=history&frequency=1mo");
 
+//download_csv("https://query1.finance.yahoo.com/v7/finance/download/SKT?period1=852073200&period2=1576837845&interval=1mo&events=history&crumb=UO48Nwtc0Va");
+
+getCrumb("https://query1.finance.yahoo.com/v7/finance/download/SKT?period1=738540000&period2=1576796400&interval=1mo&events=history&crumb=zqM3WbGRGZX/");
 
 ?>
