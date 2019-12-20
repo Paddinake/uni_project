@@ -1,6 +1,20 @@
 <?php
 include_once('simple_html_dom.php');
 
+$open = array();
+$high = array();
+$low = array();
+$close = array();
+$closeA = array();
+
+$period1 = 0;
+$period2 = microtime();
+
+function getPOSIX(){
+    echo microtime();
+    return microtime();
+}
+
 function scraping_IMDB($url) {
     // create HTML DOM
     $html = file_get_html($url);
@@ -80,5 +94,6 @@ foreach($ret as $k=>$v)
 
 //$ret = scrape_yahoo('https://finance.yahoo.com/quote/SKT/history?period1=738540000&period2=1576018800&interval=div%7Csplit&filter=div&frequency=1mo')
 $ret = scrape_yahoo("https://finance.yahoo.com/quote/SKT/history?period1=738540000&period2=1576018800&interval=1mo&filter=history&frequency=1mo");
+
 
 ?>
