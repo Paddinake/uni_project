@@ -4,6 +4,9 @@ include_once('simple_html_dom.php');
 $period1 = 0;
 $period2 = 1;
 
+$historyA = array();
+$dividendA = array();
+
 function getCSV()
 {
     $ch = curl_init();
