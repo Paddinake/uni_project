@@ -4,8 +4,8 @@ include_once('simple_html_dom.php');
 $period1 = 0;
 $period2 = 1;
 
-$historyA = array();
-$dividendA = array();
+//$historyA = array();
+//$dividendA = array();
 
 function getCSV($url)
 {
@@ -34,7 +34,10 @@ function CSVToArray($resp){
 }
 
 //@TODO Datenbank anbinden
-function payedDividens($year){
+//@TODO echo oder return?
+//@TODO datenquelle anpassen
+//gibt die die summe der bezahlten dividenden und die anzahl der auszahlungen aus.
+function payedDividensInYear($year){
     $sum=0;//summiert die in dem Jahr bisher tatsaechlich bezahlten Dividenden
     $counter=0;//anzahl der bezahlten Dividenden
 
@@ -53,7 +56,8 @@ function payedDividens($year){
     echo "Sum: ".$sum." Payouts: ".$counter;
 }
 
-payedDividens("2009");
+
+payedDividensInYear("2019");
 
 
 ?>
