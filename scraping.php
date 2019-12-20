@@ -20,7 +20,7 @@ function getCSV()
 }
 
 function CSVToArray($resp){
-    echo "\n".gettype($resp)."\n";
+
     $lines = explode("\n", $resp);
     $array = array();
 
@@ -28,10 +28,6 @@ function CSVToArray($resp){
         $array[] = str_getcsv($line);
     }
     print_r($array);
-
-    $csv = array_map('str_getcsv', explode("\n", $resp));
-
-    echo $csv[0];
 }
 
 CSVToArray(getCSV());
