@@ -1,12 +1,6 @@
 <?php
 include_once('simple_html_dom.php');
 
-$period1 = 0;
-$period2 = 1;
-
-//$historyA = array();
-//$dividendA = array();
-
 function getCSV($url)
 {
     $ch = curl_init();
@@ -33,19 +27,24 @@ function CSVToArray($resp){
     return ($array);
 }
 
+//fuer testing, sollte spaeter ueberall ersetzt werden mit datenbankzugriffen
+function getTestDiv(){
+    return CSVToArray(getCSV("https://query1.finance.yahoo.com/v7/finance/download/SKT?period1=738540000&period2=1576796400&interval=1mo&events=div&crumb=UO48Nwtc0Va"));
+}
+
 //@TODO Datenbank anbinden
-//@TODO echo oder return?
+//@TODO echo mit passendem return ersetzen?
 //@TODO datenquelle anpassen
 //gibt die die summe der bezahlten dividenden und die anzahl der auszahlungen aus.
 function payedDividensInYear($year){
     $sum=0;//summiert die in dem Jahr bisher tatsaechlich bezahlten Dividenden
     $counter=0;//anzahl der bezahlten Dividenden
 
-    $dividendA=CSVToArray(getCSV("https://query1.finance.yahoo.com/v7/finance/download/SKT?period1=738540000&period2=1576796400&interval=1mo&events=div&crumb=UO48Nwtc0Va"));
-
+    $dividendA=getTestDiv();
     for($i=1; $i<count($dividendA)-1;$i++){
-        if(strpos($dividendA[$i][0],$year)>-1){
-            //echo "true"."\n";
+        //prueft datum und das tatsaechlich ein Betrag ausgezahlt wurde
+        if((strpos($dividendA[$i][0],$year)>-1)&&(($dividendA[$i][1]>0.0))){
+            //echo $dividendA[$i][1]."\n";
             $sum+=$dividendA[$i][1];
             $counter+=1;
         } else {
@@ -57,7 +56,7 @@ function payedDividensInYear($year){
 }
 
 
-payedDividensInYear("2019");
+payedDividensInYear("2014");
 
 
 ?>
