@@ -30,8 +30,7 @@ function CSVToArray($resp){
     foreach ($lines as $line) {
         $array[] = str_getcsv($line);
     }
-    print_r($array);
+    return ($array);
 }
 
-CSVToArray(getCSV());
 ?>
