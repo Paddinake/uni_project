@@ -1,6 +1,23 @@
 <?php
 include_once('simple_html_dom.php');
 
+$mysqli = new mysqli("127.0.0.1", "root", "", "uni_project", 3306);
+if ($mysqli->connect_errno) {
+    echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
+}
+
+echo $mysqli->host_info . "\n";
+
+
+$result = mysqli_query($mysqli, 'SELECT * FROM stocks');
+
+while ($row = mysqli_fetch_array($result)){
+    echo $row[0]." ".$row[1]." ".$row[2]." ".$row[3]."\n";
+}
+
+$result = mysqli_query($mysqli, "INSERT INTO dividends (Symbol, Date, Dividend) VALUES ( 'SKT2', '2005-07-28', 0.3225 ), ( 'SKT3', '2005-07-29', 0.3225 );");
+
+
 function getCSV($url)
 {
     $ch = curl_init();
@@ -24,7 +41,34 @@ function CSVToArray($resp){
     foreach ($lines as $line) {
         $array[] = str_getcsv($line);
     }
+    echo "".$array[1][0]." ".$array[1][1]."\n";
     return ($array);
+}
+
+//Delete all entries of dividends were symbol is equal to each other
+function deleteDividends($name){
+
+}
+
+//insert csv into DB
+//@TODO autoincrement as primkey
+function InsertAllDividends($array, $symbol, $mysqli){
+
+    //should we reset DB for given symbol?
+    deleteDividends($symbol);
+
+    $statement = "INSERT INTO dividends (Symbol, Date, Dividend) VALUES ";
+
+    for($i=1; $i<count($array)-1; $i++){
+        $statement = $statement."( '".$symbol."', '".$array[$i][0]."', '".$array[$i][1]."' ), ";
+    }
+    $statement = rtrim("$statement", ", ");
+    $statement = $statement.";";
+
+    echo $statement;
+
+    mysqli_query($mysqli, $statement);
+
 }
 
 //fuer testing, sollte spaeter ueberall ersetzt werden mit datenbankzugriffen
@@ -56,7 +100,9 @@ function payedDividensInYear($year){
 }
 
 
-payedDividensInYear("2014");
+//payedDividensInYear("2018");
+
+//InsertAllDividends(getTestDiv(), "SKT", $mysqli);
 
 
 ?>
