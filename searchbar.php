@@ -17,10 +17,10 @@
         });
     </script>
 
-<form action="searchbar.php" method="get">
+<form action="analysen.php" method="get">
     <div class = "ui-widget">
         <label for = "symbols">Aktien: </label>
-        <input id = "symbols" name="symbols">
+        <input id = "symbols" name="symbol">
             <input type="submit" value="Submit">
     </div>
 </form>
