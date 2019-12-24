@@ -118,7 +118,7 @@ function updateTimestamp($symbol, $mysqli){
 //Zentrale Funktion um Dividenden herunterzuladen. Aktualisiert bei Bedarf den Datensatz.
 //Loads dividends from DB if last download is less than 24 hours.
 //Else, deletes all corresponding entries from dividends and history and updates timestamp.
-function loadAllDividendsIntoDB($symbol, $mysqli){
+function loadAllDividendsToArray($symbol, $mysqli){
 
     //If there is no entry with corresponding symbol, create it and download all dividends initially.
     if (primKeyExists($symbol,$mysqli)==false) {
@@ -132,11 +132,20 @@ function loadAllDividendsIntoDB($symbol, $mysqli){
         updateTimestamp($symbol, $mysqli);
 
     }
-    /*$s = "SELECT * FROM dividends WHERE symbol = '".$symbol."';";
+    $s = "SELECT * FROM dividends WHERE symbol = '".$symbol."' ORDER BY date ASC;";
 
-    $result = mysqli_query($mysqli, $symbol);
+    $result = mysqli_query($mysqli, $s);
+    $return = array();
+    $i = 0;
+    while ($row = mysqli_fetch_array($result)){
+        $return[$i][0]=$row[1];//symbol
+        $return[$i][1]=$row[2];//date
+        $return[$i][2]=$row[3];//dividend
+        echo $row[1]." ".$row[2]." ".$row[3]."\n";
+        $i+=1;
+    }
 
-    return $result;*/
+    return $return;
 }
 
 //Delete all entries of dividends were symbol is equal to each other
@@ -198,7 +207,7 @@ function payedDividensInYear($year, $symbol){
 //payedDividensInYear("2018");
 //InsertAllDividends(getTestDiv("SKT"), "SKT", $mysqli);
 //checkTime("AAPL", $mysqli);
-loadAllDividendsIntoDB("SKT", $mysqli);
+loadAllDividendsToArray("SKT", $mysqli);
 //primKeyExists("SKT", $mysqli);
 
 ?>
