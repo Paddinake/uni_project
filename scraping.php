@@ -18,6 +18,25 @@ echo $mysqli->host_info . "\n";
 
 //$result = mysqli_query($mysqli, "INSERT INTO dividends (symbol, date, dividend) VALUES ( 'SKT', '2005-07-28', 0.3225 ), ( 'SKT', '2005-07-29', 0.3225 );");
 
+
+//returns URL from symbol for given timespan, interval and crumb
+//$dh = true for dividends, = false for history
+function getURL($symbol, $dh, $startT, $endT, $crumb){
+
+    if($dh==false){
+        $dh = "history";
+    } else {
+        $dh = "div";
+    }
+    return "https://query1.finance.yahoo.com/v7/finance/download/".$symbol."?period1=".$startT."&period2=".$endT."&interval=1mo&events=".$dh."&crumb=".$crumb;
+}
+
+
+//returns URL from symbol for max timeframe till now with default crumb
+function getURL_maxT($symbol, $dh){
+    return getURL($symbol, $dh, "-900000000", getPOSIXDate(), "UO48Nwtc0Va");
+}
+
 //Loads csv from given URL
 function getCSV($url)
 {
@@ -47,9 +66,9 @@ function CSVToArray($resp){
     return ($array);
 }
 
-function getPOSIX(){
-    echo microtime();
-    return microtime();
+function getPOSIXDate(){
+    $mt = explode(' ', microtime());
+    return ((int)$mt[1]);
 }
 
 //Checks if primary key already exists in DB, returns true if it does.
@@ -207,7 +226,9 @@ function payedDividensInYear($year, $symbol){
 //payedDividensInYear("2018");
 //InsertAllDividends(getTestDiv("SKT"), "SKT", $mysqli);
 //checkTime("AAPL", $mysqli);
-loadAllDividendsToArray("SKT", $mysqli);
+//loadAllDividendsToArray("SKT", $mysqli);
 //primKeyExists("SKT", $mysqli);
+echo getPOSIXDate();
+echo getURL_maxT("SKT", true);
 
 ?>
