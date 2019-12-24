@@ -52,6 +52,23 @@ function getPOSIX(){
     return microtime();
 }
 
+//Checks if primary key already exists in DB, returns true if it does.
+function primKeyExists($symbol, $mysqli){
+    $r = false;
+    $s = "SELECT COUNT(*) FROM stocks WHERE Symbol='".$symbol."';";
+    $return = mysqli_query($mysqli, $s);
+    $return = mysqli_fetch_assoc($return);
+
+    echo $return["COUNT(*)"];
+
+    if(intval($return["COUNT(*)"])>0){
+        $r = true;
+    }
+
+    return $r;
+}
+
+
 //Checks if timestamp is older than 24 hours returns true.
 function isOld($symbol, $mysqli){
 
@@ -85,6 +102,7 @@ function getStockName($symbol){
     return "FOO";
 }
 
+//Erzeugt eintrag mit timestap in stocks table damit timestamps daraus gelesen werden können.
 function loadStockIntoDB($symbol, $mysqli){
     $s = "INSERT INTO stocks (symbol, Name, LastValue) VALUES ('".$symbol."', '".getStockName($symbol)."', ".getCurrentStockValue($symbol).");";
     mysqli_query($mysqli, $s);
@@ -97,28 +115,28 @@ function updateTimestamp($symbol, $mysqli){
     echo "\nUpdated timestamp of ".$symbol."\n";
 }
 
+//Zentrale Funktion um Dividenden herunterzuladen. Aktualisiert bei Bedarf den Datensatz.
 //Loads dividends from DB if last download is less than 24 hours.
 //Else, deletes all corresponding entries from dividends and history and updates timestamp.
-function loadAllDividends($symbol, $mysqli){
+function loadAllDividendsIntoDB($symbol, $mysqli){
 
-    loadStockIntoDB($symbol, $mysqli);
+    //If there is no entry with corresponding symbol, create it and download all dividends initially.
+    if (primKeyExists($symbol,$mysqli)==false) {
+        loadStockIntoDB($symbol, $mysqli);
+        InsertAllDividends(getTestDiv($symbol), $symbol, $mysqli);
+        echo "\nCreating entry in stocks table for ".$symbol."\n";
 
-    if(isOld($symbol, $mysqli)){
+    } elseif(isOld($symbol, $mysqli)){
+        echo "\n Updateing timestamp and downloading dividends.\n";
         InsertAllDividends(getTestDiv($symbol), $symbol, $mysqli);
         updateTimestamp($symbol, $mysqli);
-    }
-    //InsertAllDividends(getTestDiv($symbol), $symbol, $mysqli);
 
-    $s = "SELECT * FROM dividends WHERE symbol = '".$symbol."';";
+    }
+    /*$s = "SELECT * FROM dividends WHERE symbol = '".$symbol."';";
 
     $result = mysqli_query($mysqli, $symbol);
 
-    //while ($row = mysqli_fetch_array($result)){
-    //    echo $row[0]." ".$row[1]."\n";
-    //}
-
-    return $result;
-
+    return $result;*/
 }
 
 //Delete all entries of dividends were symbol is equal to each other
@@ -180,6 +198,7 @@ function payedDividensInYear($year, $symbol){
 //payedDividensInYear("2018");
 //InsertAllDividends(getTestDiv("SKT"), "SKT", $mysqli);
 //checkTime("AAPL", $mysqli);
-loadAllDividends("SKT", $mysqli);
+loadAllDividendsIntoDB("SKT", $mysqli);
+//primKeyExists("SKT", $mysqli);
 
 ?>
