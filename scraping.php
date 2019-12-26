@@ -160,7 +160,7 @@ function loadAllDividendsToArray($symbol, $mysqli){
         $return[$i][0]=$row[1];//symbol
         $return[$i][1]=$row[2];//date
         $return[$i][2]=$row[3];//dividend
-        echo $row[1]." ".$row[2]." ".$row[3]."\n";
+        //echo $row[1]." ".$row[2]." ".$row[3]."\n";
         $i+=1;
     }
 
@@ -228,7 +228,7 @@ function payedDividensInYear($year, $symbol){
 //checkTime("AAPL", $mysqli);
 //loadAllDividendsToArray("SKT", $mysqli);
 //primKeyExists("SKT", $mysqli);
-echo getPOSIXDate();
-echo getURL_maxT("SKT", true);
+//echo getPOSIXDate();
+//echo getURL_maxT("SKT", true);
 
 ?>
