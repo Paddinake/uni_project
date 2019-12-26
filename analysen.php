@@ -65,6 +65,39 @@ if(empty($_GET['symbol'])) {
     $( document ).ready(function() {
         $('#name').text(name);
     });
+
+    // fill charts with data
+    window.onload = function () {
+
+        new CanvasJS.Chart("chartContainer_STOCK", {
+            theme: "light2", // "light1", "light2", "dark1", "dark2"
+            animationEnabled: true,
+            zoomEnabled: true,
+            title: {
+                text: "Aktienkurs"
+            },
+            data: [{
+                type: "area",
+                xValueType: "dateTime",
+                dataPoints: <?php echo json_encode($datapoints_STOCK, JSON_NUMERIC_CHECK); ?>
+            }]
+        }).render();
+
+        new CanvasJS.Chart("chartContainer_DIVIDEND", {
+            theme: "light2", // "light1", "light2", "dark1", "dark2"
+            animationEnabled: true,
+            zoomEnabled: true,
+            title: {
+                text: "Dividenden Kurs"
+            },
+            data: [{
+                type: "area",
+                xValueType: "dateTime",
+                dataPoints: <?php echo json_encode($datapoints_DIVIDEND, JSON_NUMERIC_CHECK); ?>
+            }]
+        }).render();
+
+    }
 </script>
 
 <!-- Daten -->
@@ -94,25 +127,6 @@ if(empty($_GET['symbol'])) {
             <label for="stock-symbol" class="mr-sm-2">Aktienkurs</label>
         </div>
         <div class="row">
-            <script>
-                window.onload = function () {
-
-                    var chart = new CanvasJS.Chart("chartContainer_STOCK", {
-                        theme: "light2", // "light1", "light2", "dark1", "dark2"
-                        animationEnabled: true,
-                        zoomEnabled: true,
-                        title: {
-                            text: "Aktienkurs"
-                        },
-                        data: [{
-                            type: "area",
-                            xValueType: "dateTime",
-                            dataPoints: <?php echo json_encode($datapoints_STOCK, JSON_NUMERIC_CHECK); ?>
-                        }]
-                    }).render();
-
-                }
-            </script>
             <div id="chartContainer_STOCK" style="height: 370px; width: 100%;"></div>
         </div>
         <ul class="pagination">
@@ -132,25 +146,6 @@ if(empty($_GET['symbol'])) {
             <label for="stock-symbol" class="mr-sm-2">Dividendenverlauf</label>
         </div>
         <div class="row">
-            <script>
-                window.onload = function () {
-
-                    var chart = new CanvasJS.Chart("chartContainer_DIVIDEND", {
-                        theme: "light2", // "light1", "light2", "dark1", "dark2"
-                        animationEnabled: true,
-                        zoomEnabled: true,
-                        title: {
-                            text: "Aktienkurs"
-                        },
-                        data: [{
-                            type: "area",
-                            xValueType: "dateTime",
-                            dataPoints: <?php echo json_encode($datapoints_DIVIDEND, JSON_NUMERIC_CHECK); ?>
-                        }]
-                    }).render();
-
-                }
-            </script>
             <div id="chartContainer_DIVIDEND" style="height: 370px; width: 100%;"></div>
         </div>
         <ul class="pagination">
