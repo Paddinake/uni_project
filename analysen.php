@@ -52,12 +52,27 @@ if(empty($_GET['symbol'])) {
 
 ?>
 
+<script>
+    // get Name for the symbol
+    var symbol = "<?php echo $_GET['symbol']; ?>";
+    var name;
+    for (var i=0; i<stocks.length; i++){
+        if (stocks[i].value==symbol){
+            name = stocks[i].label;
+
+        }
+    }
+    $( document ).ready(function() {
+        $('#name').text(name);
+    });
+</script>
+
 <!-- Daten -->
 <div class="container">
     <div class="row">
         <div class="col">
             <span class="mr-sm-2"> Name: </span>
-            <span class="mr-sm-2">  </span>
+            <span class="mr-sm-2" id="name">  </span>
         </div>
         <div class="col">
             <span class="mr-sm-2"> WKN: </span>

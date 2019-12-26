@@ -4,13 +4,13 @@
     <script src = "https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 
     <script>
+        var stocks  =  [
+            { label: 'Google', value: 'GOOG' },
+            { label: 'Apple', value: 'AAPL' },
+            { label: 'Siemens', value: 'SIEGY' },
+            { label: 'Lufthansa', value: 'LHA.DE' }
+        ];
         $(function() {
-            var stocks  =  [
-                { label: 'Google', value: 'GOOG' },
-                { label: 'Apple', value: 'AAPL' },
-                { label: 'Siemens', value: 'SIEGY' },
-                { label: 'Lufthansa', value: 'LHA.DE' }
-            ];
             $( "#symbols" ).autocomplete({
                 source: stocks
             });
