@@ -135,6 +135,7 @@ function updateTimestamp($symbol, $mysqli){
 }
 
 //@TODO nur dividenden einfuegen die hoeher 0 sind!
+//@TODO update der db in eigene function auslagern.
 //Zentrale Funktion um Dividenden herunterzuladen. Aktualisiert bei Bedarf den Datensatz.
 //Loads dividends from DB if last download is less than 24 hours.
 //Else, deletes all corresponding entries from dividends and history and updates timestamp.
