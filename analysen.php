@@ -47,8 +47,8 @@ if(empty($_GET['symbol'])) {
     echo"<h1>bitte erst eine Aktie auswählen</h1>";
 } else{
     include ('graphHelper.php');
-    $datapoints_STOCK = getDataforGraph("https://query1.finance.yahoo.com/v7/finance/download/".$_GET['symbol']."?period1=738540000&period2=1576796400&interval=1mo&events=div&crumb=UO48Nwtc0Va");
-    $datapoints_DIVIDEND = getDataforGraph("https://query1.finance.yahoo.com/v7/finance/download/".$_GET['symbol']."?period1=738540000&period2=1576796400&interval=1mo&events=div&crumb=UO48Nwtc0Va");
+    $datapoints_STOCK = getDataforGraph($_GET['symbol']);
+    $datapoints_DIVIDEND = getDataforGraph($_GET['symbol']);
 
 ?>
 
@@ -59,7 +59,6 @@ if(empty($_GET['symbol'])) {
     for (var i=0; i<stocks.length; i++){
         if (stocks[i].value==symbol){
             name = stocks[i].label;
-
         }
     }
     $( document ).ready(function() {
@@ -83,20 +82,19 @@ if(empty($_GET['symbol'])) {
             }]
         }).render();
 
-        new CanvasJS.Chart("chartContainer_DIVIDEND", {
+        var divi = new CanvasJS.Chart("chartContainer_DIVIDEND", {
             theme: "light2", // "light1", "light2", "dark1", "dark2"
             animationEnabled: true,
             zoomEnabled: true,
+            type: "horizontalBar",
             title: {
                 text: "Dividenden Kurs"
             },
             data: [{
-                type: "area",
                 xValueType: "dateTime",
                 dataPoints: <?php echo json_encode($datapoints_DIVIDEND, JSON_NUMERIC_CHECK); ?>
             }]
         }).render();
-
     }
 </script>
 
