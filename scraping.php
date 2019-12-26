@@ -112,13 +112,26 @@ function isOld($symbol, $mysqli){
     return false;
 }
 
-//@TODO: scrappe current stock value from yahoo
+/**
+ * Scrapes yahoo for current Symbol stock value
+ *
+ * @param $symbol
+ * @return string
+ */
 function getCurrentStockValue($symbol){
-    return 0;
-}
-//@TODO: make it return the symbols current name of the stock.
-function getStockName($symbol){
-    return "FOO";
+    {
+        $html = file_get_html('https://finance.yahoo.com/quote/'.$symbol.'/history');
+        $currentStockValue = "";
+        foreach ($html->find('span') as $span)
+        {
+            if (isset($span-> attr['data-reactid'])){
+                if($span->attr['data-reactid']==34){
+                    $currentStockValue = $span;
+                }
+            }
+        }
+        return $currentStockValue;
+    }
 }
 
 //Erzeugt eintrag mit timestap in stocks table damit timestamps daraus gelesen werden können.
@@ -230,5 +243,6 @@ function payedDividensInYear($year, $symbol){
 //primKeyExists("SKT", $mysqli);
 //echo getPOSIXDate();
 //echo getURL_maxT("SKT", true);
+echo "<h1>".getCurrentStockValue('SKT')."</h1>";
 
 ?>
