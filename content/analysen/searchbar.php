@@ -1,18 +1,19 @@
-    <script>
-        var stocks  =  [
-            { label: 'Google', value: 'GOOG' },
-            { label: 'Apple', value: 'AAPL' },
-            { label: 'Siemens', value: 'SIEGY' },
-            { label: 'Lufthansa', value: 'LHA.DE' }
-        ];
+<?php
+?>
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+<script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+<script type="text/javascript" src="content/analysen/stocks.js"></script>
+
+<script>
         $(function() {
             $( "#symbols" ).autocomplete({
+                autoFocus: true,
                 source: stocks
             });
         });
-    </script>
+</script>
 
-<form action="index.php?content=analysen" method="get">
+<form action="" method="get">
     <div class = "ui-widget">
         <label for = "symbols">Aktien: </label>
         <input type="hidden" name="content" value="analysen">
