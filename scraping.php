@@ -134,6 +134,7 @@ function updateTimestamp($symbol, $mysqli){
     echo "\nUpdated timestamp of ".$symbol."\n";
 }
 
+//@TODO nur dividenden einfuegen die hoeher 0 sind!
 //Zentrale Funktion um Dividenden herunterzuladen. Aktualisiert bei Bedarf den Datensatz.
 //Loads dividends from DB if last download is less than 24 hours.
 //Else, deletes all corresponding entries from dividends and history and updates timestamp.
@@ -226,9 +227,9 @@ function payedDividensInYear($year, $symbol){
 //payedDividensInYear("2018");
 //InsertAllDividends(getTestDiv("SKT"), "SKT", $mysqli);
 //checkTime("AAPL", $mysqli);
-//loadAllDividendsToArray("SKT", $mysqli);
+loadAllDividendsToArray("AAPL", $mysqli);
 //primKeyExists("SKT", $mysqli);
-echo getPOSIXDate();
-echo getURL_maxT("SKT", true);
+//echo getPOSIXDate();
+//echo getURL_maxT("SKT", true);
 
 ?>
