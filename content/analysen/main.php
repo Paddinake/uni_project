@@ -70,11 +70,11 @@ if(empty($_GET['symbol'])) {
 
         } else{
             if (currentValue<=critGreen){
-                img = "/lights/greenlight.PNG";
+                img = "img/lights/greenlight.PNG";
             } else if (currentValue>= critRed){
-                img = "/lights/redlight.PNG";
+                img = "img/lights/redlight.PNG";
             } else {
-                img = "/lights/orangelight.PNG";
+                img = "img/lights/orangelight.PNG";
             }
             $('#'+trID+'').append('' +
                 '<td>'+name+'</td>' +

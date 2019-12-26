@@ -10,11 +10,18 @@
 <head>
     <title>HYPE</title>
     <meta charset="utf-8">
+<!--    TODO: Welche Scripte wir wirklich brauchen raussuchen und dann runterladen-->
+    <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16.png">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="main.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"
           rel = "stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
@@ -26,6 +33,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 
 </head>
 <body>
@@ -93,6 +101,12 @@
 			case "register":
                 include 'content/register/register.php';
                 break;
+            case "impressum":
+                include 'content/sonstiges/impressum.php';
+                break;
+            case "kontakt":
+                include 'content/sonstiges/kontakt.php';
+                break;
             Default:
                 
         ?>
@@ -111,7 +125,7 @@
             <div class="carousel-caption">
                 <h1 class="display-2"> HYPE </h1>
                 <h3> Einfaches Stock tool</h3>
-                <button type="button" class="btn btn-outline-light btn-lg"> Get Started</button>
+                <button type="button" class="btn btn-outline-light btn-lg" onclick="window.location.href='index.php?content=register';"> Get Started</button>
             </div>
         </div>
         <div class="carousel-item">
@@ -250,9 +264,14 @@
         <hr>
         <div class="col-12">
             <p class="lead">
-                ölkahdsfsklhafjkdfahkjdsfgahdskfasdhfjasdjflgjakdsfglakdjsgskldjfgalkdjsgkal
-                kajdhfaöskdjhakjdsfhgakdjfsgasödkfj
-                #kjasdfhajskdgkaldfgasfd
+                Wir haben diverse Kennzahlen, sowie genaue Graphen. Dadurch ist unsere Website
+                nicht nur für Anfänger sondern auch für Profis ideal.
+            </p>
+            <p class="lead">
+                In unseren Graphen können Sie selbst ganz einfach in einen gewünschten Zeitraum reinzoomen
+            </p>
+            <p class="col-12">
+                <img class="img-fluid" src="img/Zoom-Graphs.gif">
             </p>
         </div>
     </div>
@@ -266,11 +285,11 @@
         <div class="row text-center">
             <div class="col-md-4">
                 <br>
-                <h4>Hier LOGO</h4>
+                <img style="max-width:60%" class="img-fluid" src="img/hype.png">
                 <hr class="light">
-                <p>tele</p>
-                <p>Email</p>
-                <p>Adresse</p>
+                <p>Telefon: +49 1234 56789</p>
+                <p>Email: @students.uni-mainz.de</p>
+                <p>Adresse: Saarstraße 21, 55122 Mainz</p>
             </div>
             <div class="col-md-4">
                 <hr class="light">
@@ -284,8 +303,8 @@
                 <hr class="light">
                 <h5>Unwichtiges</h5>
                 <hr class="light">
-                <p>erste</p>
-                <p>zweite</p>
+                <p><a href="index.php?content=kontakt" style=" color: inherit; ">Kontakt</a> </p>
+                <p><a href="index.php?content=impressum" style=" color: inherit; ">Impressum</a> </p>
                 <p>dritte</p>
             </div>
             <div class="col-12">
