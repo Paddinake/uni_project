@@ -47,19 +47,64 @@ if(empty($_GET['symbol'])) {
     echo"<h1>bitte erst eine Aktie auswählen</h1>";
 } else{
     include ('graphHelper.php');
-    $datapoints_STOCK = getDataforGraph("https://query1.finance.yahoo.com/v7/finance/download/".$_GET['symbol']."?period1=738540000&period2=1576796400&interval=1mo&events=div&crumb=UO48Nwtc0Va");
-    $datapoints_DIVIDEND = getDataforGraph("https://query1.finance.yahoo.com/v7/finance/download/".$_GET['symbol']."?period1=738540000&period2=1576796400&interval=1mo&events=div&crumb=UO48Nwtc0Va");
+    $datapoints_STOCK = getDataforGraph($_GET['symbol']);
+    $datapoints_DIVIDEND = getDataforGraph($_GET['symbol']);
 
 ?>
 
 <script>
+
+    /**
+     *
+     * @param trID Id des <tr> elements
+     * @param name name der Kennzahl
+     * @param critGreen
+     * @param critRed
+     * @param currentValue
+     * @param biggerisGood true wenn große Werte gut sind
+     */
+    function KPIRow (trID, name, critGreen, critRed, currentValue, biggerisGood){
+        var img;
+
+        if (biggerisGood){
+            if (currentValue>=critGreen){
+                img = "/lights/greenlight.PNG";
+            } else if (currentValue<= critRed){
+                img = "/lights/redlight.PNG";
+            } else {
+                img = "/lights/orangelight.PNG";
+            }
+            $('#'+trID+'').append('' +
+                '<td>'+name+'</td>' +
+                '<td>>='+critGreen+'</td>' +
+                '<td><'+critRed+'</td>' +
+                '<td>'+currentValue+'</td>' +
+                '<td><img class="img-fluid" style="max-height: 30px" src="'+img+'"></td>');
+
+        } else{
+            if (currentValue<=critGreen){
+                img = "/lights/greenlight.PNG";
+            } else if (currentValue>= critRed){
+                img = "/lights/redlight.PNG";
+            } else {
+                img = "/lights/orangelight.PNG";
+            }
+            $('#'+trID+'').append('' +
+                '<td>'+name+'</td>' +
+                '<td><='+critGreen+'</td>' +
+                '<td>>'+critRed+'</td>' +
+                '<td>'+currentValue+'</td>' +
+                '<td><img class="img-fluid" style="max-height: 30px" src="'+img+'"></td>');
+
+        }
+    }
+
     // get Name for the symbol
     var symbol = "<?php echo $_GET['symbol']; ?>";
     var name;
     for (var i=0; i<stocks.length; i++){
         if (stocks[i].value==symbol){
             name = stocks[i].label;
-
         }
     }
     $( document ).ready(function() {
@@ -83,19 +128,25 @@ if(empty($_GET['symbol'])) {
             }]
         }).render();
 
-        new CanvasJS.Chart("chartContainer_DIVIDEND", {
+        var divi = new CanvasJS.Chart("chartContainer_DIVIDEND", {
             theme: "light2", // "light1", "light2", "dark1", "dark2"
             animationEnabled: true,
             zoomEnabled: true,
+            type: "horizontalBar",
             title: {
                 text: "Dividenden Kurs"
             },
             data: [{
-                type: "area",
                 xValueType: "dateTime",
                 dataPoints: <?php echo json_encode($datapoints_DIVIDEND, JSON_NUMERIC_CHECK); ?>
             }]
         }).render();
+
+
+        // KPI's befüllen
+        KPIRow("firstKPI", "KGV", 0.5, 1.0, 0, false);
+        KPIRow("secondKPI", "Dividenden Ratio", 10, 5, 7, true);
+
 
     }
 </script>
@@ -121,11 +172,9 @@ if(empty($_GET['symbol'])) {
         </div>
     </div>
 
+
     <!--placeholder aktienkurs-->
     <div class="container">
-        <div class="row">
-            <label for="stock-symbol" class="mr-sm-2">Aktienkurs</label>
-        </div>
         <div class="row">
             <div id="chartContainer_STOCK" style="height: 370px; width: 100%;"></div>
         </div>
@@ -142,9 +191,6 @@ if(empty($_GET['symbol'])) {
 
     <!--placeholder Dividendenverlauf-->
     <div class="container-fluid">
-        <div class="row">
-            <label for="stock-symbol" class="mr-sm-2">Dividendenverlauf</label>
-        </div>
         <div class="row">
             <div id="chartContainer_DIVIDEND" style="height: 370px; width: 100%;"></div>
         </div>
@@ -163,19 +209,27 @@ if(empty($_GET['symbol'])) {
     <div class="container">
         <h2>Kennzahlen</h2>
         <p>Diese Zahlen erlauben eine schnelle Einschaetzung der Qualitaet der Dividende:</p>
-        <table class="table table-striped">
+        <table class="table table-striped text-center">
             <thead>
             <tr>
                 <th>Kennzahl</th>
-                <th>Wert</th>
+                <th colspan="2" >kritische Werte</th>
+                <th>Aktueller Wert</th>
                 <th>Ampel</th>
+            </tr>
+            <tr>
+                <th></th>
+                <th>Grün</th>
+                <th>Rot</th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>KGV</td>
-                <td>1.2</td>
-                <td>GRUEN</td>
+            <tr id="firstKPI">
+            </tr>
+            <tr id ="secondKPI">
+            </tr>
+            <tr id ="thirdKPI">
             </tr>
             </tbody>
         </table>
