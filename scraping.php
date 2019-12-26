@@ -136,7 +136,20 @@ function getCurrentStockValue($symbol){
 
 //@TODO: make it return the symbols current name of the stock.
 function getStockName($symbol){
-    return "FOO";
+    {
+        $html = file_get_html('https://finance.yahoo.com/quote/'.$symbol.'/history');
+        $currentStockValue = "";
+        foreach ($html->find('span') as $span)
+        {
+            if (isset($span-> attr['data-reactid'])){
+                if($span->attr['data-reactid']==7){
+                    $currentStockValue = $span;
+                }
+            }
+        }
+        //return $currentStockValue;
+        return "FOOO";
+    }
 }
 
 //Erzeugt eintrag mit timestap in stocks table damit timestamps daraus gelesen werden können.
