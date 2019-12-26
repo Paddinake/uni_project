@@ -309,7 +309,7 @@
             </div>
             <div class="col-12">
                 <hr class="light">
-                <h5> &copy; Hagen, Yorick, Patrick</h5>
+                <h5> &copy; Hagen, Yorrick, Patrick</h5>
             </div>
         </div>
     </div>
