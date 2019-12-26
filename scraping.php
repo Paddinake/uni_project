@@ -134,6 +134,11 @@ function getCurrentStockValue($symbol){
     }
 }
 
+//@TODO: make it return the symbols current name of the stock.
+function getStockName($symbol){
+    return "FOO";
+}
+
 //Erzeugt eintrag mit timestap in stocks table damit timestamps daraus gelesen werden können.
 function loadStockIntoDB($symbol, $mysqli){
     $s = "INSERT INTO stocks (symbol, Name, LastValue) VALUES ('".$symbol."', '".getStockName($symbol)."', ".getCurrentStockValue($symbol).");";
