@@ -211,7 +211,10 @@ function InsertAllDividends($array, $symbol, $mysqli){
     $statement = "INSERT INTO dividends (symbol, date, dividend) VALUES ";
 
     for($i=1; $i<count($array)-1; $i++){
-        $statement = $statement."( '".$symbol."', '".$array[$i][0]."', '".$array[$i][1]."' ), ";
+
+        if($array[$i][1]>0.0){
+            $statement = $statement."( '".$symbol."', '".$array[$i][0]."', '".$array[$i][1]."' ), ";
+        }
     }
     $statement = rtrim("$statement", ", ");
     $statement = $statement.";";
@@ -235,7 +238,7 @@ function payedDividensInYear($year, $symbol){
     $sum=0;//summiert die in dem Jahr bisher tatsaechlich bezahlten Dividenden
     $counter=0;//anzahl der bezahlten Dividenden
 
-    $dividendA=getTestDiv($symbol);
+    $dividendA=CSVToArray(getCSV(getURL_maxT($symbol,true)));
 
     for($i=1; $i<count($dividendA)-1;$i++){
         //prueft datum und das tatsaechlich ein Betrag ausgezahlt wurde
@@ -252,13 +255,13 @@ function payedDividensInYear($year, $symbol){
 }
 
 
-//payedDividensInYear("2018");
+payedDividensInYear("2014", "SKT");
 //InsertAllDividends(getTestDiv("SKT"), "SKT", $mysqli);
 //checkTime("AAPL", $mysqli);
 //loadAllDividendsToArray("SKT", $mysqli);
 //primKeyExists("SKT", $mysqli);
 //echo getPOSIXDate();
 //echo getURL_maxT("SKT", true);
-echo "<h1>".getCurrentStockValue('SKT')."</h1>";
+//echo "<h1>".getCurrentStockValue('SKT')."</h1>";
 
 ?>
