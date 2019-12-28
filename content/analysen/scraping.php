@@ -148,7 +148,11 @@ function getStockName($symbol){
     }
 }
 
-//Erzeugt eintrag mit timestap in stocks table damit timestamps daraus gelesen werden können.
+/**
+ * Insert stock for given symbol in stocks table.
+ * @param $symbol
+ * @param $mysqli
+ */
 function loadStockIntoDB($symbol, $mysqli){
     $s = "INSERT INTO stocks (symbol, Name, LastValue) VALUES ('".$symbol."', '".getStockName($symbol)."', ".getCurrentStockValue($symbol).");";
     mysqli_query($mysqli, $s);
@@ -161,16 +165,26 @@ function updateTimestamp($symbol, $mysqli){
     echo "\nUpdated timestamp of ".$symbol."\n";
 }
 
+/**
+ * Checks if a stock is already in the DB or how old the timestamp is.
+ * If stock is not in DB, downloads data into DB and sets timestamp.
+ * If stock is in DB and timestamp is old, updates all entries for given symbol.
+ * If stock is in DB and timestamp is not old, it does nothing.
+ * @param $symbol
+ * @param $mysqli
+ */
 function updateDB($symbol, $mysqli){
     //If there is no entry with corresponding symbol, create it and download all dividends initially.
     if (primKeyExists($symbol,$mysqli)==false) {
         loadStockIntoDB($symbol, $mysqli);
-        InsertAllDividends(getTestDiv($symbol), $symbol, $mysqli);
+        InsertAllDividends(CSVToArray(getCSV(getURL_maxT($symbol, true))), $symbol, $mysqli);
+        InsertAllHistories(CSVToArray(getCSV(getURL_maxT($symbol, false))), $symbol, $mysqli);
         echo "\nCreating entry in stocks table for ".$symbol."\n";
 
     } elseif(isOld($symbol, $mysqli)){
         echo "\n Updateing timestamp and downloading dividends.\n";
-        InsertAllDividends(getTestDiv($symbol), $symbol, $mysqli);
+        InsertAllDividends(CSVToArray(getCSV(getURL_maxT($symbol, true))), $symbol, $mysqli);
+        InsertAllHistories(CSVToArray(getCSV(getURL_maxT($symbol, false))), $symbol, $mysqli);
         updateTimestamp($symbol, $mysqli);
     }
 }
@@ -228,20 +242,29 @@ function loadAllHistoryToArray($symbol, $mysqli){
 
 }
 
-//Delete all entries of dividends were symbol is equal to each other
+/**
+ * Deletes all histories for given symbol from DB.
+ * @param $symbol
+ * @param $mysqli
+ */
 function deleteHistories($symbol, $mysqli){
     $s = "DELETE FROM histories WHERE symbol = '".$symbol."';";
     mysqli_query($mysqli, $s);
 }
 
 //Delete all entries of dividends were symbol is equal to each other
+/**
+ * Deletes all dividends for given symbol from DB.
+ * @param $symbol
+ * @param $mysqli
+ */
 function deleteDividends($symbol, $mysqli){
     $s = "DELETE FROM dividends WHERE symbol = '".$symbol."';";
     mysqli_query($mysqli, $s);
 }
 
 /**
- * Deletes all existing dividend data for a symbol and inserts all dividends from given array into DB.
+ * Deletes all existing dividend data for a symbol and inserts all dividends from given array into diidends-table.
  * Ignores entries with a dividend of <= 0.0.
  *
  * @param $array
@@ -255,6 +278,7 @@ function InsertAllDividends($array, $symbol, $mysqli){
 
     $statement = "INSERT INTO dividends (symbol, date, dividend) VALUES ";
 
+    //@TODO pruefen ob count oder count-1 richtig ist
     for($i=1; $i<count($array)-1; $i++){
 
         if($array[$i][1]>0.0){
@@ -268,6 +292,30 @@ function InsertAllDividends($array, $symbol, $mysqli){
 
     mysqli_query($mysqli, $statement);
 
+}
+
+/**
+ * Inserts all histories for given symbol and array into histories-table.
+ * @param $array
+ * @param $symbol
+ * @param $mysqli
+ */
+function InsertAllHistories($array, $symbol, $mysqli){
+
+    deleteHistories($symbol, $mysqli);
+
+    $s = "INSERT INTO dividends (symbol, date, open, high, low, close, adjClose, volume) VALUES";
+
+    for($i = 1; $i<count($array)-1; $i++){
+        $s = $s."( '".$symbol."', '".$array[$i][0]."', '".$array[$i][1]."', '".$array[$i][2]."', '".$array[$i][3]."', '".$array[$i][4]."', '".$array[$i][5]."', '".$array[$i][6]."' ), ";
+    }
+
+    $s = rtrim("$s", ", ");
+    $s = $s.";";
+
+    echo $s;
+
+    mysqli_query($mysqli, $s);
 }
 
 //fuer testing, sollte spaeter ueberall ersetzt werden mit datenbankzugriffen und funktion fuer zugriffe auf dynamische urls
