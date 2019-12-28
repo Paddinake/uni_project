@@ -12,8 +12,16 @@
         </div>
     </div>
 </div>
-
-
+<?php
+if(empty($_GET['symbol'])) {
+    echo "<div class=\"col-12\">
+            <p class=\"lead\">
+            bitte erst eine Aktie auswählen
+            </p>
+            </div>
+    ";
+}
+?>
 <!-- Suche -->
 <div class="row container-fluid padding center">
     <div class="container-fluid">
@@ -30,9 +38,8 @@
 
 <?php
 //default if no symbol was selected yet
-if(empty($_GET['symbol'])) {
-    echo"<h1>bitte erst eine Aktie auswählen</h1>";
-} else{
+
+if(!empty($_GET['symbol'])){
     include('graphHelper.php');
     $datapoints_STOCK = getDataforGraph($_GET['symbol']);
     $datapoints_DIVIDEND = getDataforGraph($_GET['symbol']);
