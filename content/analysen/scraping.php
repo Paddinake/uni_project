@@ -161,13 +161,7 @@ function updateTimestamp($symbol, $mysqli){
     echo "\nUpdated timestamp of ".$symbol."\n";
 }
 
-//@TODO nur dividenden einfuegen die hoeher 0 sind!
-//@TODO update der db in eigene function auslagern.
-//Zentrale Funktion um Dividenden herunterzuladen. Aktualisiert bei Bedarf den Datensatz.
-//Loads dividends from DB if last download is less than 24 hours.
-//Else, deletes all corresponding entries from dividends and history and updates timestamp.
-function loadAllDividendsToArray($symbol, $mysqli){
-
+function updateDB($symbol, $mysqli){
     //If there is no entry with corresponding symbol, create it and download all dividends initially.
     if (primKeyExists($symbol,$mysqli)==false) {
         loadStockIntoDB($symbol, $mysqli);
@@ -178,8 +172,17 @@ function loadAllDividendsToArray($symbol, $mysqli){
         echo "\n Updateing timestamp and downloading dividends.\n";
         InsertAllDividends(getTestDiv($symbol), $symbol, $mysqli);
         updateTimestamp($symbol, $mysqli);
-
     }
+}
+
+
+//Zentrale Funktion um Dividenden herunterzuladen. Aktualisiert bei Bedarf den Datensatz.
+//Loads dividends from DB if last download is less than 24 hours.
+//Else, deletes all corresponding entries from dividends and history and updates timestamp.
+function loadAllDividendsToArray($symbol, $mysqli){
+
+    updateDB($symbol, $mysqli);
+
     $s = "SELECT * FROM dividends WHERE symbol = '".$symbol."' ORDER BY date ASC;";
 
     $result = mysqli_query($mysqli, $s);
@@ -196,13 +199,55 @@ function loadAllDividendsToArray($symbol, $mysqli){
     return $return;
 }
 
+/**
+ * Loads complete history from DB to array in ascending order of dates.
+ * Updates DB if needed.
+ *
+ * @param $symbol
+ * @param $mysqli
+ * @return array
+ */
+function loadAllHistoryToArray($symbol, $mysqli){
+
+    updateDB($symbol, $mysqli);
+
+    $s = "SELECT * FROM histories WHERE symbol = '".$symbol."' ORDER BY date ASC;";
+
+    $result = mysqli_query($mysqli, $s);
+    $return = array();
+    $i = 0;
+    while ($row = mysqli_fetch_array($result)){
+        $return[$i][0]=$row[1];//symbol
+        $return[$i][1]=$row[2];//date
+        $return[$i][2]=$row[3];//dividend
+        //echo $row[1]." ".$row[2]." ".$row[3]."\n";
+        $i+=1;
+    }
+
+    return $return;
+
+}
+
+//Delete all entries of dividends were symbol is equal to each other
+function deleteHistories($symbol, $mysqli){
+    $s = "DELETE FROM histories WHERE symbol = '".$symbol."';";
+    mysqli_query($mysqli, $s);
+}
+
 //Delete all entries of dividends were symbol is equal to each other
 function deleteDividends($symbol, $mysqli){
     $s = "DELETE FROM dividends WHERE symbol = '".$symbol."';";
     mysqli_query($mysqli, $s);
 }
 
-//insert csv into DB. Deletes all entries with given symbol and writes new data from given array into DB.
+/**
+ * Deletes all existing dividend data for a symbol and inserts all dividends from given array into DB.
+ * Ignores entries with a dividend of <= 0.0.
+ *
+ * @param $array
+ * @param $symbol
+ * @param $mysqli
+ */
 function InsertAllDividends($array, $symbol, $mysqli){
 
     //should we reset DB for given symbol?
