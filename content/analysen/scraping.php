@@ -375,17 +375,30 @@ function payedDividendsInYear($year, $symbol, $mysqli){
 
 }
 
+//calculates dividend growth in percentage between each payout
+function calcDivGrowth($array){
+
+    $result=array();
+
+    for($i = 1; $i < count($array); $i++){
+        $result[$i-1]=($array[$i][2]-$array[$i-1][2])/$array[$i-1][2];
+        echo $result[$i-1]."\n";
+    }
+
+
+
+}
+
 //loadStockIntoDB("AAPL", $mysqli);
 //payedDividensInYear("2014", "SKT");
 //InsertAllDividends(getTestDiv("SKT"), "SKT", $mysqli);
 //checkTime("AAPL", $mysqli);
-//loadAllDividendsToArray("SKT", $mysqli);
+calcDivGrowth(loadAllDividendsToArray("SKT", $mysqli));
 //loadAllHistoryToArray("SKT", $mysqli);
 //primKeyExists("SKT", $mysqli);
 //echo getURL_maxT("SKT", true);
 //echo "<h1>".getCurrentStockValue('SKT')."</h1>";
 //updateDB("AAPL", $mysqli);
 //payedDividendsInYear(2014, "SKT", $mysqli);
-getCurrentStockValue("SKT");
 
 ?>
