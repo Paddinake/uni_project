@@ -10,53 +10,46 @@ if (!isset($_SESSION)) {
 	}
 
 
-//first select the category based on $_GET['cat_id']
+//category from $_GET['cat_id']
 $sql = "SELECT * FROM bereich WHERE b_id = " . mysqli_real_escape_string($con, $_GET['id']);
 
 $result = mysqli_query($con,$sql);
 
 if(!$result)
 {
-	echo 'The category could not be displayed, please try again later.' . mysqli_error($con);
+	echo 'Es gab einen Fehler...' . mysqli_error($con);
 }
 else
 {
 	if(mysqli_num_rows($result) == 0)
 	{
-		echo 'This category does not exist.';
+		echo 'Diese Kategorie existiert noch nicht';
 	}
 	else
 	{
-		//display category data
 		while($row = mysqli_fetch_assoc($result))
 		{
-			echo '<h2>Topics in &prime;' . $row['b_name'] . '&prime; category</h2><br />';
+			echo '<h2>Themen in Kategorie:  '. $row['b_name'] . '</h2><br />';
 		}
-	
-		//do a query for the topics
+
 		$sql = "SELECT * FROM thema WHERE t_bereich = " . mysqli_real_escape_string($con,$_GET['id']);
 		
 		$result = mysqli_query($con,$sql);
 		
-		if(!$result)
-		{
-			echo 'The topics could not be displayed, please try again later.';
-		}
-		else
+		if($result)
 		{
 			if(mysqli_num_rows($result) == 0)
 			{
-				echo 'There are no topics in this category yet.';
+				echo 'Bisher gibt es noch keine <themen in dieser Kategorie';
 			}
 			else
 			{
 				//prepare the table
 				echo ' <div class="container">
-				<table class="table">
-				<table border="1">
+				<table class="table table-hover">
 					  <tr>
-						<th>Topic</th>
-						<th>Created at</th>
+						<th>Thema</th>
+						<th>Erstellt am</th>
 					  </tr>';	
 					
 				while($row = mysqli_fetch_assoc($result))
@@ -70,6 +63,7 @@ else
 						echo '</td>';
 					echo '</tr>';
 				}
+				echo "</table>";
 			}
 		}
 	}

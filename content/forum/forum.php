@@ -2,14 +2,14 @@
 <?php 
 if (isset($_GET['subnav'])){
 	$content = $_GET['subnav'];
-	if ($content=="home2"){
-		include "home2.php";
+	if ($content=="overview"){
+		include "overview.php";
 	}
-	if ($content=="t_erst"){
-		include "t_erst.php";
+	if ($content=="createTopic"){
+		include "createTopic.php";
 	}
-	if ($content=="k_erst"){
-		include "k_erst.php";
+	if ($content=="createCategory"){
+		include "createCategory.php";
 	}
 	if ($content=="topics"){
 		include "topics.php";
@@ -21,7 +21,7 @@ if (isset($_GET['subnav'])){
 		include "reply.php";
 	}
 } else {
-	include "home2.php";
+	include "overview.php";
 }
 
 ?>

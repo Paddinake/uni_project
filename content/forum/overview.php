@@ -20,25 +20,19 @@ $result = mysqli_query($con, $sql);
 
 if(!$result)
 {
-	echo 'The categories could not be displayed, please try again later.';
+	echo 'Fehler beim Abrufen der Kategorien.';
 }
 else
 {
-	if(mysqli_num_rows($result) == 0)
+	if(mysqli_num_rows($result) >= 0)
 	{
-		echo 'No categories defined yet.';
-	}
-	else
-	{
-		#<th>Category</th>
-		#<table border="1">
-		//prepare the table
+
 		echo '<table class="table table-hover" id="forum">
 			  <tr>
 				
-				 <th style="width:50%">Category</th>
+				 <th style="width:50%">Kategorie</th>
 				
-				<th>Last topic</th>
+				<th>Letzer Eintrag</th>
 			  </tr>';	
 			
 		while($row = mysqli_fetch_assoc($result))
@@ -49,8 +43,8 @@ else
 				echo '</td>';
 				echo '<td class="rightpart">';
 				
-				//fetch last topic for each cat
-					$topicsql = "SELECT
+				//letzter Eintrag dieser Kategorie
+					$lastEntry = "SELECT
 									t_id,
 									t_subject,
 									t_date,
@@ -65,21 +59,17 @@ else
 								LIMIT
 									1";
 								
-					$topicsresult = mysqli_query($con, $topicsql);
+					$lastEntryresult = mysqli_query($con, $lastEntry);
 				
-					if(!$topicsresult)
+					if($lastEntryresult)
 					{
-						echo 'Last topic could not be displayed.';
-					}
-					else
-					{
-						if(mysqli_num_rows($topicsresult) == 0)
+						if(mysqli_num_rows($lastEntryresult) == 0)
 						{
-							echo 'no topics';
+							echo 'noch keine Themen angelegt ';
 						}
 						else
 						{
-							while($topicrow = mysqli_fetch_assoc($topicsresult))
+							while($topicrow = mysqli_fetch_assoc($lastEntryresult))
 							echo '<a href="index.php?content=forum&subnav=topics&id=' . $topicrow['t_id'] . '">' . $topicrow['t_subject'] . '</a> at ' . date('d-m-Y', strtotime($topicrow['t_date']));
 						}
 					}

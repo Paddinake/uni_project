@@ -56,8 +56,8 @@
 			<li class="nav-item active"><a class="nav-link" href="index.php?content=analysen">Analysen</a></li>
 			<li class="nav-item dropdown active"><a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Forum</a>
 				<div class="dropdown-menu">
-					<a href="index.php?content=forum&subnav=home2" class="dropdown-item"> Home</a>
-					<a href="index.php?content=forum&subnav=t_erst" class="dropdown-item"> Create a topic</a>
+					<a href="index.php?content=forum&subnav=overview" class="dropdown-item"> Home</a>
+					<a href="index.php?content=forum&subnav=createTopic" class="dropdown-item"> Create a topic</a>
 				</div>
 				</li>
 			<li class="nav-item active"><a class="nav-link" href="index.php?content=settings">Einstellungen</a></li>
