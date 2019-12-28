@@ -41,8 +41,8 @@ if(empty($_GET['symbol'])) {
 
 if(!empty($_GET['symbol'])){
     include('graphHelper.php');
-    $datapoints_STOCK = getDataforGraph($_GET['symbol']);
-    $datapoints_DIVIDEND = getDataforGraph($_GET['symbol']);
+    $datapoints_STOCK = getHistoryforGraph($_GET['symbol']);
+    $datapoints_DIVIDEND = getDividendforGraph($_GET['symbol']);
 
 ?>
 
