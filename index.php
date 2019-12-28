@@ -317,22 +317,20 @@
 
 
 <!--    Chatbot button-->
-    <?php
-    if (isset($_SESSION["loggedin"]) && $_SESSION['loggedin'] == true) {
-        ?>
-
         <script type="text/javascript">
+            var website = window.self;
             // <![CDATA[
             function openWindow(url, width, height, options, name) {
                 width = width ? width : 800;
                 height = height ? height : 600;
                 options = options ? options : 'resizable=yes';
                 name = name ? name : 'openWindow';
-                window.open(
+                var chat = window.open(
                     url,
                     name,
                     'screenX=' + (screen.width - width) / 2 + ',screenY=' + (screen.height - height) / 2 + ',width=' + width + ',height=' + height + ',' + options
-                )
+                );
+
             }
 
             // ]]>
@@ -354,12 +352,17 @@
             }
         </style>
         <div id="chatbot">
-            <a href="content/chatbot/chatbot_loggedin.php" onclick="openWindow(this.href,400,400);this.blur();return false;">
+            <a href=
+               <?php
+            if (isset($_SESSION["loggedin"]) && $_SESSION['loggedin'] == true) {
+                echo"\"content/chatbot/chatbot_loggedin.php\"";
+            }else{
+                echo"\"content/chatbot/chatbot_loggedout.php\"";
+            }
+            ?> onclick="openWindow(this.href,400,400);this.blur();return false;">
                 <button class="chat"> Chat starten</button>
             </a>
         </div>
-        <?php
-    }
-    ?>
+
 </body>
 </html>

@@ -26,20 +26,16 @@
         return botui.action.button({
             action: [
                 {
-                    text: "Witz",
+                    text: "Vorteile unserer Website",
                     value: 0
                 },
                 {
-                    text: "Nach Aktie Suchen",
+                    text: "Kosten",
                     value: 1
                 },
                 {
-                    text: "Empfehlung",
+                    text: "Registrieren",
                     value: 2
-                },
-                {
-                    text: "Ich würde gerne mit einem Experten reden",
-                    value: 3
                 }
             ]
         }).then(function(res){
@@ -47,17 +43,21 @@
             return botui.message.add({
                 loading:true,
                 delay: 2500,
-                content: "Was haben Frauen und Tornados gemeinsam: Erst feucht, dann stürmisch" +
-                    "und hinterher ist das Haus weg."
+                content: "Liste mit Vorteilen"
             });
         }
         else if(res.value==1){
-            window.opener.website.location.href = "../../index.php?content=analysen";
+            return botui.message.add({
+                loading:true,
+                delay: 2500,
+                content: "Tabelle der Kosten"
+            });
         }
         else if(res.value==2){
             return botui.message.add({
+                loading:true,
                 delay: 2500,
-                content: "sollten wir mal implementieren"
+                content: "Link zum Registrieren"
             });
         }
         else if(res.value==3){
