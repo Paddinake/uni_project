@@ -126,7 +126,8 @@ function getCurrentStockValue($symbol){
                 }
             }
         }
-        return $currentStockValue;
+        //return $currentStockValue;
+        return 1;
     }
 }
 
@@ -178,15 +179,18 @@ function updateDB($symbol, $mysqli){
     if (primKeyExists($symbol,$mysqli)==false) {
         loadStockIntoDB($symbol, $mysqli);
         InsertAllDividends(CSVToArray(getCSV(getURL_maxT($symbol, true))), $symbol, $mysqli);
+        //InsertAllDividends(getTestDiv("SKT"), $symbol, $mysqli);
         InsertAllHistories(CSVToArray(getCSV(getURL_maxT($symbol, false))), $symbol, $mysqli);
         echo "\nCreating entry in stocks table for ".$symbol."\n";
 
     } elseif(isOld($symbol, $mysqli)){
         echo "\n Updateing timestamp and downloading dividends.\n";
+        //InsertAllDividends(getTestDiv("SKT"), $symbol, $mysqli);
         InsertAllDividends(CSVToArray(getCSV(getURL_maxT($symbol, true))), $symbol, $mysqli);
         InsertAllHistories(CSVToArray(getCSV(getURL_maxT($symbol, false))), $symbol, $mysqli);
         updateTimestamp($symbol, $mysqli);
     }
+    echo "updateDB finished";
 }
 
 
@@ -304,7 +308,7 @@ function InsertAllHistories($array, $symbol, $mysqli){
 
     deleteHistories($symbol, $mysqli);
 
-    $s = "INSERT INTO dividends (symbol, date, open, high, low, close, adjClose, volume) VALUES";
+    $s = "INSERT INTO histories (symbol, date, open, high, low, close, adjClose, volume) VALUES";
 
     for($i = 1; $i<count($array)-1; $i++){
         $s = $s."( '".$symbol."', '".$array[$i][0]."', '".$array[$i][1]."', '".$array[$i][2]."', '".$array[$i][3]."', '".$array[$i][4]."', '".$array[$i][5]."', '".$array[$i][6]."' ), ";
@@ -347,8 +351,8 @@ function payedDividensInYear($year, $symbol){
     echo "Sum: ".$sum." Payouts: ".$counter;
 }
 
-
-payedDividensInYear("2014", "SKT");
+//loadStockIntoDB("AAPL", $mysqli);
+//payedDividensInYear("2014", "SKT");
 //InsertAllDividends(getTestDiv("SKT"), "SKT", $mysqli);
 //checkTime("AAPL", $mysqli);
 //loadAllDividendsToArray("SKT", $mysqli);

@@ -21,6 +21,7 @@ function getDividendforGraph($symbol){
 function getHistoryforGraph($symbol){
     $mysqli = new mysqli("127.0.0.1", "root", "", "uni_project", 3306);
     $array = loadAllHistoryToArray($symbol, $mysqli);
+    //$array = loadAllDividendsToArray($symbol, $mysqli);
     $dataPoints = array();
     for($i = 0; $i < count($array)-1; $i++){
         if ($array[$i][2]==0){
