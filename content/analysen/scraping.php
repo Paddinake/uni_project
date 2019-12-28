@@ -185,13 +185,16 @@ function updateDB($symbol, $mysqli){
     echo "updateDB finished";
 }
 
-
-//Zentrale Funktion um Dividenden herunterzuladen. Aktualisiert bei Bedarf den Datensatz.
-//Loads dividends from DB if last download is less than 24 hours.
-//Else, deletes all corresponding entries from dividends and history and updates timestamp.
+/**
+ * Function to download dividends from DB to array.
+ *
+ * @param $symbol
+ * @param $mysqli
+ * @return array
+ */
 function loadAllDividendsToArray($symbol, $mysqli){
 
-    updateDB($symbol, $mysqli);
+    updateDB($symbol, $mysqli);//@TODO: remove this
 
     $s = "SELECT * FROM dividends WHERE symbol = '".$symbol."' ORDER BY date ASC;";
 
@@ -205,13 +208,11 @@ function loadAllDividendsToArray($symbol, $mysqli){
         //echo $row[1]." ".$row[2]." ".$row[3]."\n";
         $i+=1;
     }
-
     return $return;
 }
 
 /**
  * Loads complete history from DB to array in ascending order of dates.
- * Updates DB if needed.
  *
  * @param $symbol
  * @param $mysqli
@@ -219,7 +220,7 @@ function loadAllDividendsToArray($symbol, $mysqli){
  */
 function loadAllHistoryToArray($symbol, $mysqli){
 
-    updateDB($symbol, $mysqli);
+    updateDB($symbol, $mysqli);//@TODO: remove this
 
     $s = "SELECT * FROM histories WHERE symbol = '".$symbol."' ORDER BY date ASC;";
 
@@ -252,7 +253,6 @@ function deleteHistories($symbol, $mysqli){
     mysqli_query($mysqli, $s);
 }
 
-//Delete all entries of dividends were symbol is equal to each other
 /**
  * Deletes all dividends for given symbol from DB.
  * @param $symbol
@@ -360,11 +360,6 @@ function payedDividendsInYear($year, $symbol, $mysqli){
     $i = 0;
     $sum = 0;
     while ($row = mysqli_fetch_array($result)){
-        /*$return[$i][0]=$row[0];//id
-        $return[$i][1]=$row[1];//symbol
-        $return[$i][2]=$row[2];//date
-        $return[$i][3]=$row[3];*///dividend
-        //echo $row[0]." ".$row[1]." ".$row[2]."\n";
         $i+=1;
         $sum = $sum+$row[3];
     }
@@ -386,7 +381,6 @@ function payedDividendsInYear($year, $symbol, $mysqli){
 //loadAllDividendsToArray("SKT", $mysqli);
 //loadAllHistoryToArray("SKT", $mysqli);
 //primKeyExists("SKT", $mysqli);
-//echo getPOSIXDate();
 //echo getURL_maxT("SKT", true);
 //echo "<h1>".getCurrentStockValue('SKT')."</h1>";
 //updateDB("AAPL", $mysqli);

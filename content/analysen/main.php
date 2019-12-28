@@ -41,6 +41,7 @@ if(empty($_GET['symbol'])) {
 
 if(!empty($_GET['symbol'])){
     include('graphHelper.php');
+    //@TODO run updateDB
     $datapoints_STOCK = getHistoryforGraph($_GET['symbol']);
     $datapoints_DIVIDEND = getDividendforGraph($_GET['symbol']);
 
