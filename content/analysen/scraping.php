@@ -322,11 +322,9 @@ function getTestDiv($symbol){
     return CSVToArray(getCSV("https://query1.finance.yahoo.com/v7/finance/download/".$symbol."?period1=738540000&period2=1576796400&interval=1mo&events=div&crumb=UO48Nwtc0Va"));
 }
 
-//@TODO Datenbank anbinden
 //@TODO echo mit passendem return ersetzen?
-//@TODO datenquelle anpassen
 //gibt die die summe der bezahlten dividenden und die anzahl der auszahlungen aus.
-function payedDividensInYear($year, $symbol){
+function payedDividensInYearFromCSV($year, $symbol){
     $sum=0;//summiert die in dem Jahr bisher tatsaechlich bezahlten Dividenden
     $counter=0;//anzahl der bezahlten Dividenden
 
@@ -346,6 +344,41 @@ function payedDividensInYear($year, $symbol){
     echo "Sum: ".$sum." Payouts: ".$counter;
 }
 
+/**
+ * Returns array with number of payed dividends and sum of payed dividend in a single year.
+ *
+ * @param $year
+ * @param $symbol
+ * @param $mysqli
+ * @return array
+ */
+function payedDividendsInYear($year, $symbol, $mysqli){
+    $s = "SELECT * FROM dividends WHERE symbol = '".$symbol."' AND date >= '".$year."-01-01' AND date <= '".$year."-12-31' ;";
+
+    $result = mysqli_query($mysqli, $s);
+    $return = array();
+    $i = 0;
+    $sum = 0;
+    while ($row = mysqli_fetch_array($result)){
+        /*$return[$i][0]=$row[0];//id
+        $return[$i][1]=$row[1];//symbol
+        $return[$i][2]=$row[2];//date
+        $return[$i][3]=$row[3];*///dividend
+        //echo $row[0]." ".$row[1]." ".$row[2]."\n";
+        $i+=1;
+        $sum = $sum+$row[3];
+    }
+
+    $return[0]=$i;
+    $return[1]=$sum;
+
+    /*echo $sum."\n";
+    echo $i."\n";*/
+
+    return $return;
+
+}
+
 //loadStockIntoDB("AAPL", $mysqli);
 //payedDividensInYear("2014", "SKT");
 //InsertAllDividends(getTestDiv("SKT"), "SKT", $mysqli);
@@ -357,5 +390,6 @@ function payedDividensInYear($year, $symbol){
 //echo getURL_maxT("SKT", true);
 //echo "<h1>".getCurrentStockValue('SKT')."</h1>";
 //updateDB("AAPL", $mysqli);
+payedDividendsInYear(2014, "SKT", $mysqli);
 
 ?>
