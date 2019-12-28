@@ -52,7 +52,7 @@
             });
         }
         else if(res.value==1){
-            window.location.href = "../../index.php?content=analysen";
+            window.opener.website.location.href = "../../index.php?content=analysen";
         }
         else if(res.value==2){
             return botui.message.add({
@@ -61,7 +61,7 @@
             });
         }
         else if(res.value==3){
-            window.parent.location.href = "../../index.php?content=kontakt";
+            window.opener.website.location.href = "../../index.php?content=kontakt";
         }
     }).then(function(){
         askWhatToDo(false)

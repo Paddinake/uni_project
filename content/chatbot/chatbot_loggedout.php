@@ -61,7 +61,7 @@
             });
         }
         else if(res.value==3){
-            window.parent.location.href = "../../index.php?content=kontakt";
+            window.opener.website.location.href = "../../index.php?content=kontakt";
         }
     }).then(function(){
         askWhatToDo(false)
