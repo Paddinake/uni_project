@@ -106,6 +106,7 @@ function isOld($symbol, $mysqli){
  * @param $symbol
  * @return string
  */
+//@TODO: Scraper ist sau langsam und liefert noch zu viel HTML zurueck.
 function getCurrentStockValue($symbol){
     {
         $html = file_get_html('https://finance.yahoo.com/quote/'.$symbol.'/history');
@@ -118,7 +119,7 @@ function getCurrentStockValue($symbol){
                 }
             }
         }
-        //return $currentStockValue;
+        //echo $currentStockValue."\n";
         return 1;
     }
 }
@@ -384,6 +385,7 @@ function payedDividendsInYear($year, $symbol, $mysqli){
 //echo getURL_maxT("SKT", true);
 //echo "<h1>".getCurrentStockValue('SKT')."</h1>";
 //updateDB("AAPL", $mysqli);
-payedDividendsInYear(2014, "SKT", $mysqli);
+//payedDividendsInYear(2014, "SKT", $mysqli);
+getCurrentStockValue("SKT");
 
 ?>
