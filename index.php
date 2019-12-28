@@ -56,8 +56,8 @@
 			<li class="nav-item active"><a class="nav-link" href="index.php?content=analysen">Analysen</a></li>
 			<li class="nav-item dropdown active"><a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Forum</a>
 				<div class="dropdown-menu">
-					<a href="index.php?content=forum&subnav=home2" class="dropdown-item"> Home</a>
-					<a href="index.php?content=forum&subnav=t_erst" class="dropdown-item"> Create a topic</a>
+					<a href="index.php?content=forum&subnav=overview" class="dropdown-item"> Übersicht</a>
+					<a href="index.php?content=forum&subnav=createTopic" class="dropdown-item"> Thema anlegen</a>
 				</div>
 				</li>
 			<li class="nav-item active"><a class="nav-link" href="index.php?content=settings">Einstellungen</a></li>
@@ -316,5 +316,50 @@
 </footer>
 
 
+<!--    Chatbot button-->
+    <?php
+    if (isset($_SESSION["loggedin"]) && $_SESSION['loggedin'] == true) {
+        ?>
+
+        <script type="text/javascript">
+            // <![CDATA[
+            function openWindow(url, width, height, options, name) {
+                width = width ? width : 800;
+                height = height ? height : 600;
+                options = options ? options : 'resizable=yes';
+                name = name ? name : 'openWindow';
+                window.open(
+                    url,
+                    name,
+                    'screenX=' + (screen.width - width) / 2 + ',screenY=' + (screen.height - height) / 2 + ',width=' + width + ',height=' + height + ',' + options
+                )
+            }
+
+            // ]]>
+        </script>
+
+        <style>
+            .chat {
+                background-color: #31B0D5;
+                color: white;
+                padding: 10px 20px;
+                border-radius: 4px;
+                border-color: #46b8da;
+            }
+
+            #chatbot {
+                position: fixed;
+                bottom: -4px;
+                right: 10px;
+            }
+        </style>
+        <div id="chatbot">
+            <a href="content/chatbot/chatbot_loggedin.php" onclick="openWindow(this.href,400,400);this.blur();return false;">
+                <button class="chat"> Chat starten</button>
+            </a>
+        </div>
+        <?php
+    }
+    ?>
 </body>
 </html>

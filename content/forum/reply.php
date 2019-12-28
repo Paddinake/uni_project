@@ -10,14 +10,7 @@ if (!isset($_SESSION)) {
 	}
 
 
-if($_SERVER['REQUEST_METHOD'] != 'POST')
-{
-	//someone is calling the file directly, which we don't want
-	echo 'This file cannot be called directly.';
-}
-else
-{
-	//a real user posted a real reply
+
 		$sql = "INSERT INTO 
 					posts(p_inhalt, p_date, p_thema, p_ersteller) 
 				VALUES ('" . $_POST['reply-content'] . "',
@@ -27,16 +20,8 @@ else
 						;
 						
 		$result = mysqli_query($con, $sql);
-						
-		if(!$result)
-		{
-			echo 'Your reply has not been saved, please try again later.';
-		}
-		else
-		{
-			header("Location: index.php?content=forum&subnav=topics&id=".$_GET['id'] );
-		}
-	}
+		header("Location: index.php?content=forum&subnav=topics&id=".$_GET['id'] );
 
-#
+
+
 ?>
