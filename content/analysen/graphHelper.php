@@ -27,7 +27,7 @@ function getHistoryforGraph($symbol){
         if ($array[$i][2]==0){
         } else {
             $javaTimestamp = strtotime($array[$i][1]) * 1000;
-            array_push($dataPoints, array("x" => $javaTimestamp, "y" => $array[$i][2]));
+            array_push($dataPoints, array("x" => $javaTimestamp, "y" => $array[$i][6]));//adjClose=6
         }
 
     }

@@ -1,19 +1,11 @@
 <?php
 include_once('simple_html_dom.php');
-include('db.php');
+//include('db.php');
+
+$mysqli = new mysqli("127.0.0.1", "root", "", "uni_project", 3306);
+$con = mysqli_connect('127.0.0.1','root','','uni_project');
 
 echo $mysqli->host_info . "\n";
-
-//$result = mysqli_query($mysqli, "INSERT INTO stocks (Symbol, Name, LastValue) VALUES ( 'AAPL', 'Apple Inc.', 279.44 );");
-
-//$result = mysqli_query($mysqli, 'SELECT * FROM stocks');
-
-//while ($row = mysqli_fetch_array($result)){
-//    echo $row[0]." ".$row[1]." ".$row[2]." ".$row[3]."\n";
-//}
-
-//$result = mysqli_query($mysqli, "INSERT INTO dividends (symbol, date, dividend) VALUES ( 'SKT', '2005-07-28', 0.3225 ), ( 'SKT', '2005-07-29', 0.3225 );");
-
 
 //returns URL from symbol for given timespan, interval and crumb
 //$dh = true for dividends, = false for history
@@ -235,15 +227,19 @@ function loadAllHistoryToArray($symbol, $mysqli){
     $return = array();
     $i = 0;
     while ($row = mysqli_fetch_array($result)){
-        $return[$i][0]=$row[1];//symbol
-        $return[$i][1]=$row[2];//date
-        $return[$i][2]=$row[3];//dividend
-        //echo $row[1]." ".$row[2]." ".$row[3]."\n";
+        $return[$i][0]=$row[0];//symbol
+        $return[$i][1]=$row[1];//date
+        $return[$i][2]=$row[2];//open
+        $return[$i][3]=$row[3];//high
+        $return[$i][4]=$row[4];//low
+        $return[$i][5]=$row[5];//close
+        $return[$i][6]=$row[6];//adjClose
+        $return[$i][7]=$row[7];//volume
+        //echo $row[0]." ".$row[1]." ".$row[2]."\n";
         $i+=1;
     }
 
     return $return;
-
 }
 
 /**
@@ -295,7 +291,6 @@ function InsertAllDividends($array, $symbol, $mysqli){
     echo $statement;
 
     mysqli_query($mysqli, $statement);
-
 }
 
 /**
@@ -317,7 +312,7 @@ function InsertAllHistories($array, $symbol, $mysqli){
     $s = rtrim("$s", ", ");
     $s = $s.";";
 
-    echo $s;
+    //echo $s;
 
     mysqli_query($mysqli, $s);
 }
@@ -356,9 +351,11 @@ function payedDividensInYear($year, $symbol){
 //InsertAllDividends(getTestDiv("SKT"), "SKT", $mysqli);
 //checkTime("AAPL", $mysqli);
 //loadAllDividendsToArray("SKT", $mysqli);
+//loadAllHistoryToArray("SKT", $mysqli);
 //primKeyExists("SKT", $mysqli);
 //echo getPOSIXDate();
 //echo getURL_maxT("SKT", true);
 //echo "<h1>".getCurrentStockValue('SKT')."</h1>";
+//updateDB("AAPL", $mysqli);
 
 ?>
