@@ -119,7 +119,7 @@ function getCurrentStockValue($symbol){
                 }
             }
         }
-        //echo $currentStockValue."\n";
+        echo $currentStockValue."\n";
         return 1;
     }
 }
@@ -393,12 +393,13 @@ function calcDivGrowth($array){
 //payedDividensInYear("2014", "SKT");
 //InsertAllDividends(getTestDiv("SKT"), "SKT", $mysqli);
 //checkTime("AAPL", $mysqli);
-calcDivGrowth(loadAllDividendsToArray("SKT", $mysqli));
+//calcDivGrowth(loadAllDividendsToArray("SKT", $mysqli));
 //loadAllHistoryToArray("SKT", $mysqli);
 //primKeyExists("SKT", $mysqli);
 //echo getURL_maxT("SKT", true);
 //echo "<h1>".getCurrentStockValue('SKT')."</h1>";
 //updateDB("AAPL", $mysqli);
 //payedDividendsInYear(2014, "SKT", $mysqli);
+//getCurrentStockValue("SKT");
 
 ?>
