@@ -109,39 +109,35 @@ function isOld($symbol, $mysqli){
  */
 //@TODO: Scraper ist sau langsam und liefert noch zu viel HTML zurueck.
 function getCurrentStockValue($symbol){
+    /*$html = file_get_html('https://finance.yahoo.com/quote/'.$symbol.'/history');
+    $currentStockValue = "";
+    foreach ($html->find('span') as $span)
     {
-        /*$html = file_get_html('https://finance.yahoo.com/quote/'.$symbol.'/history');
-        $currentStockValue = "";
-        foreach ($html->find('span') as $span)
-        {
-            if (isset($span-> attr['data-reactid'])){
-                if($span->attr['data-reactid']==34){
-                    $currentStockValue = $span;
-                }
+        if (isset($span-> attr['data-reactid'])){
+            if($span->attr['data-reactid']==34){
+                $currentStockValue = $span;
             }
         }
-        echo $currentStockValue."\n";*/
-        return 1;
     }
+    echo $currentStockValue."\n";*/
+    return 1;
 }
 
 //@TODO: make it return the symbols current name of the stock.
 function getStockName($symbol){
+    /*$html = file_get_html('https://finance.yahoo.com/quote/'.$symbol.'/history');
+    $currentStockValue = "";
+    foreach ($html->find('span') as $span)
     {
-        /*$html = file_get_html('https://finance.yahoo.com/quote/'.$symbol.'/history');
-        $currentStockValue = "";
-        foreach ($html->find('span') as $span)
-        {
-            if (isset($span-> attr['data-reactid'])){
-                if($span->attr['data-reactid']==7){
-                    $currentStockValue = $span;
-                }
+        if (isset($span-> attr['data-reactid'])){
+            if($span->attr['data-reactid']==7){
+                $currentStockValue = $span;
             }
         }
-        //return $currentStockValue;
-        */
-        return "FOOO";
     }
+    //return $currentStockValue;
+    */
+    return "FOOO";
 }
 
 /**
@@ -209,8 +205,6 @@ function updateDB($symbol, $mysqli){
  */
 function loadAllDividendsToArray($symbol, $mysqli){
 
-    //updateDB($symbol, $mysqli);//@TODO: remove this
-
     $s = "SELECT * FROM dividends WHERE symbol = '".$symbol."' ORDER BY date ASC;";
 
     $result = mysqli_query($mysqli, $s);
@@ -234,8 +228,6 @@ function loadAllDividendsToArray($symbol, $mysqli){
  * @return array
  */
 function loadAllHistoryToArray($symbol, $mysqli){
-
-    //updateDB($symbol, $mysqli);//@TODO: remove this
 
     $s = "SELECT * FROM histories WHERE symbol = '".$symbol."' ORDER BY date ASC;";
 
@@ -438,7 +430,7 @@ function calcDivGrowth($array){
 //primKeyExists("SKT", $mysqli);
 //echo getURL_maxT("SKT", true);
 //echo "<h1>".getCurrentStockValue('SKT')."</h1>";
-updateDB("MSFT", $mysqli);
+//updateDB("MSFT", $mysqli);
 //payedDividendsInYear(2014, "SKT", $mysqli);
 //getCurrentStockValue("SKT");
 //updateStocks("AAPL", $mysqli);

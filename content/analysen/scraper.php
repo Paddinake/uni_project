@@ -60,4 +60,6 @@ function scrape($symbol){
     }
 }
 
+//scrape("SKT");
+
 
