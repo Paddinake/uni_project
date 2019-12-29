@@ -200,7 +200,6 @@ if(!empty($_GET['symbol'])){
     <div class="clearfix"></div>
 
 <!--    Info Button-->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script>
         $(function(){
             $('[data-toggle="tooltip"]').tooltip();
@@ -247,7 +246,7 @@ if(!empty($_GET['symbol'])){
         }
         $('#payRate').append('' +
             '<td> Häufigkeit der Auszahlungen im Jahr 2019 ' +
-            '<span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" data-placement="bottom" title="hey tooltip"></span>' +
+            '<a data-toggle="tooltip" title="Hooray!"><i class="fa fa-question-circle"></i></span></a></span>' +
             '</td>' +
             '<td>== 4</td>' +
             '<td>>= 20 oder == 0</td>' +
