@@ -29,5 +29,31 @@ var stocks  =  [
     { label: 'Deutsche Lufthansa AG', value: 'LHA.DE' },
     { label: 'Deutsche Post AG', value: 'DPW.DE' },
     { label: 'Deutsche Bank Aktiengesellschaft', value: 'DBK.DE' },
-    { label: 'Bayer Aktiengesellschaft', value: 'BAYN.DE' }
+    { label: 'Bayer Aktiengesellschaft', value: 'BAYN.DE' },
+
+    { label: 'Microsoft Corp.', value: 'MSFT'},
+    { label: 'Apple Inc.', value: 'AAPL'},
+    { label: 'Tanger Factory Outlet Centers, Inc.', value: 'SKT'},
+    { label: 'Facebook, Inc.', value: 'FB'},
+    { label: 'Alphabet, Inc.', value: 'GOOG'},
+    { label: 'Alphabet, Inc.', value: 'GOOGL'},
+    { label: 'Royal Dutch Shell plc', value: 'RDS-A'},
+    { label: 'Royal Dutch Shell plc', value: 'RDS-B'},
+    { label: 'Royal Dutch Shell plc', value: 'RDSA.AS'},
+    { label: 'Royal Dutch Shell plc', value: 'RDSB.L'},
+    { label: 'Shell Midstream Partners, L.P.', value: 'SHLX'},
+    { label: 'BP p.l.c', value: 'BP'},
+    { label: 'The Coca-Cola Company', value: 'KO'},
+    { label: 'Coca-Cola Consolidated, Inc', value: 'COKE'},
+    { label: 'Coca-Cola European Partners plc', value: 'CCEP'},
+    { label: 'Coca-Cola FEMSA, S.A.B. de C.V.', value: 'KOF'},
+    { label: 'Coca-Cola HBC AG', value: 'CCH.L'},
+    { label: 'The Walt Disney Company', value: 'DIS'},
+    { label: 'The Walt Disney Company', value: 'DISB34.SA'},
+    { label: 'The Walt Disney Company', value: 'DISN.BA'},
+    { label: 'The Walt Disney Company', value: 'DIS.MX'},
+    { label: 'DISNEY (WALT) CO.', value: 'DIS.D'},
+
+
+
 ];

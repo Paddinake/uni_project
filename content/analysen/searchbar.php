@@ -17,7 +17,7 @@
     <div class = "ui-widget">
         <label for = "symbols">Aktien: </label>
         <input type="hidden" name="content" value="analysen">
-        <input id = "symbols" name="symbol" class="text-uppercase">
+        <input id = "symbols" name="symbol">
             <input type="submit" value="Submit">
     </div>
 </form>
