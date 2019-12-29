@@ -107,7 +107,7 @@ function isOld($symbol, $mysqli){
  * @return string
  */
 //@TODO: Scraper ist sau langsam und liefert noch zu viel HTML zurueck.
-function getCurrentStockValue($symbol){
+function getCurrentStockValue($html, $symbol){
     {
         $html = file_get_html('https://finance.yahoo.com/quote/'.$symbol.'/history');
         $currentStockValue = "";
@@ -372,6 +372,32 @@ function payedDividendsInYear($year, $symbol, $mysqli){
     echo $i."\n";*/
 
     return $return;
+
+}
+
+function yearsPayingDividend($symbol, $mysqli){
+    $s = "SELECT * FROM dividends WHERE symbol = '".$symbol."';";
+
+    $result = mysqli_query($mysqli, $s);
+    // Jahre ohne aussetzer seit 2019
+    $startingYear=2019;
+    $counter=0;
+
+//Magie
+    for($i=$startingYear; $i>=1980; $i--){
+        $x = false;
+        while ($row = mysqli_fetch_array($result)){
+            if (strpos($row[2], $i)==0){
+                $counter++;
+                $x = true;
+                break;
+            }
+        }
+        if (!$x){
+            return $counter;
+        }
+    }
+    return $counter;
 
 }
 

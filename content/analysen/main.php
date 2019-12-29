@@ -37,7 +37,6 @@ if(empty($_GET['symbol'])) {
 </div>
 
 <?php
-//default if no symbol was selected yet
 
 if(!empty($_GET['symbol'])){
     include('graphHelper.php');
@@ -139,8 +138,8 @@ if(!empty($_GET['symbol'])){
 
 
         // KPI's befüllen
-        KPIRow("firstKPI", "KGV", 0.5, 1.0, 0, false);
-        KPIRow("secondKPI", "Dividenden Ratio", 10, 5, 7, true);
+         KPIRow("howLong", "Seit wie vielen Jahren wird mind. 1 mal Jährlich eine Dividende gezahlt", 20, 5, <?php echo yearsPayingDividend($_GET['symbol'], $mysqli)?>, true);
+        // KPIRow("secondKPI", "Dividenden Ratio", 10, 5, 7, true);
 
 
     }
@@ -200,6 +199,13 @@ if(!empty($_GET['symbol'])){
 
     <div class="clearfix"></div>
 
+<!--    Info Button-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script>
+        $(function(){
+            $('[data-toggle="tooltip"]').tooltip();
+        })
+    </script>
     <!--placeholder data table -->
     <div class="container">
         <h2>Kennzahlen</h2>
@@ -220,15 +226,34 @@ if(!empty($_GET['symbol'])){
             </tr>
             </thead>
             <tbody>
-            <tr id="firstKPI">
+            <tr id="payRate">
             </tr>
-            <tr id ="secondKPI">
+            <tr id ="howLong">
             </tr>
             <tr id ="thirdKPI">
             </tr>
             </tbody>
         </table>
     </div>
+
+    <script>
+        var payedDividendsinYear=<?php echo payedDividendsInYear(2019, $_GET['symbol'], $mysqli)[0]; ?>;
+        if (payedDividendsinYear==4){
+            img = "img/lights/greenlight.PNG";
+        } else if (payedDividendsinYear>= 20 || payedDividendsinYear==0){
+            img = "img/lights/redlight.PNG";
+        } else {
+            img = "img/lights/orangelight.PNG";
+        }
+        $('#payRate').append('' +
+            '<td> Häufigkeit der Auszahlungen im Jahr 2019 ' +
+            '<span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" data-placement="bottom" title="hey tooltip"></span>' +
+            '</td>' +
+            '<td>== 4</td>' +
+            '<td>>= 20 oder == 0</td>' +
+            '<td>'+payedDividendsinYear+'</td>' +
+            '<td><img class="img-fluid" style="max-height: 30px" src="'+img+'"></td>');
+    </script>
 
 </div>
 <div class="clearfix"></div>
