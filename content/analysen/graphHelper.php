@@ -1,5 +1,5 @@
 <?php
-include('scraping.php');
+include('funcDB.php');
 
 //returns datapoints prepared for ChartJS
 // vielleicht muss man den Index auch al variable übergeben

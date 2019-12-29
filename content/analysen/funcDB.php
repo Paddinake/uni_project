@@ -1,6 +1,7 @@
 <?php
 include_once('simple_html_dom.php');
 //include('db.php');
+include('scraper.php');
 
 $mysqli = new mysqli("127.0.0.1", "root", "", "uni_project", 3306);
 $con = mysqli_connect('127.0.0.1','root','','uni_project');
@@ -107,9 +108,9 @@ function isOld($symbol, $mysqli){
  * @return string
  */
 //@TODO: Scraper ist sau langsam und liefert noch zu viel HTML zurueck.
-function getCurrentStockValue($html, $symbol){
+function getCurrentStockValue($symbol){
     {
-        $html = file_get_html('https://finance.yahoo.com/quote/'.$symbol.'/history');
+        /*$html = file_get_html('https://finance.yahoo.com/quote/'.$symbol.'/history');
         $currentStockValue = "";
         foreach ($html->find('span') as $span)
         {
@@ -119,7 +120,7 @@ function getCurrentStockValue($html, $symbol){
                 }
             }
         }
-        echo $currentStockValue."\n";
+        echo $currentStockValue."\n";*/
         return 1;
     }
 }
@@ -127,7 +128,7 @@ function getCurrentStockValue($html, $symbol){
 //@TODO: make it return the symbols current name of the stock.
 function getStockName($symbol){
     {
-        $html = file_get_html('https://finance.yahoo.com/quote/'.$symbol.'/history');
+        /*$html = file_get_html('https://finance.yahoo.com/quote/'.$symbol.'/history');
         $currentStockValue = "";
         foreach ($html->find('span') as $span)
         {
@@ -138,6 +139,7 @@ function getStockName($symbol){
             }
         }
         //return $currentStockValue;
+        */
         return "FOOO";
     }
 }
@@ -159,6 +161,16 @@ function updateTimestamp($symbol, $mysqli){
     echo "\nUpdated timestamp of ".$symbol."\n";
 }
 
+function updateStocks($symbol, $mysqli){
+    $a = array();
+    $a = scrape($symbol);
+    echo "Finished scraping";
+
+    $s = "UPDATE stocks SET LastValue = '".$a[0]."', operatingIncome = '".$a[1]."', dividendsPaid = '".$a[2]."', KGV = '".$a[3]."', yield = '".$a[4]."' WHERE Symbol = '".$symbol."';";
+
+    mysqli_query($mysqli, $s);
+}
+
 /**
  * Checks if a stock is already in the DB or how old the timestamp is.
  * If stock is not in DB, downloads data into DB and sets timestamp.
@@ -171,6 +183,7 @@ function updateDB($symbol, $mysqli){
     //If there is no entry with corresponding symbol, create it and download all dividends initially.
     if (primKeyExists($symbol,$mysqli)==false) {
         loadStockIntoDB($symbol, $mysqli);
+        updateStocks($symbol, $mysqli);
         InsertAllDividends(CSVToArray(getCSV(getURL_maxT($symbol, true))), $symbol, $mysqli);
         //InsertAllDividends(getTestDiv("SKT"), $symbol, $mysqli);
         InsertAllHistories(CSVToArray(getCSV(getURL_maxT($symbol, false))), $symbol, $mysqli);
@@ -179,6 +192,7 @@ function updateDB($symbol, $mysqli){
     } elseif(isOld($symbol, $mysqli)){
         echo "\n Updateing timestamp and downloading dividends.\n";
         //InsertAllDividends(getTestDiv("SKT"), $symbol, $mysqli);
+        updateStocks($symbol, $mysqli);
         InsertAllDividends(CSVToArray(getCSV(getURL_maxT($symbol, true))), $symbol, $mysqli);
         InsertAllHistories(CSVToArray(getCSV(getURL_maxT($symbol, false))), $symbol, $mysqli);
         updateTimestamp($symbol, $mysqli);
@@ -195,7 +209,7 @@ function updateDB($symbol, $mysqli){
  */
 function loadAllDividendsToArray($symbol, $mysqli){
 
-    updateDB($symbol, $mysqli);//@TODO: remove this
+    //updateDB($symbol, $mysqli);//@TODO: remove this
 
     $s = "SELECT * FROM dividends WHERE symbol = '".$symbol."' ORDER BY date ASC;";
 
@@ -221,7 +235,7 @@ function loadAllDividendsToArray($symbol, $mysqli){
  */
 function loadAllHistoryToArray($symbol, $mysqli){
 
-    updateDB($symbol, $mysqli);//@TODO: remove this
+    //updateDB($symbol, $mysqli);//@TODO: remove this
 
     $s = "SELECT * FROM histories WHERE symbol = '".$symbol."' ORDER BY date ASC;";
 
@@ -424,8 +438,9 @@ function calcDivGrowth($array){
 //primKeyExists("SKT", $mysqli);
 //echo getURL_maxT("SKT", true);
 //echo "<h1>".getCurrentStockValue('SKT')."</h1>";
-//updateDB("AAPL", $mysqli);
+updateDB("MSFT", $mysqli);
 //payedDividendsInYear(2014, "SKT", $mysqli);
 //getCurrentStockValue("SKT");
+//updateStocks("AAPL", $mysqli);
 
 ?>

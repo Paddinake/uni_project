@@ -1,8 +1,8 @@
 <?php
 include_once('simple_html_dom.php');
 
-
-function main($symbol){
+//@TODO fix scrapper
+function scrape($symbol){
     {
         $html = file_get_html("https://finance.yahoo.com/quote/".$symbol."/financials");
 
@@ -16,6 +16,7 @@ function main($symbol){
                 }
             }
         }
+        echo "\noperating income ".$operatingIncome;
 
         $html = file_get_html("https://finance.yahoo.com/quote/".$symbol."/cash-flow");
 
@@ -28,6 +29,7 @@ function main($symbol){
                 }
             }
         }
+        echo "\ndividendspaid ".$dividendsPaid;
 
 
         $html = file_get_html("https://finance.yahoo.com/quote/".$symbol);
@@ -50,6 +52,9 @@ function main($symbol){
                 }
             }
         }
+        echo "\ncurrentStockValue ".$currentStockValue;
+        echo "\nkgv ".$KGV;
+        echo "\nFDAndYield ".$FDAndYield."\n";
 
         return array($currentStockValue, $operatingIncome, $dividendsPaid, $KGV, $FDAndYield);
     }
