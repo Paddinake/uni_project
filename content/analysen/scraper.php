@@ -35,6 +35,7 @@ function main($symbol){
 
         $currentStockValue = 0;
         $KGV=0;
+        $FDAndYield="";
         foreach ($html->find('span') as $span)
         {
             if (isset($span-> attr['data-reactid'])){
@@ -44,10 +45,13 @@ function main($symbol){
                 if($span->attr['data-reactid']==95){
                     $KGV = $span->plaintext;
                 }
+                if($span->attr['data-reactid']==111){
+                    $FDAndYield = $span->plaintext;
+                }
             }
         }
 
-        return array($currentStockValue, $operatingIncome, $dividendsPaid, $KGV);
+        return array($currentStockValue, $operatingIncome, $dividendsPaid, $KGV, $FDAndYield);
     }
 }
 
