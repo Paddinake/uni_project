@@ -1,9 +1,8 @@
 <?php
 include_once('simple_html_dom.php');
 
-//@TODO fix scrapper
+//@TODO fix operating income & dividends Paid
 function scrape($symbol){
-    {
         $html = file_get_html("https://finance.yahoo.com/quote/".$symbol."/financials");
 
         $operatingIncome=0;
@@ -16,7 +15,7 @@ function scrape($symbol){
                 }
             }
         }
-        echo "\noperating income ".$operatingIncome;
+//        echo "\noperating income ".$operatingIncome;
 
         $html = file_get_html("https://finance.yahoo.com/quote/".$symbol."/cash-flow");
 
@@ -29,37 +28,35 @@ function scrape($symbol){
                 }
             }
         }
-        echo "\ndividendspaid ".$dividendsPaid;
+//        echo "\ndividendspaid ".$dividendsPaid;
 
 
         $html = file_get_html("https://finance.yahoo.com/quote/".$symbol);
-
+        //echo$html;
 
         $currentStockValue = 0;
         $KGV=0;
         $FDAndYield="";
-        foreach ($html->find('span') as $span)
+
+        foreach ($html->find('td') as $td)
         {
-            if (isset($span-> attr['data-reactid'])){
-                if($span->attr['data-reactid']==34){
-                    $currentStockValue = $span->plaintext;
+            if (isset($td-> attr['data-test'])){
+                if($td->attr['data-test']=="OPEN-value"){
+                    $currentStockValue = $td->plaintext;
                 }
-                if($span->attr['data-reactid']==95){
-                    $KGV = $span->plaintext;
+                if($td->attr['data-test']=="DIVIDEND_AND_YIELD-value"){
+                    $FDAndYield = $td->plaintext;
                 }
-                if($span->attr['data-reactid']==111){
-                    $FDAndYield = $span->plaintext;
+                if($td->attr['data-test']=="PE_RATIO-value"){
+                    $KGV = $td->plaintext;
                 }
             }
         }
-        echo "\ncurrentStockValue ".$currentStockValue;
-        echo "\nkgv ".$KGV;
-        echo "\nFDAndYield ".$FDAndYield."\n";
+//        echo "\ncurrentStockValue ".$currentStockValue;
+//        echo "\nkgv ".$KGV;
+//        echo "\nFDAndYield ".$FDAndYield."\n";
 
         return array($currentStockValue, $operatingIncome, $dividendsPaid, $KGV, $FDAndYield);
-    }
+
 }
-
-//scrape("SKT");
-
 
