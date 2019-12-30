@@ -7,7 +7,7 @@ var stocks  =  [
     { label: 'Wirecard AG', value: 'WDI.DE' },
     { label: 'SAP SE', value: 'SAP.DE' },
     { label: 'Fresenius Medical Care AG & Co. KGaA', value: 'FME.DE' },
-    { label: 'BEI.DE', value: 'Beiersdorf Aktiengesellschaft' },
+    { label: 'Beiersdorf Aktiengesellschaft', value: 'BEI.DE' },
     { label: 'Vonovia SE', value: 'VNA.DE' },
     { label: 'Fresenius SE & Co. KGaA', value: 'FRE.DE' },
     { label: 'Munchener Ruckversicherungs-Gesellschaft Aktiengesellschaft', value: 'MUV2.DE' },
