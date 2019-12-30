@@ -150,7 +150,7 @@ function getStockName($symbol){
  * @param $mysqli
  */
 function loadStockIntoDB($symbol, $mysqli){
-    $s = "INSERT INTO stocks (symbol, Name, LastValue) VALUES ('".$symbol."', '".getStockName($symbol)."', ".getCurrentStockValue($symbol).");";
+    $s = "INSERT INTO stocks (Symbol, Name, LastValue) VALUES ('".$symbol."', '".getStockName($symbol)."', ".getCurrentStockValue($symbol).");";
     mysqli_query($mysqli, $s);
 }
 
@@ -166,7 +166,7 @@ function updateStocks($symbol, $mysqli){
     $a = scrape($symbol);
     echo "Finished scraping";
 
-    $s = "UPDATE stocks SET LastValue = '".$a[0]."', operatingIncome = '".$a[1]."', dividendsPaid = '".$a[2]."', KGV = '".$a[3]."', yield = '".$a[4]."' WHERE Symbol = '".$symbol."';";
+    $s = "UPDATE stocks SET LastValue = '".$a[0]."', KGV = '".$a[1]."', yield = '".$a[2]."', payoutRatio = '".$a[3]."' WHERE Symbol = '".$symbol."';";
 
     mysqli_query($mysqli, $s);
 }
@@ -197,7 +197,7 @@ function updateDB($symbol, $mysqli){
         InsertAllHistories(CSVToArray(getCSV(getURL_maxT($symbol, false))), $symbol, $mysqli);
         updateTimestamp($symbol, $mysqli);
     }
-    echo "updateDB finished";
+    echo "\nupdateDB finished";
 }
 
 /**

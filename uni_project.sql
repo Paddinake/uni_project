@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 30. Dez 2019 um 00:31
+-- Erstellungszeit: 30. Dez 2019 um 15:32
 -- Server-Version: 10.4.8-MariaDB
 -- PHP-Version: 7.3.11
 
@@ -149,10 +149,9 @@ CREATE TABLE `stocks` (
   `Name` text NOT NULL,
   `LastUpdated` timestamp NOT NULL DEFAULT current_timestamp(),
   `LastValue` decimal(10,4) DEFAULT NULL,
-  `operatingIncome` text NOT NULL,
-  `dividendsPaid` text NOT NULL,
   `KGV` decimal(10,4) NOT NULL,
-  `yield` text NOT NULL
+  `yield` text NOT NULL,
+  `payoutRatio` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------

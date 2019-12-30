@@ -38,9 +38,12 @@ function scrape($symbol){
     }
 //        echo "\ncurrentStockValue ".$currentStockValue;
 //        echo "\nkgv ".$KGV;
-//        echo "\nFDAndYield ".$FDAndYield."\n";
+    //echo "\nFDAndYield ".$FDAndYield."\n";
+    //echo $payoutRatio;
 
-        return array($currentStockValue, $KGV, $FDAndYield, $payoutRatio);
+    return array($currentStockValue, $KGV, $FDAndYield, $payoutRatio);
 
 }
+
+//scrape("SKT");
 
