@@ -446,6 +446,7 @@ function getStockData($symbol, $mysqli){
  * @return float|int
  */
 function calc5YearsDivGrowth($symbol, $year, $mysqli){
+    //$s = "SELECT dividend FROM dividends WHERE date <= '2019-12-31' AND date >= '2014-01-01' AND symbol = 'SKT';";
     //@TODO: Make more fancy, reduce sql queries
     $a = payedDividendsInYear($year, $symbol, $mysqli)[1];
     $year = $year-1;
