@@ -38,10 +38,8 @@ if(empty($_GET['symbol'])) {
 
 <?php
 
-function getDividendenRendite($lastStockprice, $meanDiviInYear){
-    echo $lastStockprice;
-    echo $meanDiviInYear;
-    return $lastStockprice/$meanDiviInYear;
+function getDividendenRendite($lastStockprice, $sumDiviInYear){
+    return number_format((float)(($sumDiviInYear/$lastStockprice)*100), 2, '.','') ;
 }
 
 if(!empty($_GET['symbol'])){
@@ -55,7 +53,7 @@ if(!empty($_GET['symbol'])){
     $amountDivinYear =$x[0];
     $sumDiviinYear =$x[1];
 
-    $dividendenRendite = getDividendenRendite($generalData[3], ($sumDiviinYear/$amountDivinYear));
+    $dividendenRendite = getDividendenRendite($generalData[3], $sumDiviinYear);
 
 ?>
 
@@ -247,6 +245,8 @@ if(!empty($_GET['symbol'])){
             </tr>
             <tr id ="dividendenRendite">
             </tr>
+            <tr id ="growth">
+            </tr>
             </tbody>
         </table>
     </div>
@@ -267,6 +267,26 @@ if(!empty($_GET['symbol'])){
             '<td>== 4</td>' +
             '<td>>= 20 oder == 0</td>' +
             '<td>'+payedDividendsinYear+'</td>' +
+            '<td><img class="img-fluid" style="max-height: 30px" src="'+img+'"></td>');
+
+
+
+        var growth=<?php echo "1"; ?>;
+        if (growth>= 10 || growth<=0){
+            img = "img/lights/redlight.PNG";
+        } else if (growth<10 && growth >5){
+            img = "img/lights/greenlight.PNG";
+        }
+        else {
+            img = "img/lights/orangelight.PNG";
+        }
+        $('#growth').append('' +
+            '<td> Wachstum in den letzen 5 Jahren ' +
+            '<a data-toggle="tooltip" title="Hooray!"><i class="fa fa-question-circle"></i></span></a></span>' +
+            '</td>' +
+            '<td>< 10%</td>' +
+            '<td>>= 10 oder <= 5</td>' +
+            '<td>'+growth+'</td>' +
             '<td><img class="img-fluid" style="max-height: 30px" src="'+img+'"></td>');
     </script>
 

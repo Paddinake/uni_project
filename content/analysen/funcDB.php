@@ -432,6 +432,8 @@ function calcDivGrowth($array){
         echo $result[$i-1]."\n";
     }
 
+    return 1;
+
 
 
 }
