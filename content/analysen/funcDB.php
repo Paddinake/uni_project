@@ -423,19 +423,19 @@ function getStockData($symbol, $mysqli){
 }
 
 //calculates dividend growth in percentage between each payout
-function calcDivGrowth($array){
+function calcDivGrowth($symbol, $mysqli){
+    $year = 2019;
+    $a = payedDividendsInYear($year, $symbol, $mysqli)[1];
+    $year = 2018;
+    $b = payedDividendsInYear($year, $symbol, $mysqli)[1];
+    $year = 2017;
+    $c = payedDividendsInYear($year, $symbol, $mysqli)[1];
+    $year = 2016;
+    $d = payedDividendsInYear($year, $symbol, $mysqli)[1];
+    $year = 2015;
+    $e = payedDividendsInYear($year, $symbol, $mysqli)[1];
 
-    $result=array();
-
-    for($i = 1; $i < count($array); $i++){
-        $result[$i-1]=($array[$i][2]-$array[$i-1][2])/$array[$i-1][2];
-        echo $result[$i-1]."\n";
-    }
-
-    return 1;
-
-
-
+    return ((($a-$b)/$b)+(($b-$c)/$c)+(($c-$d)/$d)+(($d-$e)-$e))/5;
 }
 
 //loadStockIntoDB("AAPL", $mysqli);

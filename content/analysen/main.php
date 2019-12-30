@@ -55,6 +55,8 @@ if(!empty($_GET['symbol'])){
 
     $dividendenRendite = getDividendenRendite($generalData[3], $sumDiviinYear);
 
+    $dividendGrowth = number_format((float)calcDivGrowth($_GET['symbol'], $mysqli)*100, 2, '.','') ;
+
 ?>
 
 <script>
@@ -152,7 +154,7 @@ if(!empty($_GET['symbol'])){
          KPIRow("howLong", "Seit wie vielen Jahren wird mind. 1 mal Jährlich eine Dividende gezahlt", 20, 5, <?php echo yearsPayingDividend($_GET['symbol'], $mysqli)?>, true);
          KPIRow("kgv", "KGV", 10, 50, <?php echo $generalData[4] ?>, false);
          KPIRow("dividendenRendite", "DividendenRendite", 3, 7, <?php echo $dividendenRendite ?>, false);
-         KPIRow("payOutRatio", "Pay-Out-Ratio", 60, 85, <?php echo 1 ?>, false);
+         //KPIRow("payOutRatio", "Pay-Out-Ratio", 60, 85, <?php echo 1 ?>, false);
 
 
     }
@@ -223,8 +225,8 @@ if(!empty($_GET['symbol'])){
             </tr>
             <tr id ="growth">
             </tr>
-            <tr id ="payOutRatio">
-            </tr>
+<!--            <tr id ="payOutRatio">-->
+<!--            </tr>-->
             </tbody>
         </table>
     </div>
@@ -249,7 +251,7 @@ if(!empty($_GET['symbol'])){
 
 
 
-        var growth=<?php echo "1"; ?>;
+        var growth=<?php echo $dividendGrowth; ?>;
         if (growth>= 10 || growth<=0){
             img = "img/lights/redlight.PNG";
         } else if (growth<10 && growth >5){
