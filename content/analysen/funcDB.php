@@ -442,7 +442,7 @@ function calc5YearsDivGrowth($symbol, $year, $mysqli){
     $year = $year-1;
     $e = payedDividendsInYear($year, $symbol, $mysqli)[1];
 
-    return ((($a-$b)/$b)+(($b-$c)/$c)+(($c-$d)/$d)+(($d-$e)-$e))/5;
+    return ((($a-$b)/$b)+(($b-$c)/$c)+(($c-$d)/$d)+(($d-$e)/$e))/5;
 }
 
 //loadStockIntoDB("AAPL", $mysqli);
