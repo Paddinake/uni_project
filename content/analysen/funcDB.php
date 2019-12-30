@@ -422,17 +422,24 @@ function getStockData($symbol, $mysqli){
 
 }
 
-//calculates dividend growth in percentage between each payout
-function calcDivGrowth($symbol, $mysqli){
-    $year = 2019;
+/**
+ * Calculates the average dividend growth in percentage over the last five years for a given stock.
+ * Takes a year and goes backwarts from there
+ *
+ * @param $symbol
+ * @param $mysqli
+ * @return float|int
+ */
+function calc5YearsDivGrowth($symbol, $year, $mysqli){
+    //@TODO: Make more fancy, reduce sql queries
     $a = payedDividendsInYear($year, $symbol, $mysqli)[1];
-    $year = 2018;
+    $year = $year-1;
     $b = payedDividendsInYear($year, $symbol, $mysqli)[1];
-    $year = 2017;
+    $year = $year-1;
     $c = payedDividendsInYear($year, $symbol, $mysqli)[1];
-    $year = 2016;
+    $year = $year-1;
     $d = payedDividendsInYear($year, $symbol, $mysqli)[1];
-    $year = 2015;
+    $year = $year-1;
     $e = payedDividendsInYear($year, $symbol, $mysqli)[1];
 
     return ((($a-$b)/$b)+(($b-$c)/$c)+(($c-$d)/$d)+(($d-$e)-$e))/5;

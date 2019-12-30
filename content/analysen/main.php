@@ -55,7 +55,7 @@ if(!empty($_GET['symbol'])){
 
     $dividendenRendite = getDividendenRendite($generalData[3], $sumDiviinYear);
 
-    $dividendGrowth = number_format((float)calcDivGrowth($_GET['symbol'], $mysqli)*100, 2, '.','') ;
+    $dividendGrowth = number_format((float)calc5YearsDivGrowth($_GET['symbol'], 2019, $mysqli)*100, 2, '.','') ;
 
 ?>
 
