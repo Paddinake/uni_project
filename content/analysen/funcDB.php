@@ -161,14 +161,24 @@ function updateTimestamp($symbol, $mysqli){
     echo "\nUpdated timestamp of ".$symbol."\n";
 }
 
+/**
+ * Updates stock table with current values from yahoo.
+ * @param $symbol
+ * @param $mysqli
+ */
 function updateStocks($symbol, $mysqli){
     $a = array();
     $a = scrape($symbol);
     echo "Finished scraping";
 
-    $s = "UPDATE stocks SET LastValue = '".$a[0]."', KGV = '".$a[1]."', yield = '".$a[2]."', payoutRatio = '".$a[3]."' WHERE Symbol = '".$symbol."';";
+    $s = "UPDATE stocks SET LastValue = '".$a[0]."', KGV = '".$a[1]."', yield = '".$a[2]."', payoutRatio = '".$a[3]."', WHERE Symbol = '".$symbol."';";
 
     mysqli_query($mysqli, $s);
+}
+
+function getTop5($mysqli){
+    $s = "SELECT Symbol FROM stocks ORDER BY clicks DESC LIMIT 5;";
+    return array(mysqli_query($mysqli, $s));
 }
 
 /**
@@ -176,6 +186,7 @@ function updateStocks($symbol, $mysqli){
  * If stock is not in DB, downloads data into DB and sets timestamp.
  * If stock is in DB and timestamp is old, updates all entries for given symbol.
  * If stock is in DB and timestamp is not old, it does nothing.
+ * Increase clicks.
  * @param $symbol
  * @param $mysqli
  */
@@ -197,6 +208,10 @@ function updateDB($symbol, $mysqli){
         InsertAllHistories(CSVToArray(getCSV(getURL_maxT($symbol, false))), $symbol, $mysqli);
         updateTimestamp($symbol, $mysqli);
     }
+
+    $s = "UPDATE stocks SET clicks = clicks +1 WHERE Symbol = '".$symbol."';";
+    mysqli_query($mysqli, $s);
+
     echo "\nupdateDB finished";
 }
 
