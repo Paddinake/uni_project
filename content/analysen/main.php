@@ -152,6 +152,7 @@ if(!empty($_GET['symbol'])){
          KPIRow("howLong", "Seit wie vielen Jahren wird mind. 1 mal Jährlich eine Dividende gezahlt", 20, 5, <?php echo yearsPayingDividend($_GET['symbol'], $mysqli)?>, true);
          KPIRow("kgv", "KGV", 10, 50, <?php echo $generalData[6] ?>, false);
          KPIRow("dividendenRendite", "DividendenRendite", 3, 7, <?php echo $dividendenRendite ?>, false);
+         KPIRow("payOutRatio", "Pay-Out-Ratio", 60, 85, <?php echo 1 ?>, false);
 
 
     }
@@ -246,6 +247,8 @@ if(!empty($_GET['symbol'])){
             <tr id ="dividendenRendite">
             </tr>
             <tr id ="growth">
+            </tr>
+            <tr id ="payOutRatio">
             </tr>
             </tbody>
         </table>
