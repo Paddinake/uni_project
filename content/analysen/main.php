@@ -166,49 +166,23 @@ if(!empty($_GET['symbol'])){
             <span class="mr-sm-2" id="name">  </span>
         </div>
         <div class="col">
-            <span class="mr-sm-2"> WKN: </span>
-            <span class="mr-sm-2"> Hier WKN: </span>
-        </div>
-        <div class="col">
-            <span class="mr-sm-2"> ISIN: </span>
-            <span class="mr-sm-2"> hier ISIN: </span>
-        </div>
-        <div class="col">
             <span class="mr-sm-2"> Symbol: </span>
             <span class="mr-sm-2"> <?php echo $_GET['symbol'];?> </span>
         </div>
     </div>
 
-
-    <!--placeholder aktienkurs-->
     <div class="container">
-        <div class="row">
-            <div id="chartContainer_STOCK" style="height: 370px; width: 100%;"></div>
-        </div>
-        <ul class="pagination">
-            <li class="page-item"><a class="page-link" href="#">Woche</a></li>
-            <li class="page-item"><a class="page-link" href="#">Monat </a></li>
-            <li class="page-item"><a class="page-link" href="#">Jahr</a></li>
-            <li class="page-item"><a class="page-link" href="#">5 Jahre</a></li>
-            <li class="page-item"><a class="page-link" href="#">25 Jahre</a></li>
-        </ul>
-    </div>
+    <!--placeholder aktienkurs-->
+    <div class="row">
+        <div class = "col" id="chartContainer_STOCK" style="height: 370px; width: 100%;"></div>
 
-    <div class="clearfix"></div>
+        <div class = "col-1"></div>
 
     <!--placeholder Dividendenverlauf-->
-    <div class="container-fluid">
-        <div class="row">
-            <div id="chartContainer_DIVIDEND" style="height: 370px; width: 100%;"></div>
-        </div>
-        <ul class="pagination">
-            <li class="page-item"><a class="page-link" href="#">Woche</a></li>
-            <li class="page-item"><a class="page-link" href="#">Monat </a></li>
-            <li class="page-item"><a class="page-link" href="#">Jahr</a></li>
-            <li class="page-item"><a class="page-link" href="#">5 Jahre</a></li>
-            <li class="page-item"><a class="page-link" href="#">25 Jahre</a></li>
-        </ul>
+        <div class = "col" id="chartContainer_DIVIDEND" style="height: 370px; width: 100%;"></div>
     </div>
+    </div>
+
 
     <div class="clearfix"></div>
 
@@ -219,6 +193,7 @@ if(!empty($_GET['symbol'])){
         })
     </script>
     <!--placeholder data table -->
+    <br>
     <div class="container">
         <h2>Kennzahlen</h2>
         <p>Diese Zahlen erlauben eine schnelle Einschaetzung der Qualitaet der Dividende:</p>
