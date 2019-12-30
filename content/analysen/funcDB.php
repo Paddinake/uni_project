@@ -12,8 +12,17 @@ $con = mysqli_connect('127.0.0.1','root','','uni_project');
 
 echo $mysqli->host_info . "\n";
 
-//returns URL from symbol for given timespan, interval and crumb
-//$dh = true for dividends, = false for history
+
+/**
+ * Returns URL from symbol for given timespan, interval and crumb.
+ * $dh = true for dividends, = false for history.
+ * @param $symbol
+ * @param $dh
+ * @param $startT
+ * @param $endT
+ * @param $crumb
+ * @return string
+ */
 function getURL($symbol, $dh, $startT, $endT, $crumb){
 
     if($dh==false){
@@ -24,13 +33,22 @@ function getURL($symbol, $dh, $startT, $endT, $crumb){
     return "https://query1.finance.yahoo.com/v7/finance/download/".$symbol."?period1=".$startT."&period2=".$endT."&interval=1mo&events=".$dh."&crumb=".$crumb;
 }
 
-
-//returns URL from symbol for max timeframe till now with default crumb
+/**
+ * Returns URL from symbol for max timeframe till now with default crumb.
+ * Crumb is valid for a year(?)
+ * @param $symbol
+ * @param $dh
+ * @return string
+ */
 function getURL_maxT($symbol, $dh){
     return getURL($symbol, $dh, "-900000000", getPOSIXDate(), "UO48Nwtc0Va");
 }
 
-//Loads csv from given URL
+/**
+ * Loads CSV from given URL.
+ * @param $url
+ * @return bool|string
+ */
 function getCSV($url)
 {
     $ch = curl_init();
@@ -46,7 +64,11 @@ function getCSV($url)
     return $resp;
 }
 
-//converts downloaded csv into array for further processing.
+/**
+ * Converts downloaded csv into array for further processing.
+ * @param $resp
+ * @return array
+ */
 function CSVToArray($resp){
 
     $lines = explode("\n", $resp);
@@ -64,7 +86,12 @@ function getPOSIXDate(){
     return ((int)$mt[1]);
 }
 
-//Checks if primary key already exists in DB, returns true if it does.
+/**
+ * Checks if primary key already exists in DB, returns true if it does.
+ * @param $symbol
+ * @param $mysqli
+ * @return bool
+ */
 function primKeyExists($symbol, $mysqli){
     $r = false;
     $s = "SELECT COUNT(*) FROM stocks WHERE Symbol='".$symbol."';";
@@ -80,8 +107,13 @@ function primKeyExists($symbol, $mysqli){
     return $r;
 }
 
-
-//Checks if timestamp is older than 24 hours returns true.
+/**
+ * Checks if timestamp is older than 24 hours returns true.
+ * @param $symbol
+ * @param $mysqli
+ * @return bool
+ * @throws Exception
+ */
 function isOld($symbol, $mysqli){
 
     $s = "SELECT LastUpdated FROM stocks WHERE symbol='".$symbol."';";
@@ -111,7 +143,7 @@ function isOld($symbol, $mysqli){
  * @param $symbol
  * @return string
  */
-//@TODO: Scraper ist sau langsam und liefert noch zu viel HTML zurueck.
+//@TODO: liefert noch zu viel HTML zurueck.
 function getCurrentStockValue($symbol){
     /*$html = file_get_html('https://finance.yahoo.com/quote/'.$symbol.'/history');
     $currentStockValue = "";
@@ -128,6 +160,11 @@ function getCurrentStockValue($symbol){
 }
 
 //@TODO: make it return the symbols current name of the stock.
+/**
+ * Returns stock name from URL
+ * @param $symbol
+ * @return string
+ */
 function getStockName($symbol){
     /*$html = file_get_html('https://finance.yahoo.com/quote/'.$symbol.'/history');
     $currentStockValue = "";
@@ -154,7 +191,11 @@ function loadStockIntoDB($symbol, $mysqli){
     mysqli_query($mysqli, $s);
 }
 
-//Updates timestamp to current time.
+/**
+ * Updates timestamp to current time.
+ * @param $symbol
+ * @param $mysqli
+ */
 function updateTimestamp($symbol, $mysqli){
     $s = "UPDATE stocks SET LastUpdated=current_timestamp WHERE symbol='".$symbol."';";
     mysqli_query($mysqli, $s);
@@ -176,6 +217,11 @@ function updateStocks($symbol, $mysqli){
     mysqli_query($mysqli, $s);
 }
 
+/**
+ * Returns top 5 most clicked stock names.
+ * @param $mysqli
+ * @return array
+ */
 function getTop5($mysqli){
     $s = "SELECT Symbol FROM stocks ORDER BY clicks DESC LIMIT 5;";
     return array(mysqli_query($mysqli, $s));
@@ -343,13 +389,26 @@ function InsertAllHistories($array, $symbol, $mysqli){
     mysqli_query($mysqli, $s);
 }
 
-//fuer testing, sollte spaeter ueberall ersetzt werden mit datenbankzugriffen und funktion fuer zugriffe auf dynamische urls
+/**
+ * For testing.
+ * Loads CSV and returns as array.
+ *
+ * @param $symbol
+ * @return array
+ */
 function getTestDiv($symbol){
     return CSVToArray(getCSV("https://query1.finance.yahoo.com/v7/finance/download/".$symbol."?period1=738540000&period2=1576796400&interval=1mo&events=div&crumb=UO48Nwtc0Va"));
 }
 
-//@TODO echo mit passendem return ersetzen?
-//gibt die die summe der bezahlten dividenden und die anzahl der auszahlungen aus.
+//@TODO echo mit array return ersetzen?
+/**
+ * For testing.
+ * Returns sum of dividends payed in a year.
+ * Echos to console.
+ *
+ * @param $year
+ * @param $symbol
+ */
 function payedDividensInYearFromCSV($year, $symbol){
     $sum=0;//summiert die in dem Jahr bisher tatsaechlich bezahlten Dividenden
     $counter=0;//anzahl der bezahlten Dividenden
@@ -400,6 +459,7 @@ function payedDividendsInYear($year, $symbol, $mysqli){
 
 }
 
+//@TODO FIX THIS BEFORE RELEASE
 function yearsPayingDividend($symbol, $mysqli){
     $s = "SELECT * FROM dividends WHERE symbol = '".$symbol."';";
 
@@ -426,6 +486,12 @@ function yearsPayingDividend($symbol, $mysqli){
 
 }
 
+/**
+ * Returns all stock data from stocks table.
+ * @param $symbol
+ * @param $mysqli
+ * @return array|null
+ */
 function getStockData($symbol, $mysqli){
     $s = "SELECT * FROM stocks WHERE symbol = '".$symbol."';";
 
