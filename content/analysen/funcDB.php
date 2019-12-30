@@ -411,6 +411,17 @@ function yearsPayingDividend($symbol, $mysqli){
 
 }
 
+function getStockData($symbol, $mysqli){
+    $s = "SELECT * FROM stocks WHERE symbol = '".$symbol."';";
+
+    $result = mysqli_query($mysqli, $s);
+
+    while ($row = mysqli_fetch_array($result)){
+        return $row;
+    }
+
+}
+
 //calculates dividend growth in percentage between each payout
 function calcDivGrowth($array){
 

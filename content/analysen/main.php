@@ -38,11 +38,24 @@ if(empty($_GET['symbol'])) {
 
 <?php
 
+function getDividendenRendite($lastStockprice, $meanDiviInYear){
+    echo $lastStockprice;
+    echo $meanDiviInYear;
+    return $lastStockprice/$meanDiviInYear;
+}
+
 if(!empty($_GET['symbol'])){
     include('graphHelper.php');
     updateDB($_GET['symbol'], $mysqli);
     $datapoints_STOCK = getHistoryforGraph($_GET['symbol']);
     $datapoints_DIVIDEND = getDividendforGraph($_GET['symbol']);
+    $generalData = getStockData($_GET['symbol'], $mysqli);
+
+    $x =  payedDividendsInYear(2019, $_GET['symbol'], $mysqli);
+    $amountDivinYear =$x[0];
+    $sumDiviinYear =$x[1];
+
+    $dividendenRendite = getDividendenRendite($generalData[3], ($sumDiviinYear/$amountDivinYear));
 
 ?>
 
@@ -139,7 +152,8 @@ if(!empty($_GET['symbol'])){
 
         // KPI's befüllen
          KPIRow("howLong", "Seit wie vielen Jahren wird mind. 1 mal Jährlich eine Dividende gezahlt", 20, 5, <?php echo yearsPayingDividend($_GET['symbol'], $mysqli)?>, true);
-        // KPIRow("secondKPI", "Dividenden Ratio", 10, 5, 7, true);
+         KPIRow("kgv", "KGV", 10, 50, <?php echo $generalData[6] ?>, false);
+         KPIRow("dividendenRendite", "DividendenRendite", 3, 7, <?php echo $dividendenRendite ?>, false);
 
 
     }
@@ -229,14 +243,16 @@ if(!empty($_GET['symbol'])){
             </tr>
             <tr id ="howLong">
             </tr>
-            <tr id ="thirdKPI">
+            <tr id ="kgv">
+            </tr>
+            <tr id ="dividendenRendite">
             </tr>
             </tbody>
         </table>
     </div>
 
     <script>
-        var payedDividendsinYear=<?php echo payedDividendsInYear(2019, $_GET['symbol'], $mysqli)[0]; ?>;
+        var payedDividendsinYear=<?php echo $amountDivinYear; ?>;
         if (payedDividendsinYear==4){
             img = "img/lights/greenlight.PNG";
         } else if (payedDividendsinYear>= 20 || payedDividendsinYear==0){
