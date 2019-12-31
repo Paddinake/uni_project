@@ -4,9 +4,31 @@
 <script src="botui-master/build/botui.min.js"></script>
 
 
+<?php
+
+include '../analysen/globalFunctions.php';
+?>
+<script type="text/javascript" src="../analysen/stocks.js"></script>
+<script>
+    function getNameForSymbol(symbol) {
+        var name;
+        for (var i = 0; i < stocks.length; i++) {
+            if (stocks[i].value == symbol) {
+                name = stocks[i].label;
+            }
+        }
+        return name;
+    }
+
+
+
+</script>
+
     <div id="my-botui-app">
         <bot-ui></bot-ui>
     </div>
+
+
 
 
 
@@ -15,6 +37,20 @@
 
     // first ist true beim ersten Aufruf
     function askWhatToDo(first){
+        <?php
+        $top5array = getTop5($mysqli);
+        ?>
+        var top1 = "<?php echo $top5array[0]?>";
+        var name1 = getNameForSymbol(top1);
+        var top2 = "<?php echo $top5array[1]?>";
+        var name2 = getNameForSymbol(top2);
+        var top3 = "<?php echo $top5array[2]?>";
+        var name3 = getNameForSymbol(top3);
+        var top4 = "<?php echo $top5array[3]?>";
+        var name4 = getNameForSymbol(top4);
+        var top5 = "<?php echo $top5array[4]?>";
+        var name5 = getNameForSymbol(top5);
+
         if (!first){
             botui.message.add({
                 loading:true,
@@ -34,7 +70,7 @@
                     value: 1
                 },
                 {
-                    text: "Empfehlung",
+                    text: "Top 5 Suchen aktuell",
                     value: 2
                 },
                 {
@@ -55,9 +91,32 @@
             window.opener.website.location.href = "../../index.php?content=analysen";
         }
         else if(res.value==2){
-            return botui.message.add({
-                delay: 2500,
-                content: "sollten wir mal implementieren"
+            return botui.action.button({
+                action: [
+                    {
+                        text: name1,
+                        value: top1
+                    },
+                    {
+                        text: name2,
+                        value: top2
+                    },
+                    {
+                        text: name3,
+                        value: top3
+                    },
+                    {
+                        text: name4,
+                        value: top4
+                    },
+                    {
+                        text: name5,
+                        value: top5
+                    }
+
+                ]
+            }).then(function(res){
+                window.opener.website.location.href = "../../index.php?content=analysen&symbol="+res.value;
             });
         }
         else if(res.value==3){
@@ -79,7 +138,7 @@
     }).then(function (res) {
         return botui.message.add({
              loading:true,
-             delay: 2500,
+             // delay: 2500,
              content: 'Schön, dass du hier bist ' + res.value + ' wie kann ich weiter helfen?'
          });
     }).then(function(){
