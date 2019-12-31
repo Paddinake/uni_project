@@ -6,7 +6,7 @@
 
 <?php
 
-include '../analysen/globalFunctions.php';
+include '../analysen/funcDB.php';
 ?>
 <script type="text/javascript" src="../analysen/stocks.js"></script>
 <script>

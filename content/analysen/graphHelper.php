@@ -1,8 +1,12 @@
 <?php
-include('funcDB.php');
+include_once('funcDB.php');
 
-//returns datapoints prepared for ChartJS
-// vielleicht muss man den Index auch al variable übergeben
+/**
+ * Returns all Dividend datapoints for a Symbol prepared for the ChartJS framework
+ *
+ * @param $symbol
+ * @return array
+ */
 function getDividendforGraph($symbol){
     $mysqli = new mysqli("127.0.0.1", "root", "", "uni_project", 3306);
     $array = loadAllDividendsToArray($symbol, $mysqli);
@@ -18,6 +22,13 @@ function getDividendforGraph($symbol){
     return $dataPoints;
 }
 
+
+/**
+ * Returns all History datapoints for a Symbol prepared for the ChartJS framework
+ *
+ * @param $symbol
+ * @return array
+ */
 function getHistoryforGraph($symbol){
     $mysqli = new mysqli("127.0.0.1", "root", "", "uni_project", 3306);
     $array = loadAllHistoryToArray($symbol, $mysqli);

@@ -10,7 +10,7 @@
 <head>
     <title>HYPE</title>
     <meta charset="utf-8">
-<!--    TODO: Welche Scripte wir wirklich brauchen raussuchen und dann runterladen-->
+<!--    TODO: Welche Scripte wir wirklich brauchen raussuchen und dann runterladen in unterordnern gib es auch noch einbindungen diese auch mit überprüfen-->
     <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16.png">
     <meta name="viewport" content="width=device-width, initial-scale=1">

@@ -3,6 +3,8 @@ include_once('simple_html_dom.php');
 //include('db.php');
 include('scraper.php');
 
+//ToDo: remove Debug Echo's
+
 //@TODO replace with loading icon
 set_time_limit(0);
 ignore_user_abort();
@@ -492,6 +494,23 @@ function getStockData($symbol, $mysqli){
         return $row;
     }
 
+}
+
+/**
+ * Returns top 5 most clicked stock names.
+ * @param $mysqli
+ * @return array
+ */
+function getTop5($mysqli){
+    $s = "SELECT Symbol FROM stocks ORDER BY clicks DESC LIMIT 5;";
+    $result = mysqli_query($mysqli, $s);
+
+    $top5 = array();
+
+    while($row = mysqli_fetch_array($result)){
+        array_push($top5, $row['Symbol']);
+    }
+    return $top5;
 }
 
 /**

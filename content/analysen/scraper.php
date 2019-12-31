@@ -2,6 +2,13 @@
 include_once('simple_html_dom.php');
 
 //@TODO fix operating income & dividends Paid
+
+/**
+ * This function does all the Scraping neccessary and returns an array with the scraped values
+ *
+ * @param $symbol
+ * @return array
+ */
 function scrape($symbol){
 
         $html = file_get_html("https://finance.yahoo.com/quote/".$symbol);

@@ -1,9 +1,24 @@
-<!--Welcome-->
 <?php
-include 'globalFunctions.php';
+include_once('funcDB.php');
+
+function getDividendenRendite($lastStockprice, $sumDiviInYear){
+    return number_format((float)(($sumDiviInYear/$lastStockprice)*100), 2, '.','') ;
+}
+
 ?>
 <script type="text/javascript" src="content/analysen/stocks.js"></script>
 <script>
+
+    // Enable tooltip toggle
+    $(function(){
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+
+    /**
+     * returns the Name for a symbol
+     *
+     * @param symbol Symbol for that the name is needed
+     */
     function getNameForSymbol(symbol){
         var name;
         for (var i=0; i<stocks.length; i++){
@@ -13,89 +28,9 @@ include 'globalFunctions.php';
         }
         return name;
     }
-</script>
-<div class="container-fluid padding" id="prices">
-    <div class="row welcome text-center">
-        <div class="col-12">
-            <h1 class="display-4"> Analyse </h1>
-        </div>
-        <hr>
-        <div class="col-12">
-            <p class="lead">
-                Alles auf einer Seite
-            </p>
-        </div>
-
-    </div>
-</div>
-<?php
-if(empty($_GET['symbol'])) {
-    echo "<div class=\"col-12\">
-            <p class=\"lead\">
-            bitte erst eine Aktie auswählen
-            </p>
-            </div>
-    ";
-}
-?>
-<!-- Suche -->
-<div class="row container-fluid padding center">
-    <div class="col-8 container-fluid">
-        <div id="searchbar">
-            <?php
-            include "searchbar.php";
-            ?>
-        </div>
-    </div>
-    <div class="col-4 text-right">
-        <table>
-            <th>Top 5 meistgesuchten Aktien</th>
-            <?php
-            foreach (getTop5($mysqli) as $item){
-                echo"<tr>";
-                echo '<td >
-                                <a href="index.php?content=analysen&symbol='.$item.'">
-                                    <div style="height:100%;width:100%" id="'.$item.'">
-                                        <script>document.getElementById("'.$item.'").innerHTML =getNameForSymbol("'.$item.'");</script>
-                                    </div>
-                                </a>
-                            </td>';
-                echo "</tr>";
-            }
-            ?>
-        </table>
-    </div>
-</div>
-
-<div class="clearfix"</div>
-</div>
-
-<?php
-
-function getDividendenRendite($lastStockprice, $sumDiviInYear){
-    return number_format((float)(($sumDiviInYear/$lastStockprice)*100), 2, '.','') ;
-}
-
-if(!empty($_GET['symbol'])){
-    include('graphHelper.php');
-    updateDB($_GET['symbol'], $mysqli);
-    $datapoints_STOCK = getHistoryforGraph($_GET['symbol']);
-    $datapoints_DIVIDEND = getDividendforGraph($_GET['symbol']);
-    $generalData = getStockData($_GET['symbol'], $mysqli);
-
-    $x =  payedDividendsInYear(2019, $_GET['symbol'], $mysqli);
-    $amountDivinYear =$x[0];
-    $sumDiviinYear =$x[1];
-
-    $dividendenRendite = getDividendenRendite($generalData[3], $sumDiviinYear);
-
-    $dividendGrowth = number_format((float)calc5YearsDivGrowth($_GET['symbol'], 2019, $mysqli)*100, 2, '.','') ;
-
-?>
-
-<script>
 
     /**
+     * Function to create a KPI Row
      *
      * @param trID Id des <tr> elements
      * @param name name der Kennzahl
@@ -139,15 +74,85 @@ if(!empty($_GET['symbol'])){
 
         }
     }
+</script>
+
+<!-- Welcome -->
+<div class="container-fluid padding" id="prices">
+    <div class="row welcome text-center">
+        <div class="col-12">
+            <h1 class="display-4"> Analyse </h1>
+        </div>
+        <hr>
+        <div class="col-12">
+            <p class="lead">
+                Alles auf einer Seite
+            </p>
+        </div>
+
+    </div>
+</div>
 
 
+<div class="row container-fluid padding center">
+    <!-- Searchbar -->
+    <div class="col-8 container-fluid">
+        <div id="searchbar">
+            <?php
+            include "searchbar.php";
+            ?>
+        </div>
+    </div>
+<!--  Top 5 Stocks  -->
+    <div class="col-4 text-right">
+        <table class="table table-sm">
+            <th>Top 5 meistgesuchten Aktien</th>
+            <?php
+            foreach (getTop5($mysqli) as $item){
+                echo"<tr>";
+                echo '<td >
+                                <a href="index.php?content=analysen&symbol='.$item.'">
+                                    <div style="height:100%;width:100%" id="'.$item.'">
+                                        <script>document.getElementById("'.$item.'").innerHTML =getNameForSymbol("'.$item.'");</script>
+                                    </div>
+                                </a>
+                            </td>';
+                echo "</tr>";
+            }
+            ?>
+        </table>
+    </div>
+</div>
 
-    // get Name for the symbol
+<div class="clearfix"</div>
+</div>
+
+<!--Only if Symbol is selected-->
+
+<?php
+if(!empty($_GET['symbol'])){
+    include('graphHelper.php');
+    updateDB($_GET['symbol'], $mysqli);
+    $datapoints_STOCK = getHistoryforGraph($_GET['symbol']);
+    $datapoints_DIVIDEND = getDividendforGraph($_GET['symbol']);
+    $generalData = getStockData($_GET['symbol'], $mysqli);
+
+    $x =  payedDividendsInYear(2019, $_GET['symbol'], $mysqli);
+    $amountDivinYear =$x[0];
+    $sumDiviinYear =$x[1];
+
+    $dividendenRendite = getDividendenRendite($generalData[3], $sumDiviinYear);
+
+    $dividendGrowth = number_format((float)calc5YearsDivGrowth($_GET['symbol'], 2019, $mysqli)*100, 2, '.','') ;
+
+?>
+
+<script>
+    // get Name for the symbol and place it
     var mainName = getNameForSymbol("<?php echo $_GET['symbol']; ?>");
-
     $( document ).ready(function() {
         $('#name').text(mainName);
     });
+
 
     // fill charts with data
     window.onload = function () {
@@ -187,82 +192,7 @@ if(!empty($_GET['symbol'])){
          KPIRow("dividendenRendite", "DividendenRendite", 3, 7, <?php echo $dividendenRendite ?>, false);
          //KPIRow("payOutRatio", "Pay-Out-Ratio", 60, 85, <?php echo 1 ?>, false);
 
-
-    }
-</script>
-
-<!-- Daten -->
-<div class="container">
-    <div class="row">
-        <div class="col">
-            <span class="mr-sm-2"> Name: </span>
-            <span class="mr-sm-2" id="name">  </span>
-        </div>
-        <div class="col">
-            <span class="mr-sm-2"> Symbol: </span>
-            <span class="mr-sm-2"> <?php echo $_GET['symbol'];?> </span>
-        </div>
-    </div>
-
-    <div class="container">
-    <!--placeholder aktienkurs-->
-    <div class="row">
-        <div class = "col" id="chartContainer_STOCK" style="height: 370px; width: 100%;"></div>
-
-        <div class = "col-1"></div>
-
-    <!--placeholder Dividendenverlauf-->
-        <div class = "col" id="chartContainer_DIVIDEND" style="height: 370px; width: 100%;"></div>
-    </div>
-    </div>
-
-
-    <div class="clearfix"></div>
-
-<!--    Info Button-->
-    <script>
-        $(function(){
-            $('[data-toggle="tooltip"]').tooltip();
-        })
-    </script>
-    <!--placeholder data table -->
-    <br>
-    <div class="container">
-        <h2>Kennzahlen</h2>
-        <p>Diese Zahlen erlauben eine schnelle Einschaetzung der Qualitaet der Dividende:</p>
-        <table class="table table-striped text-center">
-            <thead>
-            <tr>
-                <th>Kennzahl</th>
-                <th colspan="2" >kritische Werte</th>
-                <th>Aktueller Wert</th>
-                <th>Ampel</th>
-            </tr>
-            <tr>
-                <th></th>
-                <th>Grün</th>
-                <th>Rot</th>
-                <th></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr id="payRate">
-            </tr>
-            <tr id ="howLong">
-            </tr>
-            <tr id ="kgv">
-            </tr>
-            <tr id ="dividendenRendite">
-            </tr>
-            <tr id ="growth">
-            </tr>
-<!--            <tr id ="payOutRatio">-->
-<!--            </tr>-->
-            </tbody>
-        </table>
-    </div>
-
-    <script>
+        // KPIs that cant be filled with KPIRow() due to special red/green conditions
         var payedDividendsinYear=<?php echo $amountDivinYear; ?>;
         if (payedDividendsinYear==4){
             img = "img/lights/greenlight.PNG";
@@ -299,7 +229,75 @@ if(!empty($_GET['symbol'])){
             '<td>>= 10 oder <= 5</td>' +
             '<td>'+growth+'</td>' +
             '<td><img class="img-fluid" style="max-height: 30px" src="'+img+'"></td>');
-    </script>
+
+    }
+</script>
+
+<!-- Grunddaten -->
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <span class="mr-sm-2"> Name: </span>
+            <span class="mr-sm-2" id="name">  </span>
+        </div>
+        <div class="col">
+            <span class="mr-sm-2"> Symbol: </span>
+            <span class="mr-sm-2"> <?php echo $_GET['symbol'];?> </span>
+        </div>
+    </div>
+
+    <div class="container">
+    <!--placeholder aktienkurs-->
+    <div class="row">
+        <div class = "col" id="chartContainer_STOCK" style="height: 370px; width: 100%;"></div>
+
+        <div class = "col-1"></div>
+
+    <!--placeholder Dividendenverlauf-->
+        <div class = "col" id="chartContainer_DIVIDEND" style="height: 370px; width: 100%;"></div>
+    </div>
+    </div>
+
+
+    <div class="clearfix"></div>
+
+    <!--placeholder data table with traffic lights -->
+    <br>
+    <div class="container">
+        <h2>Kennzahlen</h2>
+        <p>Diese Zahlen erlauben eine schnelle Einschaetzung der Qualitaet der Dividende:</p>
+        <table class="table table-striped text-center">
+            <thead>
+            <tr>
+                <th>Kennzahl</th>
+                <th colspan="2" >kritische Werte</th>
+                <th>Aktueller Wert</th>
+                <th>Ampel</th>
+            </tr>
+            <tr>
+                <th></th>
+                <th>Grün</th>
+                <th>Rot</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr id="payRate">
+            </tr>
+            <tr id ="howLong">
+            </tr>
+            <tr id ="kgv">
+            </tr>
+            <tr id ="dividendenRendite">
+            </tr>
+            <tr id ="growth">
+            </tr>
+<!--            <tr id ="payOutRatio">-->
+<!--            </tr>-->
+            </tbody>
+        </table>
+    </div>
+
 
 </div>
 <div class="clearfix"></div>
