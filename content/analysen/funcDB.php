@@ -217,15 +217,6 @@ function updateStocks($symbol, $mysqli){
     mysqli_query($mysqli, $s);
 }
 
-/**
- * Returns top 5 most clicked stock names.
- * @param $mysqli
- * @return array
- */
-function getTop5($mysqli){
-    $s = "SELECT Symbol FROM stocks ORDER BY clicks DESC LIMIT 5;";
-    return array(mysqli_query($mysqli, $s));
-}
 
 /**
  * Checks if a stock is already in the DB or how old the timestamp is.

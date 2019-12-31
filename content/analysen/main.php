@@ -1,4 +1,19 @@
 <!--Welcome-->
+<?php
+include 'globalFunctions.php';
+?>
+<script type="text/javascript" src="content/analysen/stocks.js"></script>
+<script>
+    function getNameForSymbol(symbol){
+        var name;
+        for (var i=0; i<stocks.length; i++){
+            if (stocks[i].value==symbol){
+                name = stocks[i].label;
+            }
+        }
+        return name;
+    }
+</script>
 <div class="container-fluid padding" id="prices">
     <div class="row welcome text-center">
         <div class="col-12">
@@ -10,6 +25,7 @@
                 Alles auf einer Seite
             </p>
         </div>
+
     </div>
 </div>
 <?php
@@ -24,12 +40,30 @@ if(empty($_GET['symbol'])) {
 ?>
 <!-- Suche -->
 <div class="row container-fluid padding center">
-    <div class="container-fluid">
+    <div class="col-8 container-fluid">
         <div id="searchbar">
             <?php
             include "searchbar.php";
             ?>
         </div>
+    </div>
+    <div class="col-4 text-right">
+        <table>
+            <th>Top 5 meistgesuchten Aktien</th>
+            <?php
+            foreach (getTop5($mysqli) as $item){
+                echo"<tr>";
+                echo '<td >
+                                <a href="index.php?content=analysen&symbol='.$item.'">
+                                    <div style="height:100%;width:100%" id="'.$item.'">
+                                        <script>document.getElementById("'.$item.'").innerHTML =getNameForSymbol("'.$item.'");</script>
+                                    </div>
+                                </a>
+                            </td>';
+                echo "</tr>";
+            }
+            ?>
+        </table>
     </div>
 </div>
 
@@ -106,16 +140,13 @@ if(!empty($_GET['symbol'])){
         }
     }
 
+
+
     // get Name for the symbol
-    var symbol = "<?php echo $_GET['symbol']; ?>";
-    var name;
-    for (var i=0; i<stocks.length; i++){
-        if (stocks[i].value==symbol){
-            name = stocks[i].label;
-        }
-    }
+    var mainName = getNameForSymbol("<?php echo $_GET['symbol']; ?>");
+
     $( document ).ready(function() {
-        $('#name').text(name);
+        $('#name').text(mainName);
     });
 
     // fill charts with data
