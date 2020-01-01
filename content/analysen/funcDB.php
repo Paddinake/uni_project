@@ -537,6 +537,33 @@ function calc5YearsDivGrowth($symbol, $year, $mysqli){
     return ((($a-$b)/$b)+(($b-$c)/$c)+(($c-$d)/$d)+(($d-$e)/$e))/5;
 }
 
+/**
+ * Returns if user is premium user or not.
+ * 1 = TRUE for premium users, 0 for non-premium users.
+ * @param $userID
+ * @param $mysqli
+ */
+function isPremium($userID, $mysqli){
+    $s = "SELECT premium FROM user WHERE user_id = '".$userID."';";
+    $result = mysqli_query($mysqli, $s);
+    while($row = mysqli_fetch_array($result)){
+        $return = $row['premium'];
+    }
+    return $return;
+}
+
+/**
+ * Sets premium status for user.
+ * 1 = true, 0 = false.
+ * @param $userID
+ * @param $isPremium
+ * @param $mysqli
+ */
+function setPremium($userID, $isPremium, $mysqli){
+    $s = "UPDATE user SET premium = ".$isPremium." WHERE user_id = '".$userID."';";
+    mysqli_query($mysqli, $s);
+}
+
 //loadStockIntoDB("AAPL", $mysqli);
 //payedDividensInYear("2014", "SKT");
 //InsertAllDividends(getTestDiv("SKT"), "SKT", $mysqli);
@@ -550,5 +577,8 @@ function calc5YearsDivGrowth($symbol, $year, $mysqli){
 //payedDividendsInYear(2014, "SKT", $mysqli);
 //getCurrentStockValue("SKT");
 //updateStocks("AAPL", $mysqli);
+echo isPremium(66, $mysqli);
+setPremium(66, 1,$mysqli);
+echo isPremium(66, $mysqli);
 
 ?>
