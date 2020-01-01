@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 01. Jan 2020 um 22:26
+-- Erstellungszeit: 01. Jan 2020 um 23:49
 -- Server-Version: 10.4.8-MariaDB
 -- PHP-Version: 7.3.11
 
@@ -3278,21 +3278,23 @@ CREATE TABLE `user` (
   `email` varchar(500) COLLATE utf8_german2_ci NOT NULL,
   `passwort` varchar(5000) COLLATE utf8_german2_ci NOT NULL,
   `premium` tinyint(1) NOT NULL DEFAULT 0,
-  `numCalls` int(11) NOT NULL DEFAULT 0
+  `numCalls` int(11) NOT NULL DEFAULT 0,
+  `timestamp` timestamp NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_german2_ci;
 
 --
 -- Daten für Tabelle `user`
 --
 
-INSERT INTO `user` (`user_id`, `name`, `email`, `passwort`, `premium`, `numCalls`) VALUES
-(29, '222', '222', '', 0, 0),
-(52, 'admin', 'admin', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', 0, 0),
-(59, 'f', 'f', '252f10c83610ebca1a059c0bae8255eba2f95be4d1d7bcfa89d7248a82d9f111', 0, 0),
-(62, '234', '234', '114bd151f8fb0c58642d2170da4ae7d7c57977260ac2cc8905306cab6b2acabc', 0, 0),
-(63, '123', '123', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', 0, 0),
-(65, '1', '1', '6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b', 0, 0),
-(66, 'test', 'test@test.de', '9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08', 1, 0);
+INSERT INTO `user` (`user_id`, `name`, `email`, `passwort`, `premium`, `numCalls`, `timestamp`) VALUES
+(1, 'tester', 'tester@test.de', '123456', 0, 5, '2020-01-01 22:46:53'),
+(29, '222', '222', '', 0, 0, NULL),
+(52, 'admin', 'admin', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', 0, 0, NULL),
+(59, 'f', 'f', '252f10c83610ebca1a059c0bae8255eba2f95be4d1d7bcfa89d7248a82d9f111', 0, 0, NULL),
+(62, '234', '234', '114bd151f8fb0c58642d2170da4ae7d7c57977260ac2cc8905306cab6b2acabc', 0, 0, NULL),
+(63, '123', '123', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', 0, 0, NULL),
+(65, '1', '1', '6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b', 0, 5, NULL),
+(66, 'test', 'test@test.de', '9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08', 1, 0, NULL);
 
 --
 -- Indizes der exportierten Tabellen
