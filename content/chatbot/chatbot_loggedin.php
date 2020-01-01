@@ -12,12 +12,20 @@ include '../analysen/funcDB.php';
 <script>
     function getNameForSymbol(symbol) {
         var name;
+        var symbol;
         for (var i = 0; i < stocks.length; i++) {
             if (stocks[i].value == symbol) {
                 name = stocks[i].label;
+                symbol = stocks[i].value;
             }
         }
-        return name;
+
+        if (typeof name!=="undefined"){
+            return name;
+        } else {
+            return symbol;
+        }
+
     }
 
 

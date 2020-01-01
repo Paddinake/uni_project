@@ -19,14 +19,22 @@ function getDividendenRendite($lastStockprice, $sumDiviInYear){
      *
      * @param symbol Symbol for that the name is needed
      */
-    function getNameForSymbol(symbol){
+    function getNameForSymbol(symbol) {
         var name;
-        for (var i=0; i<stocks.length; i++){
-            if (stocks[i].value==symbol){
+        var symbol;
+        for (var i = 0; i < stocks.length; i++) {
+            if (stocks[i].value == symbol) {
                 name = stocks[i].label;
+                symbol = stocks[i].value;
             }
         }
-        return name;
+
+        if (typeof name!=="undefined"){
+            return name;
+        } else {
+            return symbol;
+        }
+
     }
 
     /**
@@ -112,7 +120,9 @@ function getDividendenRendite($lastStockprice, $sumDiviInYear){
                 echo '<td >
                                 <a href="index.php?content=analysen&symbol='.$item.'">
                                     <div style="height:100%;width:100%" id="'.$item.'">
-                                        <script>document.getElementById("'.$item.'").innerHTML =getNameForSymbol("'.$item.'");</script>
+                                        <script>
+                                            document.getElementById("'.$item.'").innerHTML =getNameForSymbol("'.$item.'");
+                                        </script>
                                     </div>
                                 </a>
                             </td>';
