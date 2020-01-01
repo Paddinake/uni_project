@@ -564,6 +564,92 @@ function setPremium($userID, $isPremium, $mysqli){
     mysqli_query($mysqli, $s);
 }
 
+/**
+ * Increases numCalls of an user by one.
+ * @param $userID
+ * @param $mysqli
+ */
+function increaseNumCalls($userID, $mysqli){
+    $s = "UPDATE user SET numCalls = numCalls + 1 WHERE user_id ='".$userID."';";
+    mysqli_query($mysqli, $s);
+}
+
+/**
+ * Resets numCalls of an user to zero.
+ * @param $userID
+ * @param $mysqli
+ */
+function resetNumCalls($userID, $mysqli){
+    $s = "UPDATE user SET numCalls = 0 WHERE user_id ='".$userID."';";
+    mysqli_query($mysqli, $s);
+}
+
+/**
+ * Returns a 1 if user is allowed to make an request, 0 if it is not a premium user and has exceeded
+ * the limit of 5 requests.
+ * @param $userID
+ * @param $mysqli
+ * @return mixed
+ */
+function callAllowed($userID, $mysqli){
+
+    if(userIsOld($userID, $mysqli)==false) {
+
+        $s = "SELECT IF(premium = 0 AND numCalls >= 5, 0, 1) FROM user WHERE user_id = " . $userID . ";";
+
+        $result = mysqli_query($mysqli, $s);
+        while ($row = mysqli_fetch_array($result)) {
+            $return = $row[0];
+        }
+        return $return;
+    } else {
+        return 1;
+    }
+
+}
+
+/**
+ * Sets the user timestamp to current_timestamp.
+ * @param $userID
+ * @param $mysqli
+ */
+function setUserTimestampNow($userID, $mysqli){
+    $s = "UPDATE user SET timestamp = current_timestamp WHERE user_id = ".$userID.";";
+    mysqli_query($mysqli, $s);
+}
+
+/**
+ * Checks if users timestamp is older than 24 hours.
+ * @param $userID
+ * @param $mysqli
+ * @return bool
+ * @throws Exception
+ */
+function userIsOld($userID, $mysqli){
+    $s = "SELECT timestamp FROM user WHERE user_id='".$userID."';";
+    $result = mysqli_query($mysqli, $s);
+
+    while ($row = mysqli_fetch_assoc($result)){
+        echo $row["timestamp"]."\n";
+        $timeST = new DateTime($row["timestamp"]);//last updated in DB
+        $timeN = new DateTime();//current time
+        $i = $timeST->diff($timeN);
+        if(intval($i->format("%Y")) > 0 or
+            intval($i->format("%m")) > 0 or
+            intval($i->format("%d")) > 0){
+
+            echo $i->format('Age is: %y years %m monts %d days %h hours');
+            return true;
+
+        }
+    }
+    return false;
+}
+
+
+
+
+
 //loadStockIntoDB("AAPL", $mysqli);
 //payedDividensInYear("2014", "SKT");
 //InsertAllDividends(getTestDiv("SKT"), "SKT", $mysqli);
@@ -577,8 +663,6 @@ function setPremium($userID, $isPremium, $mysqli){
 //payedDividendsInYear(2014, "SKT", $mysqli);
 //getCurrentStockValue("SKT");
 //updateStocks("AAPL", $mysqli);
-echo isPremium(66, $mysqli);
-setPremium(66, 1,$mysqli);
-echo isPremium(66, $mysqli);
+echo callAllowed(65, $mysqli);
 
 ?>
