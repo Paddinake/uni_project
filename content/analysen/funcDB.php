@@ -585,6 +585,23 @@ function resetNumCalls($userID, $mysqli){
 }
 
 /**
+ * Returns numCalls of a single user.
+ * @param $userID
+ * @param $mysqli
+ * @return mixed
+ */
+function getNumCalls($userID, $mysqli){
+    $s = "SELECT numCalls FROM user WHERE user_id = ".$userID.";";
+    $result = mysqli_query($mysqli, $s);
+
+    while($row = mysqli_fetch_array($result)){
+        $return = $row['numCalls'];
+    }
+    return $return;
+
+}
+
+/**
  * Returns a 1 if user is allowed to make an request, 0 if it is not a premium user and has exceeded
  * the limit of 5 requests.
  * @param $userID
@@ -595,7 +612,7 @@ function callAllowed($userID, $mysqli){
 
     if(userIsOld($userID, $mysqli)==false) {
 
-        $s = "SELECT IF(premium = 0 AND numCalls >= 5, 0, 1) FROM user WHERE user_id = " . $userID . ";";
+        $s = "SELECT IF(premium = 0 AND numCalls > 4, 0, 1) FROM user WHERE user_id = " . $userID . ";";
 
         $result = mysqli_query($mysqli, $s);
         while ($row = mysqli_fetch_array($result)) {
@@ -603,8 +620,31 @@ function callAllowed($userID, $mysqli){
         }
         return $return;
     } else {
+
+        $s = "UPDATE user SET timestamp = current_timestamp, numCalls = 0 WHERE user_id = ".$userID.";";
+        mysqli_query($mysqli, $s);
         return 1;
     }
+
+}
+
+/**
+ *  * Central function for user check.
+ * Checks if user is allowed to make a call and returns 1 if it is allowed, 0 if not.
+ * Increments numCalls if user is allowed to make a request.
+ * @param $userID
+ * @param $mysqli
+ * @return mixed
+ */
+function userUpdate($userID, $mysqli){
+
+    $return = callAllowed($userID, $mysqli);
+
+    if($return==1){
+        increaseNumCalls($userID, $mysqli);
+    }
+
+    return $return;
 
 }
 
@@ -663,6 +703,7 @@ function userIsOld($userID, $mysqli){
 //payedDividendsInYear(2014, "SKT", $mysqli);
 //getCurrentStockValue("SKT");
 //updateStocks("AAPL", $mysqli);
-echo callAllowed(65, $mysqli);
+//echo callAllowed(65, $mysqli);
+echo userUpdate(1, $mysqli);
 
 ?>
