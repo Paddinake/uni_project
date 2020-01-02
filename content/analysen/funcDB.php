@@ -147,18 +147,7 @@ function isOld($symbol, $mysqli){
  */
 //@TODO: liefert noch zu viel HTML zurueck.
 function getCurrentStockValue($symbol){
-    /*$html = file_get_html('https://finance.yahoo.com/quote/'.$symbol.'/history');
-    $currentStockValue = "";
-    foreach ($html->find('span') as $span)
-    {
-        if (isset($span-> attr['data-reactid'])){
-            if($span->attr['data-reactid']==34){
-                $currentStockValue = $span;
-            }
-        }
-    }
-    echo $currentStockValue."\n";*/
-    return 1;
+    return scrapeCurrentValue($symbol);
 }
 
 //@TODO: make it return the symbols current name of the stock.
@@ -230,6 +219,8 @@ function updateStocks($symbol, $mysqli){
  * @param $mysqli
  */
 function updateDB($symbol, $mysqli){
+    $s = "UPDATE stocks SET clicks = clicks +1 WHERE Symbol = '".$symbol."';";
+
     //If there is no entry with corresponding symbol, create it and download all dividends initially.
     if (primKeyExists($symbol,$mysqli)==false) {
         loadStockIntoDB($symbol, $mysqli);
@@ -246,9 +237,10 @@ function updateDB($symbol, $mysqli){
         InsertAllDividends(CSVToArray(getCSV(getURL_maxT($symbol, true))), $symbol, $mysqli);
         InsertAllHistories(CSVToArray(getCSV(getURL_maxT($symbol, false))), $symbol, $mysqli);
         updateTimestamp($symbol, $mysqli);
+    } else {
+        $s = "UPDATE stocks SET LastValue = ".scrapeCurrentValue($symbol).", clicks = clicks +1 WHERE Symbol = '".$symbol."';";
     }
 
-    $s = "UPDATE stocks SET clicks = clicks +1 WHERE Symbol = '".$symbol."';";
     mysqli_query($mysqli, $s);
 
     echo "\nupdateDB finished";
