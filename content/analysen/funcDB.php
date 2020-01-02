@@ -203,7 +203,7 @@ function updateStocks($symbol, $mysqli){
     $a = scrape($symbol);
     echo "Finished scraping";
 
-    $s = "UPDATE stocks SET LastValue = '".$a[0]."', KGV = '".$a[1]."', yield = '".$a[2]."', payoutRatio = '".$a[3]."', WHERE Symbol = '".$symbol."';";
+    $s = "UPDATE stocks SET LastValue = '".$a[0]."', KGV = ".$a[1].", yield = '".$a[2]."', payoutRatio = '".$a[3]."' WHERE Symbol = '".$symbol."';";
 
     mysqli_query($mysqli, $s);
 }
