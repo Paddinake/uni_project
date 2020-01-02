@@ -31,26 +31,29 @@ function scrape($symbol){
         }
     }
     //echo $currentStockValue;
+
+
+    // worst website ever
+    //due to changing id u have to find the coulmn with the Payout hours spent on: 3
     $html = file_get_html("https://finance.yahoo.com/quote/".$symbol."/key-statistics");
-    //echo $html;
     $payoutRatio=0;
-    foreach ($html->find('td') as $td)
-    {
-        if (isset($td-> attr['data-reactid'])){
-            if($td->attr['data-reactid']==291){
-                $payoutRatio = $td->plaintext;
+    $list = $html->find('td');
+    $i=0;
+    foreach($list as $item){
+        if (strpos($item, 'Payout') !== false) {
+            if (strpos($list[$i + 1], '%') !== false) {
+                $payoutRatio = $list[$i + 1]->innertext();
             }
         }
+        $i++;
     }
-//        echo "\ncurrentStockValue ".$currentStockValue;
-//        echo "\nkgv ".$KGV;
-    //echo "\nFDAndYield ".$FDAndYield."\n";
-    //echo $payoutRatio;
 
     return array($currentStockValue, $KGV, $FDAndYield, $payoutRatio);
 
 }
 
+
+//toDo: ist das wirklich nötig??
 /**
  * Scrapes currentStockValue from Yahoo.
  * @param $symbol
