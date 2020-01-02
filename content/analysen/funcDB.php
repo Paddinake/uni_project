@@ -203,7 +203,7 @@ function updateStocks($symbol, $mysqli){
     $a = scrape($symbol);
     echo "Finished scraping";
 
-    $s = "UPDATE stocks SET LastValue = '".$a[0]."', KGV = '".$a[1]."', yield = '".$a[2]."', payoutRatio = '".$a[3]."', WHERE Symbol = '".$symbol."';";
+    $s = "UPDATE stocks SET LastValue = '".$a[0]."', KGV = ".$a[1].", yield = '".$a[2]."', payoutRatio = '".$a[3]."' WHERE Symbol = '".$symbol."';";
 
     mysqli_query($mysqli, $s);
 }
@@ -444,29 +444,41 @@ function payedDividendsInYear($year, $symbol, $mysqli){
 
 }
 
-//@TODO FIX THIS BEFORE RELEASE
-function yearsPayingDividend($symbol, $mysqli){
+/**
+ * Returns streak of years of dividend payouts.
+ * @param $symbol
+ * @param $startYear
+ * @param $mysqli
+ * @return int
+ */
+function numYearsDividendPayed($symbol, $startYear, $mysqli){
     $s = "SELECT * FROM dividends WHERE symbol = '".$symbol."';";
+    $counter = 0;
 
     $result = mysqli_query($mysqli, $s);
-    // Jahre ohne aussetzer seit 2019
-    $startingYear=2019;
-    $counter=0;
 
-//Magie
-    for($i=$startingYear; $i>=1980; $i--){
+    for($i = $startYear; $i>=1800; $i--){
+        //echo $i."\n";
         $x = false;
-        while ($row = mysqli_fetch_array($result)){
-            if (strpos($row[2], $i)==0){
+        //$result = mysqli_query($mysqli, $s);
+        while($row = mysqli_fetch_assoc($result)){
+            //echo strval($row["date"]);
+            if(strpos(strval($row["date"]), strval($i))>-1){
                 $counter++;
                 $x = true;
+                //echo "\nbreak1 ".$counter."\n";
+                mysqli_data_seek($result, 0);
                 break;
+
             }
         }
-        if (!$x){
-            return $counter;
+        if($x==false){
+            //echo "\nbreak2\n";
+            break;
         }
+
     }
+
     return $counter;
 
 }
@@ -505,6 +517,7 @@ function getTop5($mysqli){
     return $top5;
 }
 
+
 /**
  * Calculates the average dividend growth in percentage over the last five years for a given stock.
  * Takes a year and goes backwarts from there
@@ -526,7 +539,21 @@ function calc5YearsDivGrowth($symbol, $year, $mysqli){
     $year = $year-1;
     $e = payedDividendsInYear($year, $symbol, $mysqli)[1];
 
-    return ((($a-$b)/$b)+(($b-$c)/$c)+(($c-$d)/$d)+(($d-$e)/$e))/5;
+    $sum = 0;
+    if($b!=0){
+        $sum = (($a-$b)/$b);
+    }
+    if($c!=0){
+        $sum = $sum + (($b-$c)/$c);
+    }
+    if($d!=0){
+        $sum = $sum + (($c-$d)/$d);
+    }
+    if($e!=0){
+        $sum = $sum + (($d-$e)/$e);
+    }
+
+    return $sum/4;
 }
 
 /**
@@ -696,6 +723,7 @@ function userIsOld($userID, $mysqli){
 //getCurrentStockValue("SKT");
 //updateStocks("AAPL", $mysqli);
 //echo callAllowed(65, $mysqli);
-echo userUpdate(1, $mysqli);
+//echo userUpdate(1, $mysqli);
+//echo numYearsDividendPayed("SIE.DE", 2019, $mysqli);
 
 ?>

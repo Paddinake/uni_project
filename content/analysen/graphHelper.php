@@ -11,7 +11,7 @@ function getDividendforGraph($symbol){
     $mysqli = new mysqli("127.0.0.1", "root", "", "uni_project", 3306);
     $array = loadAllDividendsToArray($symbol, $mysqli);
     $dataPoints = array();
-    for($i = 0; $i < count($array)-1; $i++){
+    for($i = 0; $i < count($array); $i++){
         if ($array[$i][2]==0){
         } else {
             $javaTimestamp = strtotime($array[$i][1]) * 1000;
@@ -34,7 +34,7 @@ function getHistoryforGraph($symbol){
     $array = loadAllHistoryToArray($symbol, $mysqli);
     //$array = loadAllDividendsToArray($symbol, $mysqli);
     $dataPoints = array();
-    for($i = 0; $i < count($array)-1; $i++){
+    for($i = 0; $i < count($array); $i++){
         if ($array[$i][2]==0){
         } else {
             $javaTimestamp = strtotime($array[$i][1]) * 1000;
