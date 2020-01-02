@@ -141,24 +141,25 @@ function getDividendenRendite($lastStockprice, $sumDiviInYear){
 <?php
 if(!empty($_GET['symbol'])){
     include('graphHelper.php');
-    updateDB($_GET['symbol'], $mysqli);
-    $datapoints_STOCK = getHistoryforGraph($_GET['symbol']);
-    $datapoints_DIVIDEND = getDividendforGraph($_GET['symbol']);
-    $generalData = getStockData($_GET['symbol'], $mysqli);
+    $s = strtoupper($_GET['symbol']);
+    updateDB($s, $mysqli);
+    $datapoints_STOCK = getHistoryforGraph($s);
+    $datapoints_DIVIDEND = getDividendforGraph($s);
+    $generalData = getStockData($s, $mysqli);
 
-    $x =  payedDividendsInYear(2019, $_GET['symbol'], $mysqli);
+    $x =  payedDividendsInYear(2019, $s, $mysqli);
     $amountDivinYear =$x[0];
     $sumDiviinYear =$x[1];
 
     $dividendenRendite = getDividendenRendite($generalData[3], $sumDiviinYear);
 
-    $dividendGrowth = number_format((float)calc5YearsDivGrowth($_GET['symbol'], 2019, $mysqli)*100, 2, '.','') ;
+    $dividendGrowth = number_format((float)calc5YearsDivGrowth($s, 2019, $mysqli)*100, 2, '.','') ;
 
 ?>
 
 <script>
     // get Name for the symbol and place it
-    var mainName = getNameForSymbol("<?php echo $_GET['symbol']; ?>");
+    var mainName = getNameForSymbol("<?php echo $s; ?>");
     $( document ).ready(function() {
         $('#name').text(mainName);
     });
