@@ -517,7 +517,7 @@ function getTop5($mysqli){
     return $top5;
 }
 
-//@TODO handle case if there are no payouts in each of the five years, as it causes division by zero error.
+
 /**
  * Calculates the average dividend growth in percentage over the last five years for a given stock.
  * Takes a year and goes backwarts from there
@@ -539,7 +539,21 @@ function calc5YearsDivGrowth($symbol, $year, $mysqli){
     $year = $year-1;
     $e = payedDividendsInYear($year, $symbol, $mysqli)[1];
 
-    return ((($a-$b)/$b)+(($b-$c)/$c)+(($c-$d)/$d)+(($d-$e)/$e))/5;
+    $sum = 0;
+    if($b!=0){
+        $sum = (($a-$b)/$b);
+    }
+    if($c!=0){
+        $sum = $sum + (($b-$c)/$c);
+    }
+    if($d!=0){
+        $sum = $sum + (($c-$d)/$d);
+    }
+    if($e!=0){
+        $sum = $sum + (($d-$e)/$e);
+    }
+
+    return $sum/4;
 }
 
 /**
