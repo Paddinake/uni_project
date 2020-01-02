@@ -232,7 +232,7 @@ if(!empty($_GET['symbol'])){
             img = "img/lights/orangelight.PNG";
         }
         $('#growth').append('' +
-            '<td> Wachstum in den letzen 5 Jahren ' +
+            '<td> Durchschnittliches jährliches Wachstum in den letzten 5 Jahren ' +
             '<a data-toggle="tooltip" title="Hooray!"><i class="fa fa-question-circle"></i></span></a></span>' +
             '</td>' +
             '<td>< 10%</td>' +
@@ -253,6 +253,10 @@ if(!empty($_GET['symbol'])){
         <div class="col">
             <span class="mr-sm-2"> Symbol: </span>
             <span class="mr-sm-2"> <?php echo $_GET['symbol'];?> </span>
+        </div>
+        <div class="col">
+            <span class="mr-sm-2"> Preis in Heimatwährung: </span>
+            <span class="mr-sm-2"> <?php echo $generalData[3];?> </span>
         </div>
     </div>
 
