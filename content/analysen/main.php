@@ -280,7 +280,7 @@ if(!empty($_GET['symbol'])){
     <br>
     <div class="container">
         <h2>Kennzahlen</h2>
-        <p>Diese Zahlen erlauben eine schnelle Einschaetzung der Qualitaet der Dividende:</p>
+        <p>Diese Zahlen erlauben eine schnelle Einschätzung der Qualität der Dividende:</p>
         <table class="table table-striped text-center">
             <thead>
             <tr>
