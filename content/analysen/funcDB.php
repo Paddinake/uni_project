@@ -5,14 +5,14 @@ include('scraper.php');
 
 //ToDo: remove Debug Echo's
 
-//@TODO replace with loading icon
+//@TODO replace with loading icon?
 set_time_limit(0);
 ignore_user_abort();
 
 $mysqli = new mysqli("127.0.0.1", "root", "", "uni_project", 3306);
 $con = mysqli_connect('127.0.0.1','root','','uni_project');
 
-echo $mysqli->host_info . "\n";
+//echo $mysqli->host_info . "\n";
 
 
 /**
@@ -83,6 +83,10 @@ function CSVToArray($resp){
     return ($array);
 }
 
+/**
+ * Returns date in POSIX format.
+ * @return int
+ */
 function getPOSIXDate(){
     $mt = explode(' ', microtime());
     return ((int)$mt[1]);
@@ -145,7 +149,6 @@ function isOld($symbol, $mysqli){
  * @param $symbol
  * @return string
  */
-//@TODO: liefert noch zu viel HTML zurueck.
 function getCurrentStockValue($symbol){
     return scrapeCurrentValue($symbol);
 }
@@ -330,12 +333,10 @@ function deleteDividends($symbol, $mysqli){
  */
 function InsertAllDividends($array, $symbol, $mysqli){
 
-    //should we reset DB for given symbol?
     deleteDividends($symbol, $mysqli);
 
     $statement = "INSERT INTO dividends (symbol, date, dividend) VALUES ";
 
-    //@TODO pruefen ob count oder count-1 richtig ist
     for($i=1; $i<count($array)-1; $i++){
 
         if($array[$i][1]>0.0){
@@ -369,8 +370,6 @@ function InsertAllHistories($array, $symbol, $mysqli){
     $s = rtrim("$s", ", ");
     $s = $s.";";
 
-    //echo $s;
-
     mysqli_query($mysqli, $s);
 }
 
@@ -385,7 +384,6 @@ function getTestDiv($symbol){
     return CSVToArray(getCSV("https://query1.finance.yahoo.com/v7/finance/download/".$symbol."?period1=738540000&period2=1576796400&interval=1mo&events=div&crumb=UO48Nwtc0Va"));
 }
 
-//@TODO echo mit array return ersetzen?
 /**
  * For testing.
  * Returns sum of dividends payed in a year.
@@ -662,9 +660,7 @@ function userUpdate($userID, $mysqli){
     if($return==1){
         increaseNumCalls($userID, $mysqli);
     }
-
     return $return;
-
 }
 
 /**
