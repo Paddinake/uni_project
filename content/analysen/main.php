@@ -253,7 +253,7 @@ if(!empty($_GET['symbol'])){
         </div>
         <div class="col">
             <span class="mr-sm-2"> Symbol: </span>
-            <span class="mr-sm-2"> <?php echo $_GET['symbol'];?> </span>
+            <span class="mr-sm-2"> <?php echo strtoupper($_GET['symbol']);?> </span>
         </div>
         <div class="col">
             <span class="mr-sm-2"> Preis in Heimatwährung: </span>
