@@ -139,7 +139,12 @@ function getDividendenRendite($lastStockprice, $sumDiviInYear){
 <!--Only if Symbol is selected-->
 
 <?php
+
 if(!empty($_GET['symbol'])){
+    if (userUpdate($_SESSION["user_id"], $mysqli)==0){
+        echo '<META HTTP-EQUIV="refresh" content="0;URL=index.php?content=maxRequests">';
+    }
+
     include('graphHelper.php');
     $s = strtoupper($_GET['symbol']);
     updateDB($s, $mysqli);

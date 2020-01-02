@@ -107,6 +107,9 @@
             case "kontakt":
                 include 'content/sonstiges/kontakt.php';
                 break;
+            case "maxRequests":
+                include 'content/analysen/maxRequests.php';
+                break;
             Default:
                 
         ?>
