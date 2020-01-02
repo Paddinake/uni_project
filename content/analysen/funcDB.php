@@ -5,14 +5,14 @@ include('scraper.php');
 
 //ToDo: remove Debug Echo's
 
-//@TODO replace with loading icon
+//@TODO replace with loading icon?
 set_time_limit(0);
 ignore_user_abort();
 
 $mysqli = new mysqli("127.0.0.1", "root", "", "uni_project", 3306);
 $con = mysqli_connect('127.0.0.1','root','','uni_project');
 
-echo $mysqli->host_info . "\n";
+//echo $mysqli->host_info . "\n";
 
 
 /**
@@ -83,6 +83,10 @@ function CSVToArray($resp){
     return ($array);
 }
 
+/**
+ * Returns date in POSIX format.
+ * @return int
+ */
 function getPOSIXDate(){
     $mt = explode(' ', microtime());
     return ((int)$mt[1]);
@@ -145,7 +149,6 @@ function isOld($symbol, $mysqli){
  * @param $symbol
  * @return string
  */
-//@TODO: liefert noch zu viel HTML zurueck.
 function getCurrentStockValue($symbol){
     return scrapeCurrentValue($symbol);
 }
@@ -330,7 +333,6 @@ function deleteDividends($symbol, $mysqli){
  */
 function InsertAllDividends($array, $symbol, $mysqli){
 
-    //should we reset DB for given symbol?
     deleteDividends($symbol, $mysqli);
 
     $statement = "INSERT INTO dividends (symbol, date, dividend) VALUES ";
