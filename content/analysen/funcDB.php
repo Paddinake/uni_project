@@ -444,29 +444,41 @@ function payedDividendsInYear($year, $symbol, $mysqli){
 
 }
 
-//@TODO FIX THIS BEFORE RELEASE
-function yearsPayingDividend($symbol, $mysqli){
+/**
+ * Returns streak of years of dividend payouts.
+ * @param $symbol
+ * @param $startYear
+ * @param $mysqli
+ * @return int
+ */
+function numYearsDividendPayed($symbol, $startYear, $mysqli){
     $s = "SELECT * FROM dividends WHERE symbol = '".$symbol."';";
+    $counter = 0;
 
     $result = mysqli_query($mysqli, $s);
-    // Jahre ohne aussetzer seit 2019
-    $startingYear=2019;
-    $counter=0;
 
-//Magie
-    for($i=$startingYear; $i>=1980; $i--){
+    for($i = $startYear; $i>=1800; $i--){
+        //echo $i."\n";
         $x = false;
-        while ($row = mysqli_fetch_array($result)){
-            if (strpos($row[2], $i)==0){
+        //$result = mysqli_query($mysqli, $s);
+        while($row = mysqli_fetch_assoc($result)){
+            //echo strval($row["date"]);
+            if(strpos(strval($row["date"]), strval($i))>-1){
                 $counter++;
                 $x = true;
+                //echo "\nbreak1 ".$counter."\n";
+                mysqli_data_seek($result, 0);
                 break;
+
             }
         }
-        if (!$x){
-            return $counter;
+        if($x==false){
+            //echo "\nbreak2\n";
+            break;
         }
+
     }
+
     return $counter;
 
 }
@@ -696,6 +708,7 @@ function userIsOld($userID, $mysqli){
 //getCurrentStockValue("SKT");
 //updateStocks("AAPL", $mysqli);
 //echo callAllowed(65, $mysqli);
-echo userUpdate(1, $mysqli);
+//echo userUpdate(1, $mysqli);
+//echo numYearsDividendPayed("SIE.DE", 2019, $mysqli);
 
 ?>
