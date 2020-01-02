@@ -337,7 +337,6 @@ function InsertAllDividends($array, $symbol, $mysqli){
 
     $statement = "INSERT INTO dividends (symbol, date, dividend) VALUES ";
 
-    //@TODO pruefen ob count oder count-1 richtig ist
     for($i=1; $i<count($array)-1; $i++){
 
         if($array[$i][1]>0.0){
@@ -371,8 +370,6 @@ function InsertAllHistories($array, $symbol, $mysqli){
     $s = rtrim("$s", ", ");
     $s = $s.";";
 
-    //echo $s;
-
     mysqli_query($mysqli, $s);
 }
 
@@ -387,7 +384,6 @@ function getTestDiv($symbol){
     return CSVToArray(getCSV("https://query1.finance.yahoo.com/v7/finance/download/".$symbol."?period1=738540000&period2=1576796400&interval=1mo&events=div&crumb=UO48Nwtc0Va"));
 }
 
-//@TODO echo mit array return ersetzen?
 /**
  * For testing.
  * Returns sum of dividends payed in a year.
@@ -664,9 +660,7 @@ function userUpdate($userID, $mysqli){
     if($return==1){
         increaseNumCalls($userID, $mysqli);
     }
-
     return $return;
-
 }
 
 /**
