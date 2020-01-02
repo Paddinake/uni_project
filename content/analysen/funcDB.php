@@ -517,6 +517,7 @@ function getTop5($mysqli){
     return $top5;
 }
 
+//@TODO handle case if there are no payouts in each of the five years, as it causes division by zero error.
 /**
  * Calculates the average dividend growth in percentage over the last five years for a given stock.
  * Takes a year and goes backwarts from there
