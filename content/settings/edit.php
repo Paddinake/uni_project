@@ -26,6 +26,13 @@
 		$sql=(" UPDATE user SET name ='$name', email ='$email', passwort ='$passwort' WHERE `user_id` = '$UID'");
 		mysqli_query($con,$sql);
 	}
+
+    if (isset($_POST["premium"])){
+        $premium = $_POST["premium"];
+
+        $sql=(" UPDATE user SET premium ='$premium' WHERE `user_id` = '$UID'");
+        mysqli_query($con,$sql);
+    }
 	
     $sql1 = "SELECT * FROM user WHERE user_id='$UID'";
 	$result = mysqli_query($con, $sql1);
@@ -54,6 +61,30 @@
 		<input class="btn btn-primary" type="submit" value="Email Adresse ändern">
 		</div>
 	</form>
+
+    <?php
+
+    $sql1 = "SELECT * FROM user WHERE user_id='$UID'";
+    $result = mysqli_query($con, $sql1);
+    $premium = 0;
+    while($row = mysqli_fetch_assoc($result)) {
+       $premium = $row['premium'];
+    }
+    echo '<form method="POST" class="was-validated" action="index.php?content=settings">
+		<div class="form-group">';
+
+    if ($premium == 1){
+        echo'<input type="hidden" name="premium" value="0">';
+        echo 'Zurzeit sind Sie Premiumkunde';
+        echo"<input class=\"btn btn-danger\" type=\"submit\" value=\"Premium sofort abbestellen\">";
+    } else{
+        echo'<input type="hidden" name="premium" value="1">';
+        echo 'Zurzeit sind Sie kein Premiumkunde';
+        echo"<input class=\"btn btn-success\" type=\"submit\" value=\"Premium sofort dazubuchen\">";
+    }
+    echo '</div></form>'
+    ?>
+
 </div>
 	
  
