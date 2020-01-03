@@ -160,6 +160,8 @@ if(!empty($_GET['symbol'])){
 
     $dividendGrowth = number_format((float)calc5YearsDivGrowth($s, 2019, $mysqli)*100, 2, '.','') ;
 
+
+    //ToDo: mit dem yield machen wir bis jetzt noch nichts
 ?>
 
 <script>
@@ -204,9 +206,9 @@ if(!empty($_GET['symbol'])){
 
         // KPI's befüllen
          KPIRow("howLong", "Seit wie vielen Jahren wird mind. 1 mal Jährlich eine Dividende gezahlt", 20, 5, <?php echo numYearsDividendPayed($_GET['symbol'], 2019, $mysqli)?>, true);
-         KPIRow("kgv", "KGV", 10, 50, <?php echo $generalData[4] ?>, false);
-         KPIRow("dividendenRendite", "DividendenRendite", 3, 7, <?php echo $dividendenRendite ?>, false);
-         //KPIRow("payOutRatio", "Pay-Out-Ratio", 60, 85, <?php echo 1 ?>, false);
+         KPIRow("kgv", "KGV", 10, 50, <?php echo $generalData[4]; ?>, false);
+         KPIRow("dividendenRendite", "Dividenden Rendite in %", 3, 7, <?php echo $dividendenRendite; ?>, false);
+         KPIRow("payOutRatio", "Pay-Out-Ratio in %", 60, 85, <?php echo str_replace('%', '', $generalData[6]);; ?>, false);
 
         // KPIs that cant be filled with KPIRow() due to special red/green conditions
         var payedDividendsinYear=<?php echo $amountDivinYear; ?>;
@@ -312,8 +314,8 @@ if(!empty($_GET['symbol'])){
             </tr>
             <tr id ="growth">
             </tr>
-<!--            <tr id ="payOutRatio">-->
-<!--            </tr>-->
+            <tr id ="payOutRatio">
+            </tr>
             </tbody>
         </table>
     </div>
