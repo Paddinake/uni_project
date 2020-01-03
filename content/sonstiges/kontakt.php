@@ -1,7 +1,3 @@
-<?php
-?>
-<!--ToDo: Anpassen + vllt Kontaktformular-->
-
 <div class="container">
     <div class="row">
         <div class="col-sm">
