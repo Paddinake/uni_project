@@ -1,4 +1,8 @@
 <?php
+if (isset($_SESSION["user_id"])) {
+    header('Location: index.php');
+}
+
 //toDo: error handling if email is already in use
 if (!empty($_POST['Nutzername'])&&!empty($_POST['email'])&&!empty($_POST['Passwort'])) {
  include'db.php';
