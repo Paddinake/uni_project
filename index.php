@@ -31,6 +31,13 @@
     <script src="libs/bootstrap-4.3.1-dist/js/bootstrap.bundle.js"></script>
     <script src="libs/canvasjs/canvasjs.min.js"></script>
 
+    <script>
+        // Enable tooltip toggle
+        $(function(){
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+    </script>
+
 
 </head>
 <body>
@@ -149,8 +156,8 @@
 <!--Jumbotron-->
 <div class="container-fluid">
     <div class="row jumbotron">
-        <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 col-xl-10"></div>
-		<h4>Objektive Bewertung</h4>
+        <div class="col-12"></div>
+        <h4>Objektive Bewertung</h4>
         <p>
             Dividenden sind eine wichtige Kennzahl von Unternehmen. Wir haben uns als Ziel gesetzt diese 
 			Kennzahl zu Analysieren und einfach Darzustellen. Mit Hilfe unsres Tools kann jeder - von Beginner bis Experte
@@ -159,9 +166,9 @@
 			Mit unserer einzigartigen "Ampelfunktion" muss man keine Wirtschaftswissenschaften mehr studiert haben, um zu 
 			erkennen ob sich ein Investment - Dividenden fokussiert lohnt.
         </p>
-        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-2">
+        <p>
             <a href="index.php#examples"><button type="button" class="btn btn-outline-secondary btn-lg"> Mehr Erfahren</button> </a>
-        </div>
+        </p>
     </div>
 </div>
 
@@ -186,7 +193,7 @@
   <div class="container">
     <div class="row">
       <!-- Gratis -->
-      <div class="col-lg-4">
+      <div class="col-lg-6">
         <div class="card mb-5 mb-lg-0">
           <div class="card-body">
             <h5 class="card-title text-muted text-uppercase text-center">Free</h5>
@@ -200,11 +207,11 @@
           </div>
         </div>
       </div>
-      <!-- Standard -->
-      <div class="col-lg-4">
+      <!-- Premium -->
+      <div class="col-lg-6">
         <div class="card mb-5 mb-lg-0">
           <div class="card-body">
-            <h5 class="card-title text-muted text-uppercase text-center">Standard</h5>
+            <h5 class="card-title text-muted text-uppercase text-center">Premium</h5>
             <h6 class="card-price text-center">9€<span class="period">/month</span></h6>
             <hr>
             <ul class="fa-ul">
@@ -217,23 +224,23 @@
         </div>
       </div>
       <!-- Premium -->
-      <div class="col-lg-4">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title text-muted text-uppercase text-center">Premium</h5>
-            <h6 class="card-price text-center">39€<span class="period">/month</span></h6>
-            <hr>
-            <ul class="fa-ul">
-				<li><span class="fa-li"><i class="fas fa-check"></i></span>unlimitierte Abfrage pro Minute</li>
-				<li><span class="fa-li"><i class="fas fa-check"></i></span>Übersicht mit allen Kennzahlen</li>
-				<li><span class="fa-li"><i class="fas fa-check"></i></span>Muster-Depot</li>
-				<li><span class="fa-li"><i class="fas fa-check"></i></span>24h Support</li>
-				<li><span class="fa-li"><i class="fas fa-check"></i></span>Anbindung an unsere API</li>	
-			</ul>
-            <a href="#" class="btn btn-block btn-primary">Register</a>
-          </div>
-        </div>
-      </div>
+<!--      <div class="col-lg-4">-->
+<!--        <div class="card">-->
+<!--          <div class="card-body">-->
+<!--            <h5 class="card-title text-muted text-uppercase text-center">Premium</h5>-->
+<!--            <h6 class="card-price text-center">39€<span class="period">/month</span></h6>-->
+<!--            <hr>-->
+<!--            <ul class="fa-ul">-->
+<!--				<li><span class="fa-li"><i class="fas fa-check"></i></span>unlimitierte Abfrage pro Minute</li>-->
+<!--				<li><span class="fa-li"><i class="fas fa-check"></i></span>Übersicht mit allen Kennzahlen</li>-->
+<!--				<li><span class="fa-li"><i class="fas fa-check"></i></span>Muster-Depot</li>-->
+<!--				<li><span class="fa-li"><i class="fas fa-check"></i></span>24h Support</li>-->
+<!--				<li><span class="fa-li"><i class="fas fa-check"></i></span>Anbindung an unsere API</li>	-->
+<!--			</ul>-->
+<!--            <a href="#" class="btn btn-block btn-primary">Register</a>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
     </div>
   </div>
 </section>
@@ -248,9 +255,14 @@
         <hr>
         <div class="col-12">
             <p class="lead">
-                ölkahdsfsklhafjkdfahkjdsfgahdskfasdhfjasdjflgjakdsfglakdjsgskldjfgalkdjsgkal
-                kajdhfaöskdjhakjdsfhgakdjfsgasödkfj
-                #kjasdfhajskdgkaldfgasfd
+                Wie sie hier sehen können, bieten wir alle wichtigen Informationen zur Dividenede gebündelt auf
+                einer Seite an.
+            </p>
+            <p class="col-12">
+                <img class="img-fluid" src="img/kennzahlen.PNG" style="border:2px solid black">
+            </p>
+            <p class="lead">
+                Zusätzlich bieten wir für Einsteiger nützliche Tooltips <a data-toggle="tooltip" title="Nützliche Hinweise zu den Kennzahlen, wie Zusammensetzung oder Aussage!"><i class="fa fa-question-circle"></i></span></a>!
             </p>
         </div>
     </div>
