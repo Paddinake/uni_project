@@ -296,19 +296,16 @@
             </div>
             <div class="col-md-4">
                 <hr class="light">
-                <h5>Allgemeines</h5>
+                <h5>Hilfreiche Links</h5>
                 <hr class="light">
-                <p>erste</p>
-                <p>zweite</p>
-                <p>dritte</p>
+                <p><a href="https://www.diekleinanleger.com/" style=" color: inherit; ">Einfache Erklärungen</a> </p>
             </div>
             <div class="col-md-4">
                 <hr class="light">
-                <h5>Unwichtiges</h5>
+                <h5>Allgemeines</h5>
                 <hr class="light">
                 <p><a href="index.php?content=kontakt" style=" color: inherit; ">Kontakt</a> </p>
                 <p><a href="index.php?content=impressum" style=" color: inherit; ">Impressum</a> </p>
-                <p>dritte</p>
             </div>
             <div class="col-12">
                 <hr class="light">

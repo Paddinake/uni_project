@@ -4,7 +4,6 @@ if (!isset($_SESSION["user_id"])) {
     header('Location: index.php');
 }
 
-// ToDO: auf alle Seiten nur kommen wenn angemeldet
 function getDividendenRendite($lastStockprice, $sumDiviInYear){
     return number_format((float)(($sumDiviInYear/$lastStockprice)*100), 2, '.','') ;
 }
