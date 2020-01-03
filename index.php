@@ -27,7 +27,7 @@
     <script src="libs/fontawesome-free-5.12.0-web/js/all.js"></script>
     <script src="libs/bootstrap-4.3.1-dist/js/bootstrap.bundle.js"></script>
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-    <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    <script src="libs/jquery-ui-1.12.1/jquery-ui.js"></script>
     <script src="libs/bootstrap-4.3.1-dist/js/bootstrap.bundle.js"></script>
     <script src="libs/canvasjs/canvasjs.min.js"></script>
 
