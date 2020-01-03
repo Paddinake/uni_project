@@ -8,6 +8,7 @@ include('scraper.php');
 set_time_limit(0);
 ignore_user_abort();
 
+//ToDo: einmal zentral DB definieren
 $mysqli = new mysqli("127.0.0.1", "root", "", "uni_project", 3306);
 $con = mysqli_connect('127.0.0.1','root','','uni_project');
 
