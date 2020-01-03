@@ -3,7 +3,6 @@ include_once('simple_html_dom.php');
 //include('db.php');
 include('scraper.php');
 
-//ToDo: remove Debug Echo's
 
 //@TODO replace with loading icon?
 set_time_limit(0);
@@ -12,7 +11,6 @@ ignore_user_abort();
 $mysqli = new mysqli("127.0.0.1", "root", "", "uni_project", 3306);
 $con = mysqli_connect('127.0.0.1','root','','uni_project');
 
-//echo $mysqli->host_info . "\n";
 
 
 /**
@@ -79,7 +77,6 @@ function CSVToArray($resp){
     foreach ($lines as $line) {
         $array[] = str_getcsv($line);
     }
-    echo "".$array[1][0]." ".$array[1][1]."\n";
     return ($array);
 }
 
@@ -104,7 +101,6 @@ function primKeyExists($symbol, $mysqli){
     $return = mysqli_query($mysqli, $s);
     $return = mysqli_fetch_assoc($return);
 
-    echo $return["COUNT(*)"];
 
     if(intval($return["COUNT(*)"])>0){
         $r = true;
@@ -126,7 +122,6 @@ function isOld($symbol, $mysqli){
     $result = mysqli_query($mysqli, $s);
 
     while ($row = mysqli_fetch_assoc($result)){
-        echo $row["LastUpdated"]."\n";
         $timeST = new DateTime($row["LastUpdated"]);//last updated in DB
         $timeN = new DateTime();//current time
         $i = $timeST->diff($timeN);
@@ -134,8 +129,6 @@ function isOld($symbol, $mysqli){
             intval($i->format("%m")) > 0 or
             intval($i->format("%d")) > 0){
 
-            echo "\nUpdate the db bitch!\n";
-            echo $i->format('Age is: %y years %m monts %d days %h hours');
             return true;
 
         }
@@ -193,7 +186,6 @@ function loadStockIntoDB($symbol, $mysqli){
 function updateTimestamp($symbol, $mysqli){
     $s = "UPDATE stocks SET LastUpdated=current_timestamp WHERE symbol='".$symbol."';";
     mysqli_query($mysqli, $s);
-    echo "\nUpdated timestamp of ".$symbol."\n";
 }
 
 /**
@@ -204,7 +196,6 @@ function updateTimestamp($symbol, $mysqli){
 function updateStocks($symbol, $mysqli){
     $a = array();
     $a = scrape($symbol);
-    echo "Finished scraping";
 
     $s = "UPDATE stocks SET LastValue = '".$a[0]."', KGV = ".$a[1].", yield = '".$a[2]."', payoutRatio = '".$a[3]."' WHERE Symbol = '".$symbol."';";
 
@@ -231,10 +222,8 @@ function updateDB($symbol, $mysqli){
         InsertAllDividends(CSVToArray(getCSV(getURL_maxT($symbol, true))), $symbol, $mysqli);
         //InsertAllDividends(getTestDiv("SKT"), $symbol, $mysqli);
         InsertAllHistories(CSVToArray(getCSV(getURL_maxT($symbol, false))), $symbol, $mysqli);
-        echo "\nCreating entry in stocks table for ".$symbol."\n";
 
     } elseif(isOld($symbol, $mysqli)){
-        echo "\n Updateing timestamp and downloading dividends.\n";
         //InsertAllDividends(getTestDiv("SKT"), $symbol, $mysqli);
         updateStocks($symbol, $mysqli);
         InsertAllDividends(CSVToArray(getCSV(getURL_maxT($symbol, true))), $symbol, $mysqli);
@@ -246,7 +235,6 @@ function updateDB($symbol, $mysqli){
 
     mysqli_query($mysqli, $s);
 
-    echo "\nupdateDB finished";
 }
 
 /**
@@ -346,7 +334,7 @@ function InsertAllDividends($array, $symbol, $mysqli){
     $statement = rtrim("$statement", ", ");
     $statement = $statement.";";
 
-    echo $statement;
+//    echo $statement;
 
     mysqli_query($mysqli, $statement);
 }
@@ -401,11 +389,11 @@ function payedDividensInYearFromCSV($year, $symbol){
     for($i=1; $i<count($dividendA)-1;$i++){
         //prueft datum und das tatsaechlich ein Betrag ausgezahlt wurde
         if((strpos($dividendA[$i][0],$year)>-1)&&(($dividendA[$i][1]>0.0))){
-            //echo $dividendA[$i][1]."\n";
+            echo $dividendA[$i][1]."\n";
             $sum+=$dividendA[$i][1];
             $counter+=1;
         } else {
-            //echo "false"."\n";
+            echo "false"."\n";
         }
     }
 

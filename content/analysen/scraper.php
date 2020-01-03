@@ -72,11 +72,8 @@ function scrapeCurrentValue($symbol){
             }
         }
     }
-    echo $currentStockValue;
 
     return $currentStockValue;
 }
 
-//$a = array();
-//$a = scrapeCurrentValue("SIE.DE");
 
