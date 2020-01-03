@@ -2,6 +2,7 @@
 include_once('simple_html_dom.php');
 
 //@TODO fix operating income & dividends Paid
+//TODo: Error Handling, wenn manche Kennzahlen nicht da z,b TSLA -> N/A
 
 /**
  * Scrapes currentStockValue, dividend-yield-value, PE-ratio and KGV from yahoo.
