@@ -10,34 +10,30 @@
 <head>
     <title>HYPE</title>
     <meta charset="utf-8">
+<!--    TODO: Welche Scripte wir wirklich brauchen raussuchen und dann runterladen-->
     <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16.png">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!--  style sheets  -->
     <link rel="stylesheet" href="main.css">
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css">
-    <link rel="stylesheet" href="libs/bootstrap-4.3.1-dist/css/bootstrap.css">
+    <link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"
+          rel = "stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
 
-    <!--  libs  -->
-    <!--  it is necessary to load them partly twice otherwise some parts doesnt work  -->
-    <!--  Jquery 1.10 is needed for the mobile navbar reason remains unknown -->
-    <script src="libs/jquery-master/src/jquery.js"></script>
-    <script src="libs/bootstrap-4.3.1-dist/js/bootstrap.bundle.js"></script>
-    <script src="libs/fontawesome-free-5.12.0-web/js/all.js"></script>
-    <script src="libs/bootstrap-4.3.1-dist/js/bootstrap.bundle.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-    <script src="libs/jquery-ui-1.12.1/jquery-ui.js"></script>
-    <script src="libs/bootstrap-4.3.1-dist/js/bootstrap.bundle.js"></script>
-    <script src="libs/canvasjs/canvasjs.min.js"></script>
-
-    <script>
-        // Enable tooltip toggle
-        $(function(){
-            $('[data-toggle="tooltip"]').tooltip();
-        });
-    </script>
-
+    <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 
 </head>
 <body>
