@@ -1,3 +1,9 @@
+<?php
+if (!isset($_SESSION["user_id"])) {
+    header('Location: index.php');
+}
+?>
+
 <div class="container-fluid padding" >
 <?php 
 if (isset($_GET['subnav'])){

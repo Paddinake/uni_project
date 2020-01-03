@@ -1,3 +1,9 @@
+<?php
+if (!isset($_SESSION["user_id"])) {
+    header('Location: chatbot_loggedout.php');
+}
+?>
+
 <link rel="stylesheet" href="botui-master/build/botui.min.css" />
 <link rel="stylesheet" href="botui-master/build/botui-theme-default.css" />
 <script src="https://cdn.jsdelivr.net/vue/latest/vue.min.js"></script>
