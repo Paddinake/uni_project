@@ -1,6 +1,7 @@
 <?php
 include_once('funcDB.php');
 
+// ToDO: auf alle Seiten nur kommen wenn angemeldet
 function getDividendenRendite($lastStockprice, $sumDiviInYear){
     return number_format((float)(($sumDiviInYear/$lastStockprice)*100), 2, '.','') ;
 }
