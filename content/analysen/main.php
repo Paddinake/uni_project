@@ -208,9 +208,9 @@ if(!empty($_GET['symbol'])){
 
 
         // KPI's befüllen
-         KPIRow("howLong", "Seit wie vielen Jahren wird mind. 1 mal Jährlich eine Dividende gezahlt", 20, 5, <?php echo numYearsDividendPayed($_GET['symbol'], 2019, $mysqli)?>, true);
+         KPIRow("howLong", "Anzahl Jahre in denen min. einmal Dividende gezahlt wurde", 20, 5, <?php echo numYearsDividendPayed($_GET['symbol'], 2019, $mysqli)?>, true);
          KPIRow("kgv", "KGV", 10, 50, <?php echo $generalData[4]; ?>, false);
-         KPIRow("dividendenRendite", "Dividenden Rendite in %", 3, 7, <?php echo $dividendenRendite; ?>, false);
+         KPIRow("dividendenRendite", "Momentane Dividendenrendite in %", 3, 7, <?php echo $dividendenRendite; ?>, false);
          KPIRow("payOutRatio", "Pay-Out-Ratio in %", 60, 85, <?php echo str_replace('%', '', $generalData[6]);; ?>, false);
 
         // KPIs that cant be filled with KPIRow() due to special red/green conditions
