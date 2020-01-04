@@ -547,7 +547,7 @@ function geometrischesMittel($symbol, $endYear, $range, $mysqli){
     $end = payedDividendsInYear($endYear, $symbol, $mysqli)[1];
     $start = payedDividendsInYear(($endYear-$range), $symbol, $mysqli)[1];
 
-    $result = round((((($end-$start)/($start))+1)**(1/$range)-1)*100, 4);
+    $result = round((((($end-$start)/($start+0.000000001))+1)**(1/$range)-1)*100, 4);
 
     return $result;
 }
@@ -719,6 +719,6 @@ function userIsOld($userID, $mysqli){
 //echo callAllowed(65, $mysqli);
 //echo userUpdate(1, $mysqli);
 //echo numYearsDividendPayed("SIE.DE", 2019, $mysqli);
-//echo geometrischesMittel("SBUX", 2019, 5, $mysqli);
+echo geometrischesMittel("SBUX", 2019, 5, $mysqli);
 
 ?>

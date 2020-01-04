@@ -161,7 +161,7 @@ if(!empty($_GET['symbol'])){
 
     $dividendenRendite = getDividendenRendite($generalData[3], $sumDiviinYear);
 
-    $dividendGrowth = number_format((float)calc5YearsDivGrowth($s, 2019, $mysqli)*100, 2, '.','') ;
+    $dividendGrowth = number_format((float)geometrischesMittel($s, 2019, 5, $mysqli), 4, '.','') ;
 
 
     //ToDo: mit dem yield machen wir bis jetzt noch nichts
