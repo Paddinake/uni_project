@@ -54,6 +54,8 @@ var stocks  =  [
     { label: 'The Walt Disney Company (DISN.BA)', value: 'DISN.BA'},
     { label: 'The Walt Disney Company (DIS.MX)', value: 'DIS.MX'},
     { label: 'DISNEY (WALT) CO. (DIS.D)', value: 'DIS.D'},
+    { label: 'Starbucks Corporation', value: 'SBUX'},
+    { label: 'Altria Group, Inc. (MO)', value: 'MO'}
 
 
 

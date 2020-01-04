@@ -264,7 +264,7 @@ if(!empty($_GET['symbol'])){
         }
         $('#growth10').append('' +
             '<td> Durchschnittliches jährliches Wachstum in den letzten 10 Jahren ' +
-            '<a data-toggle="tooltip" title="Hooray!"><i class="fa fa-question-circle"></i></span></a></span>' +
+            '<a data-toggle="tooltip" title="Hooray!" data-placement="top"><i class="fa fa-question-circle"></i></span></a></span>' +
             '</td>' +
             '<td>> 100%</td>' +
             '<td><= 3%</td>' +
