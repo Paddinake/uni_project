@@ -719,6 +719,6 @@ function userIsOld($userID, $mysqli){
 //echo callAllowed(65, $mysqli);
 //echo userUpdate(1, $mysqli);
 //echo numYearsDividendPayed("SIE.DE", 2019, $mysqli);
-echo geometrischesMittel("SBUX", 2019, 5, $mysqli);
+//echo geometrischesMittel("SKT", 2019, 10, $mysqli);
 
 ?>

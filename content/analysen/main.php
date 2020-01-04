@@ -162,6 +162,7 @@ if(!empty($_GET['symbol'])){
     $dividendenRendite = getDividendenRendite($generalData[3], $sumDiviinYear);
 
     $dividendGrowth = number_format((float)geometrischesMittel($s, 2019, 5, $mysqli), 4, '.','') ;
+    $dividendGrowth10 = number_format((float)geometrischesMittel($s, 2019, 10, $mysqli), 4, '.','') ;
 
 
     //ToDo: mit dem yield machen wir bis jetzt noch nichts
@@ -234,9 +235,9 @@ if(!empty($_GET['symbol'])){
 
 
         var growth=<?php echo $dividendGrowth; ?>;
-        if (growth>= 10 || growth<=0){
+        if (growth<=3){
             img = "img/lights/redlight.PNG";
-        } else if (growth<10 && growth >5){
+        } else if (growth>=10){
             img = "img/lights/greenlight.PNG";
         }
         else {
@@ -246,10 +247,30 @@ if(!empty($_GET['symbol'])){
             '<td> Durchschnittliches jährliches Wachstum in den letzten 5 Jahren ' +
             '<a data-toggle="tooltip" title="Hooray!"><i class="fa fa-question-circle"></i></span></a></span>' +
             '</td>' +
-            '<td>< 10%</td>' +
-            '<td>>= 10 oder <= 5</td>' +
+            '<td>> 10%</td>' +
+            '<td><= 3%</td>' +
             '<td>'+growth+'</td>' +
             '<td><img class="img-fluid" style="max-height: 30px" src="'+img+'"></td>');
+
+
+        var growth10=<?php echo $dividendGrowth10; ?>;
+        if (growth10<=3){
+            img = "img/lights/redlight.PNG";
+        } else if (growth10>=100){
+            img = "img/lights/greenlight.PNG";
+        }
+        else {
+            img = "img/lights/orangelight.PNG";
+        }
+        $('#growth10').append('' +
+            '<td> Durchschnittliches jährliches Wachstum in den letzten 10 Jahren ' +
+            '<a data-toggle="tooltip" title="Hooray!"><i class="fa fa-question-circle"></i></span></a></span>' +
+            '</td>' +
+            '<td>> 100%</td>' +
+            '<td><= 3%</td>' +
+            '<td>'+growth10+'</td>' +
+            '<td><img class="img-fluid" style="max-height: 30px" src="'+img+'"></td>');
+
 
     }
 </script>
@@ -316,6 +337,8 @@ if(!empty($_GET['symbol'])){
             <tr id ="dividendenRendite">
             </tr>
             <tr id ="growth">
+            </tr>
+            <tr id ="growth10">
             </tr>
             <tr id ="payOutRatio">
             </tr>
