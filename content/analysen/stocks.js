@@ -55,7 +55,31 @@ var stocks  =  [
     { label: 'The Walt Disney Company (DIS.MX)', value: 'DIS.MX'},
     { label: 'DISNEY (WALT) CO. (DIS.D)', value: 'DIS.D'},
     { label: 'Starbucks Corporation', value: 'SBUX'},
-    { label: 'Altria Group, Inc. (MO)', value: 'MO'}
+    { label: 'Altria Group, Inc. (MO)', value: 'MO'},
+    { label: 'Philip Morris International Inc.', value: 'PM'},
+    { label: 'General Electric Company', value: 'GE'},
+    { label: 'NIO Limited', value: 'NIO'},
+    { label: 'Advanced Micro Devices, Inc.', value: 'AMD'},
+    { label: 'Avon Products, Inc.', value: 'AVP'},
+    { label: 'Bank of America Corporation', value: 'BAC'},
+    { label: 'Rolls-Royce Holdings plc', value: 'RLLCF'},
+    { label: 'Lamb Weston Holdings, Inc.', value: 'LW'},
+    { label: 'Kratos Defense & Security Solutions, Inc.', value: 'KTOS'},
+    { label: 'L Brands, Inc.', value: 'LB'},
+    { label: 'Matador Resources Company', value: 'MTDR'},
+    { label: 'Tesla, Inc.', value: 'TSLA'},
+    { label: 'BlackRock, Inc.', value: 'BLK'},
+    { label: 'Beyond Meat, Inc', value: 'BYND'},
+    { label: 'Berkshire Hathaway Inc. (BRK-A)', value: 'BRK-A'},
+    { label: 'Berkshire Hathaway Inc. (BRK-B)', value: 'BRK-B'},
+    { label: 'Berkshire Hathaway Inc. (BRKB)', value: 'BRKB'},
+    { label: 'Berkshire Hathaway Inc. (BRKA)', value: 'BRKA'},
+    { label: 'Best Buy Co., Inc', value: 'BBY'},
+    { label: 'DuPont de Nemours, Inc.', value: 'DD'},
+    { label: 'Office Depot, Inc.', value: 'ODP'},
+    { label: 'Dillard\'s, Inc.', value: 'DDS'},
+    { label: 'Gap, Inc. (The)', value: 'GPS'}
+
 
 
 

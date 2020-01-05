@@ -249,7 +249,7 @@ if(!empty($_GET['symbol'])){
             '</td>' +
             '<td>> 10%</td>' +
             '<td><= 3%</td>' +
-            '<td>'+growth+'</td>' +
+            '<td>'+growth+'%</td>' +
             '<td><img class="img-fluid" style="max-height: 30px" src="'+img+'"></td>');
 
 
@@ -268,7 +268,7 @@ if(!empty($_GET['symbol'])){
             '</td>' +
             '<td>> 100%</td>' +
             '<td><= 3%</td>' +
-            '<td>'+growth10+'</td>' +
+            '<td>'+growth10+'%</td>' +
             '<td><img class="img-fluid" style="max-height: 30px" src="'+img+'"></td>');
 
 
@@ -311,7 +311,7 @@ if(!empty($_GET['symbol'])){
     <br>
     <div class="container">
         <h2>Kennzahlen</h2>
-        <p>Diese Zahlen erlauben eine schnelle Einschätzung der Qualität der Dividende:</p>
+        <p>Diese Zahlen erlauben eine schnelle Einschätzung der Qualität der Dividende. Splits werden derzeit nicht berücksichtigt.</p>
         <table class="table table-striped text-center">
             <thead>
             <tr>
