@@ -175,7 +175,7 @@ function getStockName($symbol){
  * @param $mysqli
  */
 function loadStockIntoDB($symbol, $mysqli){
-    $s = "INSERT INTO stocks (Symbol, Name, LastValue) VALUES ('".$symbol."', '".getStockName($symbol)."', ".getCurrentStockValue($symbol).");";
+    $s = "INSERT INTO stocks (Symbol, Name, LastUpdated, LastValue, KGV, yield, payoutRatio, clicks) VALUES ('".$symbol."', '".getStockName($symbol)."', current_timestamp, '".getCurrentStockValue($symbol)."', 1, '0%', '0%', 0);";
     mysqli_query($mysqli, $s);
 }
 
@@ -215,6 +215,7 @@ function updateStocks($symbol, $mysqli){
  */
 function updateDB($symbol, $mysqli){
     $s = "UPDATE stocks SET clicks = clicks +1 WHERE Symbol = '".$symbol."';";
+    $a = array();
 
     //If there is no entry with corresponding symbol, create it and download all dividends initially.
     if (primKeyExists($symbol,$mysqli)==false) {
