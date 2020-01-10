@@ -171,11 +171,13 @@ function getStockName($symbol){
 
 /**
  * Insert stock for given symbol in stocks table.
+ *
  * @param $symbol
  * @param $mysqli
+ * @param $array
  */
-function loadStockIntoDB($symbol, $mysqli){
-    $s = "INSERT INTO stocks (Symbol, Name, LastUpdated, LastValue, KGV, yield, payoutRatio, clicks) VALUES ('".$symbol."', '".getStockName($symbol)."', current_timestamp, '".getCurrentStockValue($symbol)."', 1, '0%', '0%', 0);";
+function loadStockIntoDB($symbol, $mysqli, $array){
+    $s = "INSERT INTO stocks (Symbol, Name, LastUpdated, LastValue, KGV, yield, payoutRatio, clicks) VALUES ('".$symbol."', '".getStockName($symbol)."', current_timestamp, '".$array[0]."', 1, '0%', '0%', 0);";
     mysqli_query($mysqli, $s);
 }
 
@@ -191,13 +193,12 @@ function updateTimestamp($symbol, $mysqli){
 
 /**
  * Updates stock table with current values from yahoo.
+ *
  * @param $symbol
  * @param $mysqli
+ * @param $a
  */
-function updateStocks($symbol, $mysqli){
-    $a = array();
-    $a = scrape($symbol);
-
+function updateStocks($symbol, $mysqli, $a){
     $s = "UPDATE stocks SET LastValue = '".$a[0]."', KGV = ".$a[1].", yield = '".$a[2]."', payoutRatio = '".$a[3]."' WHERE Symbol = '".$symbol."';";
 
     mysqli_query($mysqli, $s);
@@ -219,15 +220,17 @@ function updateDB($symbol, $mysqli){
 
     //If there is no entry with corresponding symbol, create it and download all dividends initially.
     if (primKeyExists($symbol,$mysqli)==false) {
-        loadStockIntoDB($symbol, $mysqli);
-        updateStocks($symbol, $mysqli);
+        $a = scrape($symbol);
+        loadStockIntoDB($symbol, $mysqli, $a);
+        updateStocks($symbol, $mysqli, $a);
         InsertAllDividends(CSVToArray(getCSV(getURL_maxT($symbol, true))), $symbol, $mysqli);
         //InsertAllDividends(getTestDiv("SKT"), $symbol, $mysqli);
         InsertAllHistories(CSVToArray(getCSV(getURL_maxT($symbol, false))), $symbol, $mysqli);
 
     } elseif(isOld($symbol, $mysqli)){
+        $a = scrape($symbol);
         //InsertAllDividends(getTestDiv("SKT"), $symbol, $mysqli);
-        updateStocks($symbol, $mysqli);
+        updateStocks($symbol, $mysqli, $a);
         InsertAllDividends(CSVToArray(getCSV(getURL_maxT($symbol, true))), $symbol, $mysqli);
         InsertAllHistories(CSVToArray(getCSV(getURL_maxT($symbol, false))), $symbol, $mysqli);
         updateTimestamp($symbol, $mysqli);
