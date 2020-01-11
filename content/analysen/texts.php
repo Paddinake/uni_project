@@ -14,8 +14,10 @@
         Dieses Qualitätsmerkmal geben Managments ungern auf, sodass auch in wirtschaflich schlechteren Zeiten versucht wird
         weiterhin Dividende zu zahlen.";
 
+    $TextDivGrowth5 = "Durch das geometrische Mittel wird das Wachstum der Dividende in Prozent innerhalb der letzten fünf Jahre berechnet. Dies hilft die weitere Entwicklung der Dividende abzuschätzen. Eine stetig wachsende Dividende ist in der Regel einer gleichbleibenden Dividende vorzuziehen, solange dadurch nicht der Gewinn (Pay-Out-Ratio) oder freie Cash-Flow (FFO) gefährdet wird.";
 
-    $TextDivGrowth5 = "TESTESTEST";
+    $TextDivGrowth10 = "Durch das geometrische Mittel wird das Wachstum der Dividende in Prozent innerhalb der letzten zehn Jahre berechnet. Dies hilft die weitere Entwicklung der Dividende abzuschätzen. Eine stetig wachsende Dividende ist in der Regel einer gleichbleibenden Dividende vorzuziehen, solange dadurch nicht der Gewinn (Pay-Out-Ratio) oder freie Cash-Flow (FFO) gefährdet wird.";
 
- echo $TextNumPayments;
+    $TextPayOutRatio = "Die Pay-Out-Ratio zeigt den Anteil der Dividende am Gewinn an. Hohe Pay-Out-Ratios schränken die Möglichkeit zur Weiterentwicklung des Unternehmens ein. Ratios über 100% bedeuten bei AGs in der Regel, dass die Auszahlung nicht allein vom Gewinn gedeckt wird sondern auch aus dem bereits vorhanden Kapital. Ausnahmen gelten für einige Unternehmensformen wie REITs, die dazu verpflichtet sind mehr als 100% auszuzahlen. Dort wird als Massstab der Anteil am freien Cash-Flow (FF=) zu Grunde gelegt."
+echo $TextNumPayments;
 
