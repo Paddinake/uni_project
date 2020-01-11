@@ -245,7 +245,7 @@ if(!empty($_GET['symbol'])){
         }
         $('#growth').append('' +
             '<td> Durchschnittliches jährliches Wachstum in den letzten 5 Jahren ' +
-            '<a data-toggle="tooltip" title="Hooray!"><i class="fa fa-question-circle"></i></span></a></span>' +
+            '<a data-toggle="tooltip" title="Durch das geometrische Mittel wird das Wachstum der Dividende in Prozent innerhalb der letzten fünf Jahre berechnet. Dies hilft die weitere Entwicklung der Dividende abzuschätzen. Eine stetig wachsende Dividende ist in der Regel einer gleichbleibenden Dividende vorzuziehen, solange dadurch nicht der Gewinn (Pay-Out-Ratio) oder freie Cash-Flow (FFO) gefährdet wird."><i class="fa fa-question-circle"></i></span></a></span>' +
             '</td>' +
             '<td>> 10%</td>' +
             '<td><= 3%</td>' +
