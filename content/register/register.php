@@ -16,9 +16,19 @@ if (!empty($_POST['Nutzername'])&&!empty($_POST['email'])&&!empty($_POST['Passwo
      $premium = 1;
  }
 
- $sql="INSERT INTO user (name, email, passwort, premium, timestamp) VALUES ('$Name', '$email', '$hash', '$premium', current_timestamp)";
- mysqli_query($con, $sql) or die ("Fehlgeschlagen! SQL-Error: ".mysqli_error($con));
- echo "<b>  <span style='color:green'> gesendet  </span> </b>";
+ $s = "SELECT COUNT(*) FROM user WHERE email = '".$email."';";
+ $c = mysqli_query($con, $s);
+
+ if($c > 0){
+     echo "<b>  <span style='color:red'> Nutzer mit dieser E-Mail existiert bereits!  </span> </b>";
+ } else {
+     $sql="INSERT INTO user (name, email, passwort, premium, timestamp) VALUES ('$Name', '$email', '$hash', '$premium', current_timestamp)";
+     mysqli_query($con, $sql) or die ("Fehlgeschlagen! SQL-Error: ".mysqli_error($con));
+     echo "<b>  <span style='color:green'> gesendet  </span> </b>";
+ }
+
+
+
 }
 
 ?>
