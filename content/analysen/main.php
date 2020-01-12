@@ -155,10 +155,6 @@ if(!empty($_GET['symbol'])){
     $datapoints_DIVIDEND = getDividendforGraph($s);
     $generalData = getStockData($s, $mysqli);
 
-    if($generalData[5]=="na"){
-        echo "################ ERRROR ###################";
-    }
-
     $x =  payedDividendsInYear(2019, $s, $mysqli);
     $amountDivinYear =$x[0];
     $sumDiviinYear =$x[1];
@@ -229,7 +225,7 @@ if(!empty($_GET['symbol'])){
         }
         $('#payRate').append('' +
             '<td> Häufigkeit der Auszahlungen im Jahr 2019 ' +
-            '<a data-toggle="tooltip" title="Hooray!"><i class="fa fa-question-circle"></i></span></a></span>' +
+            '<a data-toggle="tooltip" title="Die Bewertung der Anzahl an Auszahlungen ist hauptsächlich psychologischer Natur: Einkommensinvestoren bevorzugen oft Unternehmen mit den in der USA üblichen vier Auszahlungen, da so mit drei Aktien, deren Auszahlungstermine entsprechend versetzt getaktet sind, monatliche Auszahlungen erreicht werden können, analog zu einem klassischen Gehalt. Eine jährliche oder halbjährliche Dividende hat nur den Nachteil, dass man mit der Auszahlung länger haushalten muss. Mehr als vier Auszahlungen im Jahr oder gar tägliche Auszahlungen sind ungewöhnlich und mit Vorsicht zu betrachten."><i class="fa fa-question-circle"></i></span></a></span>' +
             '</td>' +
             '<td>== 4</td>' +
             '<td>>= 20 oder == 0</td>' +
@@ -247,7 +243,7 @@ if(!empty($_GET['symbol'])){
         }
         $('#howLong').append('' +
             '<td> Anzahl Jahre in denen min. einaml Dividende gezahlt wurde ' +
-            '<a data-toggle="tooltip" title="Hooray!"><i class="fa fa-question-circle"></i></span></a></span>' +
+            '<a data-toggle="tooltip" title="Eine hohe Anzahl an Auszahlungsjahren ist ein guter Hinweis auf ein dauerhaft stabiles Unternehmen und sichere Dividende. Daher werden Unternehmen die 25 Jahre oder länger Dividende zahlen auch als \'Dividendenaristokraten\' bezeichnet. Dieses Qualitätsmerkmal geben Managments ungern auf, sodass auch in wirtschaflich schlechteren Zeiten versucht wird weiterhin Dividende zu zahlen um zu vermeiden, dass die Auszahlungsserie unterbrochen wird."><i class="fa fa-question-circle"></i></span></a></span>' +
             '</td>' +
             '<td>>= 20</td>' +
             '<td>< 5</td>' +
@@ -266,7 +262,7 @@ if(!empty($_GET['symbol'])){
         }
         $('#kgv').append('' +
             '<td> KGV' +
-            '<a data-toggle="tooltip" title="Hooray!"><i class="fa fa-question-circle"></i></span></a></span>' +
+            '<a data-toggle="tooltip" title="Das Kurs-Gewinn-Verhältnis besagt, wie oft der Gewinn im aktuellen Kurs einer Aktie enthalten ist oder nach wie vielen Jahren der Gewinn den Preis der Aktie „bezahlt“ hat. Diese Deutung gilt jedoch nicht mehr, wenn das Unternehmen Verluste schreibt. Denn nach Definition ist das KGV somit negativ und die Aktie würde niemals durch den Gewinn „bezahlt“ werden können. Um diese Definitionslücke für Werte kleiner 0 zu umgehen, wird anstatt des Gewinns oft der Kapitalfluss (so genannter Cash-Flow) errechnet und alternativ das Kurs-Cash-Flow-Verhältnis KCV oder KCF verwendet. Für Dividendenstrategien ist der KGV interessant um schnell zu erkennen ob ein Unternehmen überhaupt Gewinn erziehlt und dadurch stabil erscheint."><i class="fa fa-question-circle"></i></span></a></span>' +
             '</td>' +
             '<td>> 0 und <= 10</td>' +
             '<td>> 50 oder <= 0</td>' +
@@ -285,7 +281,7 @@ if(!empty($_GET['symbol'])){
         }
         $('#dividendenRendite').append('' +
             '<td> Momentane Dividendenrendite' +
-            '<a data-toggle="tooltip" title="Hooray!"><i class="fa fa-question-circle"></i></span></a></span>' +
+            '<a data-toggle="tooltip" title="Die momentane Dividendenrendite beschreibt den Anteil der Jahresdividende am Preis einer einzelnen Aktie, vergleichbar zur Berechnung von Zinsen. Viele Unternehmen zahlen zwischen einem bis drei Pozent Dividende. Höhere Werte müssen genauer betrachtet werden, da sie oft auf einen Kurseinbruch hinweisen, den man erst verstehen sollte bevor man in einer hohen Dividendenrendite eine Chance bzw. Unterbewertung sieht."><i class="fa fa-question-circle"></i></span></a></span>' +
             '</td>' +
             '<td><= 3%</td>' +
             '<td>> 7% oder <= 0%</td>' +
@@ -304,7 +300,7 @@ if(!empty($_GET['symbol'])){
         }
         $('#payOutRatio').append('' +
             '<td> Pay-Out-Ratio ' +
-            '<a data-toggle="tooltip" title="Hooray!"><i class="fa fa-question-circle"></i></span></a></span>' +
+            '<a data-toggle="tooltip" title="Die Pay-Out-Ratio zeigt den Anteil der Dividende am Gewinn an. Hohe Pay-Out-Ratios schränken die Möglichkeit zur Weiterentwicklung des Unternehmens ein. Ratios über 100% bedeuten bei AGs in der Regel, dass die Auszahlung nicht allein vom Gewinn gedeckt wird sondern auch aus dem bereits vorhanden Kapital. Ausnahmen gelten für einige Unternehmensformen wie REITs, die dazu verpflichtet sind mehr als 100% auszuzahlen. Dort wird als Massstab der Anteil am freien Cash-Flow (FFO) zu Grunde gelegt." data-placement="top"><i class="fa fa-question-circle"></i></span></a></span>' +
             '</td>' +
             '<td><= 60%</td>' +
             '<td>> 85% oder <= 0%</td>' +
@@ -325,7 +321,7 @@ if(!empty($_GET['symbol'])){
         }
         $('#growth').append('' +
             '<td> Durchschnittliches jährliches Wachstum in den letzten 5 Jahren ' +
-            '<a data-toggle="tooltip" title="Durch das geometrische Mittel wird das Wachstum der Dividende in Prozent innerhalb der letzten fünf Jahre berechnet. Dies hilft die weitere Entwicklung der Dividende abzuschätzen. Eine stetig wachsende Dividende ist in der Regel einer gleichbleibenden Dividende vorzuziehen, solange dadurch nicht der Gewinn (Pay-Out-Ratio) oder freie Cash-Flow (FFO) gefährdet wird."><i class="fa fa-question-circle"></i></span></a></span>' +
+            '<a data-toggle="tooltip" title="Durch das geometrische Mittel wird das Wachstum der Dividende in Prozent innerhalb der letzten fünf Jahre berechnet. Dies hilft die weitere Entwicklung der Dividende abzuschätzen. Eine stetig wachsende Dividende ist in der Regel einer gleichbleibenden Dividende vorzuziehen, solange dadurch nicht der Gewinn (Pay-Out-Ratio) oder freie Cash-Flow (FFO) gefährdet wird." data-placement="top"><i class="fa fa-question-circle"></i></span></a></span>' +
             '</td>' +
             '<td>> 10%</td>' +
             '<td><= 3%</td>' +
@@ -344,7 +340,7 @@ if(!empty($_GET['symbol'])){
         }
         $('#growth10').append('' +
             '<td> Durchschnittliches jährliches Wachstum in den letzten 10 Jahren ' +
-            '<a data-toggle="tooltip" title="Hooray!" data-placement="top"><i class="fa fa-question-circle"></i></span></a></span>' +
+            '<a data-toggle="tooltip" title="Durch das geometrische Mittel wird das Wachstum der Dividende in Prozent innerhalb der letzten zehn Jahre berechnet. Dies hilft die weitere Entwicklung der Dividende abzuschätzen. Eine stetig wachsende Dividende ist in der Regel einer gleichbleibenden Dividende vorzuziehen, solange dadurch nicht der Gewinn (Pay-Out-Ratio) oder freie Cash-Flow (FFO) gefährdet wird." data-placement="top"><i class="fa fa-question-circle"></i></span></a></span>' +
             '</td>' +
             '<td>> 100%</td>' +
             '<td><= 3%</td>' +
