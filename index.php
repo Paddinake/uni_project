@@ -127,7 +127,7 @@
             <img src="img/stock.jpg">
             <div class="carousel-caption">
                 <h1 class="display-2"> HYPE </h1>
-                <h3> Einfaches Stock tool</h3>
+                <h3> Einfaches Stock Tool</h3>
                 <button type="button" class="btn btn-outline-light btn-lg" onclick="window.location.href='index.php?content=register';"> Get Started</button>
             </div>
         </div>
@@ -154,6 +154,7 @@
     <div class="row jumbotron">
         <div class="col-12"></div>
         <h4>Objektive Bewertung</h4>
+        <div class="col-12"></div>
         <p>
             Dividenden sind eine wichtige Kennzahl von Unternehmen. Wir haben uns als Ziel gesetzt diese 
 			Kennzahl zu Analysieren und einfach Darzustellen. Mit Hilfe unsres Tools kann jeder - von Beginner bis Experte
@@ -162,6 +163,7 @@
 			Mit unserer einzigartigen "Ampelfunktion" muss man keine Wirtschaftswissenschaften mehr studiert haben, um zu 
 			erkennen ob sich ein Investment - Dividenden fokussiert lohnt.
         </p>
+        <div class="col-12"></div>
         <p>
             <a href="index.php#examples"><button type="button" class="btn btn-outline-secondary btn-lg"> Mehr Erfahren</button> </a>
         </p>
@@ -184,7 +186,7 @@
     </div>
 </div>
 
-<!--3 Spalten Preise-->
+<!--2 Spalten Preise-->
 <section class="pricing py-5">
   <div class="container">
     <div class="row">
