@@ -155,6 +155,10 @@ if(!empty($_GET['symbol'])){
     $datapoints_DIVIDEND = getDividendforGraph($s);
     $generalData = getStockData($s, $mysqli);
 
+    if($generalData[5]=="na"){
+        echo "################ ERRROR ###################";
+    }
+
     $x =  payedDividendsInYear(2019, $s, $mysqli);
     $amountDivinYear =$x[0];
     $sumDiviinYear =$x[1];
@@ -209,10 +213,10 @@ if(!empty($_GET['symbol'])){
 
 
         // KPI's befüllen
-         KPIRow("howLong", "Anzahl Jahre in denen min. einmal Dividende gezahlt wurde", 20, 5, <?php echo numYearsDividendPayed($_GET['symbol'], 2019, $mysqli)?>, true);
-         KPIRow("kgv", "KGV", 10, 50, <?php echo $generalData[4]; ?>, false);
-         KPIRow("dividendenRendite", "Momentane Dividendenrendite in %", 3, 7, <?php echo $dividendenRendite; ?>, false);
-         KPIRow("payOutRatio", "Pay-Out-Ratio in %", 60, 85, <?php echo str_replace('%', '', $generalData[6]);; ?>, false);
+         //KPIRow("howLong", "Anzahl Jahre in denen min. einmal Dividende gezahlt wurde", 20, 5, <?php echo numYearsDividendPayed($_GET['symbol'], 2019, $mysqli)?>, true);
+         //KPIRow("kgv", "KGV", 10, 50, <?php echo $generalData[4]; ?>, false);
+         //KPIRow("dividendenRendite", "Momentane Dividendenrendite in %", 3, 7, <?php echo $dividendenRendite; ?>, false);
+         //KPIRow("payOutRatio", "Pay-Out-Ratio in %", 60, 85, <?php echo str_replace('%', '', $generalData[6]);; ?>, false);
 
         // KPIs that cant be filled with KPIRow() due to special red/green conditions
         var payedDividendsinYear=<?php echo $amountDivinYear; ?>;
@@ -231,6 +235,82 @@ if(!empty($_GET['symbol'])){
             '<td>>= 20 oder == 0</td>' +
             '<td>'+payedDividendsinYear+'</td>' +
             '<td><img class="img-fluid" style="max-height: 30px" src="'+img+'"></td>');
+
+
+        var howLong=<?php echo numYearsDividendPayed($_GET['symbol'], 2019, $mysqli)?>;
+        if (howLong>=20){
+            img = "img/lights/greenlight.PNG";
+        } else if (howLong < 5){
+            img = "img/lights/redlight.PNG";
+        } else {
+            img = "img/lights/orangelight.PNG";
+        }
+        $('#howLong').append('' +
+            '<td> Anzahl Jahre in denen min. einaml Dividende gezahlt wurde ' +
+            '<a data-toggle="tooltip" title="Hooray!"><i class="fa fa-question-circle"></i></span></a></span>' +
+            '</td>' +
+            '<td>>= 20</td>' +
+            '<td>< 5</td>' +
+            '<td>'+howLong+'</td>' +
+            '<td><img class="img-fluid" style="max-height: 30px" src="'+img+'"></td>');
+
+
+
+        var kgv=<?php echo $generalData[4]; ?>;
+        if (kgv > 0 && kgv <= 10){
+            img = "img/lights/greenlight.PNG";
+        } else if (kgv > 50 || kgv <= 0 || kgv == "N/A"){
+            img = "img/lights/redlight.PNG";
+        } else {
+            img = "img/lights/orangelight.PNG";
+        }
+        $('#kgv').append('' +
+            '<td> KGV' +
+            '<a data-toggle="tooltip" title="Hooray!"><i class="fa fa-question-circle"></i></span></a></span>' +
+            '</td>' +
+            '<td>> 0 und <= 10</td>' +
+            '<td>> 50 oder <= 0</td>' +
+            '<td>'+kgv+'</td>' +
+            '<td><img class="img-fluid" style="max-height: 30px" src="'+img+'"></td>');
+
+
+
+        var dividendenRendite=<?php echo $dividendenRendite; ?>;
+        if (dividendenRendite<=3 && dividendenRendite > 0){
+            img = "img/lights/greenlight.PNG";
+        } else if (dividendenRendite > 7 || dividendenRendite <= 0 || dividendenRendite == "N/A"){
+            img = "img/lights/redlight.PNG";
+        } else {
+            img = "img/lights/orangelight.PNG";
+        }
+        $('#dividendenRendite').append('' +
+            '<td> Momentane Dividendenrendite' +
+            '<a data-toggle="tooltip" title="Hooray!"><i class="fa fa-question-circle"></i></span></a></span>' +
+            '</td>' +
+            '<td><= 3%</td>' +
+            '<td>> 7% oder <= 0%</td>' +
+            '<td>'+dividendenRendite+'%</td>' +
+            '<td><img class="img-fluid" style="max-height: 30px" src="'+img+'"></td>');
+
+
+
+        var payOutRatio=<?php echo strval(str_replace('%', '', $generalData[6])); ?>;
+        if (payOutRatio<=60 && payOutRatio > 0){
+            img = "img/lights/greenlight.PNG";
+        } else if (payOutRatio > 85 || payOutRatio <= 0){
+            img = "img/lights/redlight.PNG";
+        } else {
+            img = "img/lights/orangelight.PNG";
+        }
+        $('#payOutRatio').append('' +
+            '<td> Pay-Out-Ratio ' +
+            '<a data-toggle="tooltip" title="Hooray!"><i class="fa fa-question-circle"></i></span></a></span>' +
+            '</td>' +
+            '<td><= 60%</td>' +
+            '<td>> 85% oder <= 0%</td>' +
+            '<td>'+payOutRatio+'%</td>' +
+            '<td><img class="img-fluid" style="max-height: 30px" src="'+img+'"></td>');
+
 
 
 
