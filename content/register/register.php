@@ -16,7 +16,7 @@ if (!empty($_POST['Nutzername'])&&!empty($_POST['email'])&&!empty($_POST['Passwo
      $premium = 1;
  }
 
- $sql="INSERT INTO user (name, email, passwort, premium) VALUES ('$Name', '$email', '$hash', '$premium')";
+ $sql="INSERT INTO user (name, email, passwort, premium, timestamp) VALUES ('$Name', '$email', '$hash', '$premium', current_timestamp)";
  mysqli_query($con, $sql) or die ("Fehlgeschlagen! SQL-Error: ".mysqli_error($con));
  echo "<b>  <span style='color:green'> gesendet  </span> </b>";
 }
