@@ -695,7 +695,7 @@ function userIsOld($userID, $mysqli){
             intval($i->format("%m")) > 0 or
             intval($i->format("%d")) > 0){
 
-            echo $i->format('Age is: %y years %m monts %d days %h hours');
+            //echo $i->format('Age is: %y years %m monts %d days %h hours');
             return true;
 
         }
