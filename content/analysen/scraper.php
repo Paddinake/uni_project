@@ -49,7 +49,24 @@ function scrape($symbol){
         $i++;
     }
 
-    return array($currentStockValue, $KGV, $FDAndYield, $payoutRatio);
+    //Error handling
+    $name = "FOOO";
+
+    if(strpos($FDAndYield, "N/A")>-1){
+        $FDAndYield = "N/A";
+        $name = "ERROR";
+    }
+
+    if(strpos($KGV, "N/A")>-1){
+        $KGV = "N/A";
+        $payoutRatio = "N/A";
+        $name = "ERROR";
+    }
+
+
+
+
+    return array($currentStockValue, $KGV, $FDAndYield, $payoutRatio, $name);
 
 }
 

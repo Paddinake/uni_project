@@ -177,7 +177,9 @@ function getStockName($symbol){
  * @param $array
  */
 function loadStockIntoDB($symbol, $mysqli, $array){
-    $s = "INSERT INTO stocks (Symbol, Name, LastUpdated, LastValue, KGV, yield, payoutRatio, clicks) VALUES ('".$symbol."', '".getStockName($symbol)."', current_timestamp, '".$array[0]."', 1, '0%', '0%', 0);";
+    //$s = "INSERT INTO stocks (Symbol, Name, LastUpdated, LastValue, KGV, yield, payoutRatio, clicks) VALUES ('".$symbol."', '".getStockName($symbol)."', current_timestamp, '".$array[0]."', '".$array[1]."', '".$array[2]."', '".$array[3]."', 0);";
+    $s = "INSERT INTO stocks (Symbol, Name, LastUpdated, LastValue, KGV, yield, payoutRatio, clicks) VALUES ('".$symbol."', '".$array[4]."', current_timestamp, '".$array[0]."', '0', '0', '0', 0);";
+
     mysqli_query($mysqli, $s);
 }
 
