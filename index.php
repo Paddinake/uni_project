@@ -58,6 +58,7 @@
 				<div class="dropdown-menu">
 					<a href="index.php?content=forum&subnav=overview" class="dropdown-item"> Übersicht</a>
 					<a href="index.php?content=forum&subnav=createTopic" class="dropdown-item"> Thema anlegen</a>
+                    <a href="index.php?content=forum&subnav=createCategory" class="dropdown-item"> Kategorie erstellen</a>
 				</div>
 				</li>
 			<li class="nav-item active"><a class="nav-link" href="index.php?content=settings">Einstellungen</a></li>

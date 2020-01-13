@@ -61,9 +61,9 @@ if (isset($_SESSION["user_id"])) {
 			<input type="submit" class="btn btn-primary" value="Login">
         </form>
 		</br>
-		<form method="get" action="register.php" style="text-align:center;">
-			<input class="btn btn-primary" type="submit" value="Registrieren">
-		</form>
+        <form method="POST" action="index.php?content=register" style="text-align:center;">
+            <input class="btn btn-primary" type="submit" value="Registrieren">
+        </form>
     </div>
     </br>
 
