@@ -17,9 +17,14 @@ if (!empty($_POST['Nutzername'])&&!empty($_POST['email'])&&!empty($_POST['Passwo
  }
 
  $s = "SELECT COUNT(*) FROM user WHERE email = '".$email."';";
- $c = mysqli_query($con, $s);
+ $sum = 0;
+ $result = mysqli_query($con, $s);
 
- if($c > 0){
+ while ($row = mysqli_fetch_array($result)){
+     $sum = $sum+$row[0];
+ }
+
+ if($sum > 0){
      echo "<b>  <span style='color:red'> Nutzer mit dieser E-Mail existiert bereits!  </span> </b>";
  } else {
      $sql="INSERT INTO user (name, email, passwort, premium, timestamp) VALUES ('$Name', '$email', '$hash', '$premium', current_timestamp)";
