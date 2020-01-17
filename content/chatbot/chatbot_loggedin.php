@@ -62,8 +62,6 @@ include '../analysen/funcDB.php';
 
         if (!first){
             botui.message.add({
-                loading:true,
-                delay: 2000,
                 content: "Ich hoffe das hat geholfen... kann ich dir sonst noch weiter helfen"
             });
         }
@@ -91,7 +89,7 @@ include '../analysen/funcDB.php';
         if(res.value==0){
             return botui.message.add({
                 loading:true,
-                delay: 2500,
+                delay: 1500,
                 content: "Was haben Frauen und Tornados gemeinsam: Erst feucht, dann stürmisch" +
                     "und hinterher ist das Haus weg."
             });
@@ -101,6 +99,8 @@ include '../analysen/funcDB.php';
         }
         else if(res.value==2){
             return botui.action.button({
+                loading:true,
+                delay: 1000,
                 action: [
                     {
                         text: name1,
@@ -146,9 +146,9 @@ include '../analysen/funcDB.php';
         });
     }).then(function (res) {
         return botui.message.add({
-             loading:true,
-             // delay: 2500,
-             content: 'Schön, dass du hier bist ' + res.value + ' wie kann ich weiter helfen?'
+            loading:true,
+            delay: 1500,
+            content: 'Schön, dass du hier bist ' + res.value + ' wie kann ich weiter helfen?'
          });
     }).then(function(){
         askWhatToDo(true);

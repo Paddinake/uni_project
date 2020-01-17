@@ -17,8 +17,8 @@
     function askWhatToDo(first){
         if (!first){
             botui.message.add({
-                loading:true,
-                delay: 2000,
+                // loading:true,
+                // delay: 1,
                 content: "Ich hoffe das hat geholfen... kann ich dir sonst noch weiter helfen"
             });
         }
@@ -41,24 +41,17 @@
         }).then(function(res){
         if(res.value==0){
             return botui.message.add({
-                loading:true,
-                delay: 2500,
-                content: "Liste mit Vorteilen"
+                // loading:true,
+                // delay: 1,
+                type: 'html',
+                content: "Bei uns kann man alles auf einer Seite sehen: <br><img width='200px' src='../../img/kennzahlen.PNG' >"
             });
         }
         else if(res.value==1){
-            return botui.message.add({
-                loading:true,
-                delay: 2500,
-                content: "Tabelle der Kosten"
-            });
+            window.opener.website.location.href = "../../index.php#prices";
         }
         else if(res.value==2){
-            return botui.message.add({
-                loading:true,
-                delay: 2500,
-                content: "Link zum Registrieren"
-            });
+            window.opener.website.location.href = "../../index.php?content=register";
         }
         else if(res.value==3){
             window.opener.website.location.href = "../../index.php?content=kontakt";
@@ -79,7 +72,7 @@
     }).then(function (res) {
         return botui.message.add({
              loading:true,
-             delay: 2500,
+             delay: 1500,
              content: 'Schön, dass du hier bist ' + res.value + ' wie kann ich weiter helfen?'
          });
     }).then(function(){

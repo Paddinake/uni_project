@@ -78,7 +78,8 @@ var stocks  =  [
     { label: 'DuPont de Nemours, Inc.', value: 'DD'},
     { label: 'Office Depot, Inc.', value: 'ODP'},
     { label: 'Dillard\'s, Inc.', value: 'DDS'},
-    { label: 'Gap, Inc. (The)', value: 'GPS'}
+    { label: 'Gap, Inc. (The)', value: 'GPS'},
+    { label: 'Commerzbank AG', value: 'CBK.DE'}
 
 
 

@@ -1,8 +1,6 @@
 <?php
 include_once('simple_html_dom.php');
 
-//@TODO fix operating income & dividends Paid
-//TODo: Error Handling, wenn manche Kennzahlen nicht da z,b TSLA -> N/A
 
 /**
  * Scrapes currentStockValue, dividend-yield-value, PE-ratio and KGV from yahoo.
@@ -30,6 +28,11 @@ function scrape($symbol){
                 $KGV = $td->plaintext;
             }
         }
+    }
+    if ($currentStockValue==0){
+        echo '<script type="text/javascript">';
+        echo "window.location.href = 'index.php?content=analysen&msg=NA'";
+        echo "</script>";
     }
     //echo $currentStockValue;
 

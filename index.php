@@ -10,6 +10,7 @@
 <head>
     <title>HYPE</title>
     <meta charset="utf-8">
+
 <!--    TODO: Welche Scripte wir wirklich brauchen raussuchen und dann runterladen-->
     <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16.png">
@@ -121,22 +122,23 @@
     <ol class="carousel-indicators">
         <li data-target="#slides" data-slide-to="0" class="active"></li>
         <li data-target="#slides" data-slide-to="1" ></li>
-        <li data-target="#slides" data-slide-to="2" ></li>
     </ol>
     <div class="carousel-inner">
         <div class="carousel-item active">
             <img src="img/stock.jpg">
             <div class="carousel-caption">
                 <h1 class="display-2"> HYPE </h1>
-                <h3> Einfaches Stock Tool</h3>
-                <button type="button" class="btn btn-outline-light btn-lg" onclick="window.location.href='index.php?content=register';"> Get Started</button>
+                <?php
+                if (!(isset($_SESSION["loggedin"]) && $_SESSION['loggedin'] == true)){
+                    ?>
+                    <button type="button" class="btn btn-outline-light btn-lg" onclick="window.location.href='index.php?content=register';"> Get Started</button>
+                    <?php
+                }
+                ?>
             </div>
         </div>
         <div class="carousel-item">
             <img src="img/dividend.jpg">
-        </div>
-        <div class="carousel-item">
-            <img src="img/hypeslide2.png">
         </div>
     </div>
 	 <a class="left carousel-control" href="#slides" data-slide="prev">
