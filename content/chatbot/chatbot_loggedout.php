@@ -9,7 +9,6 @@
     </div>
 
 
-<!--ToDo: Alle Punkte mit Inhalt füllen-->
 <script>
     var botui = new BotUI('my-botui-app');
 

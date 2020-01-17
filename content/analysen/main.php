@@ -155,8 +155,8 @@ if(!empty($_GET['symbol'])){
     include('graphHelper.php');
     $s = strtoupper($_GET['symbol']);
     updateDB($s, $mysqli);
-    $datapoints_STOCK = getHistoryforGraph($s);
-    $datapoints_DIVIDEND = getDividendforGraph($s);
+    $datapoints_STOCK = getHistoryforGraph($s, $mysqli);
+    $datapoints_DIVIDEND = getDividendforGraph($s, $mysqli);
     $generalData = getStockData($s, $mysqli);
 
     $x =  payedDividendsInYear(2019, $s, $mysqli);
@@ -168,8 +168,6 @@ if(!empty($_GET['symbol'])){
     $dividendGrowth = number_format((float)geometrischesMittel($s, 2019, 5, $mysqli), 4, '.','') ;
     $dividendGrowth10 = number_format((float)geometrischesMittel($s, 2019, 10, $mysqli), 4, '.','') ;
 
-
-    //ToDo: mit dem yield machen wir bis jetzt noch nichts
     ?>
 
     <script>

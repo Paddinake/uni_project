@@ -1,4 +1,4 @@
-//ToDo: erweitern
+
 var stocks  =  [
     // DAX
     { label: 'Siemens Aktiengesellschaft', value: 'SIE.DE' },

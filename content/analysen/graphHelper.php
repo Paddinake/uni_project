@@ -7,8 +7,7 @@ include_once('funcDB.php');
  * @param $symbol
  * @return array
  */
-function getDividendforGraph($symbol){
-    $mysqli = new mysqli("127.0.0.1", "root", "", "uni_project", 3306);
+function getDividendforGraph($symbol, $mysqli){
     $array = loadAllDividendsToArray($symbol, $mysqli);
     $dataPoints = array();
     for($i = 0; $i < count($array); $i++){
@@ -29,8 +28,7 @@ function getDividendforGraph($symbol){
  * @param $symbol
  * @return array
  */
-function getHistoryforGraph($symbol){
-    $mysqli = new mysqli("127.0.0.1", "root", "", "uni_project", 3306);
+function getHistoryforGraph($symbol, $mysqli){
     $array = loadAllHistoryToArray($symbol, $mysqli);
     //$array = loadAllDividendsToArray($symbol, $mysqli);
     $dataPoints = array();

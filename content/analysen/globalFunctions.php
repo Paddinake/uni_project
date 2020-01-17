@@ -1,5 +1,5 @@
 <?php
-$mysqli = new mysqli("127.0.0.1", "root", "", "uni_project", 3306);
+include_once('db.php');
 
 /**
  * Returns top 5 most clicked stock names.

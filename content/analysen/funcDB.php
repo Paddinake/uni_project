@@ -1,16 +1,12 @@
 <?php
 include_once('simple_html_dom.php');
-//include('db.php');
-include('scraper.php');
+include_once('db.php');
+include_once('scraper.php');
 
 
 //@TODO replace with loading icon?
 set_time_limit(0);
 ignore_user_abort();
-
-//ToDo: einmal zentral DB definieren
-$mysqli = new mysqli("127.0.0.1", "root", "", "uni_project", 3306);
-$con = mysqli_connect('127.0.0.1','root','','uni_project');
 
 
 
