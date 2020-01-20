@@ -44,6 +44,7 @@ function getURL_maxT($symbol, $dh){
 
 /**
  * Loads CSV from given URL.
+ * If the httpcode is not 200, it retries a set time while waiting before each attempt.
  * @param $url
  * @return bool|string
  */
