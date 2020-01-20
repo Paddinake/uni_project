@@ -73,10 +73,9 @@ function scrape($symbol){
 
 }
 
-
-//toDo: ist das wirklich nötig??
 /**
  * Scrapes currentStockValue from Yahoo.
+ * Used in updateDB if timestamp is still valid.
  * @param $symbol
  * @return int
  */

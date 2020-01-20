@@ -53,12 +53,37 @@ function getCSV($url)
     curl_setopt($ch, CURLOPT_URL, $url);
     curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-    $resp = curl_exec($ch);
+
+
+
+    $c = 0;
+    $loop = true;
+    while($loop==true){
+
+        $resp = curl_exec($ch);
+        $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+
+        if($httpcode==200){
+            //echo "NIIIIICEEEEEE";
+            $loop = false;
+        } else if($c>5){
+            echo "<br>Externe Datenquelle reagiert nicht.<br>";
+            $loop = false;
+        } else {
+            sleep(1);
+            //echo "loop<br>";
+            $c=$c+1;
+        }
+
+    }
+
+
 
     if(!$resp) {
         die('Error: "' . curl_error($ch) . '" - Code: ' . curl_errno($ch));
     }
     curl_close($ch);
+    //echo $resp;
     return $resp;
 }
 
@@ -393,11 +418,11 @@ function payedDividensInYearFromCSV($year, $symbol){
     for($i=1; $i<count($dividendA)-1;$i++){
         //prueft datum und das tatsaechlich ein Betrag ausgezahlt wurde
         if((strpos($dividendA[$i][0],$year)>-1)&&(($dividendA[$i][1]>0.0))){
-            echo $dividendA[$i][1]."\n";
+            //echo $dividendA[$i][1]."\n";
             $sum+=$dividendA[$i][1];
             $counter+=1;
         } else {
-            echo "false"."\n";
+            //echo "false"."\n";
         }
     }
 
@@ -686,7 +711,7 @@ function userIsOld($userID, $mysqli){
     $result = mysqli_query($mysqli, $s);
 
     while ($row = mysqli_fetch_assoc($result)){
-        echo $row["timestamp"]."\n";
+        //echo $row["timestamp"]."\n";
         $timeST = new DateTime($row["timestamp"]);//last updated in DB
         $timeN = new DateTime();//current time
         $i = $timeST->diff($timeN);
