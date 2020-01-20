@@ -9,7 +9,7 @@ if($y==52){
 }
 else
 {
-    echo '<div style="padding-left:10px; padding-bottom:20px;"><form method="get" action="del_user.php"><input class="btn btn-danger" style= "width:200px" type="submit" value="Account löschen"></form></div>';
+    //echo '<div style="padding-left:10px; padding-bottom:20px;"><form method="get" action="del_user.php"><input class="btn btn-danger" style= "width:200px" type="submit" value="Account löschen"></form></div>';
 }
 
 
