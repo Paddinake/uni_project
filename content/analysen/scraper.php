@@ -69,7 +69,7 @@ function scrape($symbol){
 
 
 
-    return array($currentStockValue, $KGV, $FDAndYield, $payoutRatio, $name);
+    return array(str_replace(",","",$currentStockValue), $KGV, $FDAndYield, $payoutRatio, $name);
 
 }
 
@@ -92,8 +92,7 @@ function scrapeCurrentValue($symbol){
             }
         }
     }
-
-    return $currentStockValue;
+    return str_replace(",","",$currentStockValue);
 }
 
 

@@ -260,7 +260,7 @@ function updateDB($symbol, $mysqli){
         InsertAllHistories(CSVToArray(getCSV(getURL_maxT($symbol, false))), $symbol, $mysqli);
         updateTimestamp($symbol, $mysqli);
     } else {
-        $s = "UPDATE stocks SET LastValue = ".scrapeCurrentValue($symbol).", clicks = clicks +1 WHERE Symbol = '".$symbol."';";
+        $s = "UPDATE stocks SET LastValue = ".getCurrentStockValue($symbol).", clicks = clicks +1 WHERE Symbol = 'GOOG';";
     }
 
     mysqli_query($mysqli, $s);
