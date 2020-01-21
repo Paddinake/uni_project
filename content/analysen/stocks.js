@@ -79,7 +79,9 @@ var stocks  =  [
     { label: 'Office Depot, Inc.', value: 'ODP'},
     { label: 'Dillard\'s, Inc.', value: 'DDS'},
     { label: 'Gap, Inc. (The)', value: 'GPS'},
-    { label: 'Commerzbank AG', value: 'CBK.DE'}
+    { label: 'Commerzbank AG', value: 'CBK.DE'},
+    { label: 'Amazon.com, Inc.', value: 'AMZN'}
+
 
 
 

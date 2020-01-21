@@ -28,6 +28,7 @@ function getURL($symbol, $dh, $startT, $endT, $crumb){
     } else {
         $dh = "div";
     }
+    //echo "https://query1.finance.yahoo.com/v7/finance/download/".$symbol."?period1=".$startT."&period2=".$endT."&interval=1mo&events=".$dh."&crumb=".$crumb."  ";
     return "https://query1.finance.yahoo.com/v7/finance/download/".$symbol."?period1=".$startT."&period2=".$endT."&interval=1mo&events=".$dh."&crumb=".$crumb;
 }
 
@@ -67,7 +68,7 @@ function getCSV($url)
         if($httpcode==200){
             //echo "NIIIIICEEEEEE";
             $loop = false;
-        } else if($c>5){
+        } else if($c>10){
             echo "<br>Externe Datenquelle reagiert nicht.<br>";
             $loop = false;
         } else {
@@ -260,7 +261,7 @@ function updateDB($symbol, $mysqli){
         InsertAllHistories(CSVToArray(getCSV(getURL_maxT($symbol, false))), $symbol, $mysqli);
         updateTimestamp($symbol, $mysqli);
     } else {
-        $s = "UPDATE stocks SET LastValue = ".getCurrentStockValue($symbol).", clicks = clicks +1 WHERE Symbol = 'GOOG';";
+        $s = "UPDATE stocks SET LastValue = ".getCurrentStockValue($symbol).", clicks = clicks +1 WHERE Symbol = '".$symbol."';";
     }
 
     mysqli_query($mysqli, $s);
