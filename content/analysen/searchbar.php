@@ -17,6 +17,6 @@
         <label for = "symbols">Aktien: </label>
         <input type="hidden" name="content" value="analysen">
         <input id = "symbols" name="symbol">
-            <input type="submit" value="Submit">
+            <input type="submit" value="Suchen">
     </div>
 </form>
