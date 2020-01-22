@@ -73,7 +73,7 @@ function getCSV($url)
             $loop = false;
         } else {
             sleep(1);
-            //echo "loop<br>";
+            //echo "<br>loop<br>";
             $c=$c+1;
         }
 
