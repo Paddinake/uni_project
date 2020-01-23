@@ -43,7 +43,7 @@ var stocks  =  [
     { label: 'Royal Dutch Shell plc (RDSA.AS)', value: 'RDSA.AS'},
     { label: 'Royal Dutch Shell plc (RDSB.L)', value: 'RDSB.L'},
     { label: 'Shell Midstream Partners, L.P. (SHLX)', value: 'SHLX'},
-    { label: 'BP p.l.c', value: 'BP'},
+    //{ label: 'BP p.l.c', value: 'BP'},-
     { label: 'The Coca-Cola Company (KO)', value: 'KO'},
     { label: 'Coca-Cola Consolidated, Inc (COKE)', value: 'COKE'},
     { label: 'Coca-Cola European Partners plc (CCEP)', value: 'CCEP'},
@@ -52,16 +52,16 @@ var stocks  =  [
     { label: 'The Walt Disney Company (DIS)', value: 'DIS'},
     { label: 'The Walt Disney Company (DISB34.SA)', value: 'DISB34.SA'},
     { label: 'The Walt Disney Company (DISN.BA)', value: 'DISN.BA'},
-    { label: 'The Walt Disney Company (DIS.MX)', value: 'DIS.MX'},
-    { label: 'DISNEY (WALT) CO. (DIS.D)', value: 'DIS.D'},
+    //{ label: 'The Walt Disney Company (DIS.MX)', value: 'DIS.MX'},-
+   // { label: 'DISNEY (WALT) CO. (DIS.D)', value: 'DIS.D'},--
     { label: 'Starbucks Corporation', value: 'SBUX'},
     { label: 'Altria Group, Inc. (MO)', value: 'MO'},
     { label: 'Philip Morris International Inc.', value: 'PM'},
-    { label: 'General Electric Company', value: 'GE'},
+    { label: 'General Electric Company', value: 'GE'},-
     { label: 'NIO Limited', value: 'NIO'},
-    { label: 'Advanced Micro Devices, Inc.', value: 'AMD'},
+    //{ label: 'Advanced Micro Devices, Inc.', value: 'AMD'},-
     { label: 'Avon Products, Inc.', value: 'AVP'},
-    { label: 'Bank of America Corporation', value: 'BAC'},
+    //{ label: 'Bank of America Corporation', value: 'BAC'},-
     { label: 'Rolls-Royce Holdings plc', value: 'RLLCF'},
     { label: 'Lamb Weston Holdings, Inc.', value: 'LW'},
     { label: 'Kratos Defense & Security Solutions, Inc.', value: 'KTOS'},
@@ -72,18 +72,11 @@ var stocks  =  [
     { label: 'Beyond Meat, Inc', value: 'BYND'},
     { label: 'Berkshire Hathaway Inc. (BRK-A)', value: 'BRK-A'},
     { label: 'Berkshire Hathaway Inc. (BRK-B)', value: 'BRK-B'},
-    { label: 'Berkshire Hathaway Inc. (BRKB)', value: 'BRKB'},
-    { label: 'Berkshire Hathaway Inc. (BRKA)', value: 'BRKA'},
     { label: 'Best Buy Co., Inc', value: 'BBY'},
     { label: 'DuPont de Nemours, Inc.', value: 'DD'},
     { label: 'Office Depot, Inc.', value: 'ODP'},
     { label: 'Dillard\'s, Inc.', value: 'DDS'},
     { label: 'Gap, Inc. (The)', value: 'GPS'},
     { label: 'Commerzbank AG', value: 'CBK.DE'},
-    { label: 'Amazon.com, Inc.', value: 'AMZN'}
-
-
-
-
-
+    //{ label: 'Amazon.com, Inc.', value: 'AMZN'}-
 ];
