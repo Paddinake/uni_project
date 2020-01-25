@@ -33,6 +33,7 @@ function scrape($symbol){
         echo '<script type="text/javascript">';
         echo "window.location.href = 'index.php?content=analysen&msg=NA'";
         echo "</script>";
+        exit();
     }
     //echo $currentStockValue;
 
